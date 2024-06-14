@@ -21,9 +21,16 @@ class Favorite
     #[ORM\ManyToMany(targetEntity: Artist::class, mappedBy: 'favorite')]
     private Collection $artists;
 
+    /**
+     * @var Collection<int, User>
+     */
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'favorites')]
+    private Collection $user;
+
     public function __construct()
     {
         $this->artists = new ArrayCollection();
+        $this->user = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -54,6 +61,30 @@ class Favorite
         if ($this->artists->removeElement($artist)) {
             $artist->removeFavorite($this);
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUser(): Collection
+    {
+        return $this->user;
+    }
+
+    public function addUser(User $user): static
+    {
+        if (!$this->user->contains($user)) {
+            $this->user->add($user);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): static
+    {
+        $this->user->removeElement($user);
 
         return $this;
     }
