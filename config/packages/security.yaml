@@ -16,16 +16,38 @@ security:
         main:
             lazy: true
             provider: app_user_provider
+            custom_authenticator: App\Security\AppAuthenticator
+            # form_login:
+            #     login_path: app_login
+            #     check_path: app_login
+            #     enable_csrf: true
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                target: app_page
 
-            # activate different ways to authenticate
+            remember_me:
+                secret: '%env(APP_SECRET)%'
+                lifetime: 604800 # 1 week in seconds
+                path: /
+                always_remember_me: true        # activate different ways to authenticate
+            
             # https://symfony.com/doc/current/security.html#the-firewall
 
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
 
+            # by default, the feature allows 5 login attempts per minute
+            login_throttling: 
+                max_attempts: 3          # per minute ...
+                # interval: '15 minutes' # ... or in a custom period
+                # limiter: app.my_login_rate_limiter
+
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
+        - { path: ^/login, roles: PUBLIC_ACCESS }
+        - { path: ^/register, roles: PUBLIC_ACCESS }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
