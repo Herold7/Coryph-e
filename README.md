@@ -46,7 +46,7 @@ This entity represents a user of the platform. The user can be an artist's manag
 | name              | string     | 30                   |          |
 | corporateName     | string     | 100                  |          |
 | siret             | string     | 14                   |          |
-| phone             | string     | 15                   |          |
+| phone             | string     | 13                   |          |
 | address           | string     | 50                   |          |
 | additionalAddress | string     | 50                   |          |
 | city              | string     | 50                   |          |
@@ -68,15 +68,15 @@ This entity represents an artist.
 | Property      | Type       | Description          | Relation      |
 |---------------|------------|----------------------|---------------|
 | nickname      | string     | 30 NOT NULL          |               |
-| number        | string     | 50 NOT NULL          |               |
+| number        | integer    | NOT NULL             |               |
 | professional  | bool       | NOT NULL             |               |
 | city          | string     | 50                   |               |
 | country       | string     | 50                   |               |
-| phone         | string     | 15 NOT NULL          |               |
+| phone         | string     | 13 NOT NULL          |               |
 | mail          | string     | 180 NOT NULL         |               |
 | image         | string     | 255                  |               |
 | bio           | text       |                      |               |
-| birthyear     | string     | 4                    |               |
+| birthyear     | integer    |                      |               |
 | created_at    | datetime   | NOT NULL             |               |
 | updated_at    | datetime   |                      |               |
 | user          | ManyToOne  | NOT NULL, OrphanTrue | User          |
