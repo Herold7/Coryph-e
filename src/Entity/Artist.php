@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: ArtistRepository::class)]
 class Artist
@@ -17,24 +19,51 @@ class Artist
     private ?int $id = null;
 
     #[ORM\Column(length: 30)]
+    #[Assert\Length(
+        min: 2,
+        max: 50,
+        minMessage: 'Votre pseudonyme doit comporter au moins {{ limit }} caractères',
+        maxMessage: 'Votre pseudonyme ne peut pas dépasser {{ limit }} caractères',
+    )]
     private ?string $nickname = null;
 
-    #[ORM\Column(length: 50)]
-    private ?string $number = null;
+    #[ORM\Column]
+    private ?int $number = null;
 
     #[ORM\Column]
     private ?bool $professional = null;
 
     #[ORM\Column(length: 50, nullable: true)]
+    #[Assert\Length(
+        min: 2,
+        max: 50,
+        minMessage: 'Votre ville doit comporter au moins {{ limit }} caractères',
+        maxMessage: 'Votre ville ne peut pas dépasser {{ limit }} caractères',
+    )]
     private ?string $city = null;
 
     #[ORM\Column(length: 50, nullable: true)]
+    #[Assert\Length(
+        min: 2,
+        max: 50,
+        minMessage: 'Votre pays doit comporter au moins {{ limit }} caractères',
+        maxMessage: 'Votre pays ne peut pas dépasser {{ limit }} caractères',
+    )]
     private ?string $country = null;
 
-    #[ORM\Column(length: 15)]
+    #[ORM\Column(length: 13)]
+    #[Assert\Length(
+        min: 10,
+        max: 13,
+        minMessage: 'Votre numéro de téléphone doit comporter au moins {{ limit }} caractères',
+        maxMessage: 'Votre numéro de téléphone ne peut pas dépasser {{ limit }} caractères',
+    )]
     private ?string $phone = null;
 
     #[ORM\Column(length: 180)]
+    #[Assert\Email(
+        message: 'L\'adresse e-mail "{{ value }}" n\'est pas valide. Veuillez réessayer.',
+    )]
     private ?string $mail = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -43,8 +72,8 @@ class Artist
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $bio = null;
 
-    #[ORM\Column(length: 4, nullable: true)]
-    private ?string $birthyear = null;
+    #[ORM\Column(nullable: true)]
+    private ?int $birthyear = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;

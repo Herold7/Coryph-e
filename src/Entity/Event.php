@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 class Event
@@ -17,9 +19,22 @@ class Event
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\Length(
+        min: 2,
+        max: 30,
+        minMessage: 'Le lieu de l\'évènement doit comporter au moins {{ limit }} caractères',
+        maxMessage: 'Le lieu de l\'évènement ne peut pas dépasser {{ limit }} caractères',
+    )]
     private ?string $location = null;
 
     #[ORM\Column(length: 30)]
+    #[Assert\Length(
+        min: 2,
+        max: 30,
+        minMessage: 'le titre de l\'évènement doit comporter au moins {{ limit }} caractères',
+        maxMessage: 'le titre de l\'évènement ne peut pas dépasser {{ limit }} caractères',
+    )]
+
     private ?string $title = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
@@ -29,15 +44,37 @@ class Event
     private ?string $description = null;
 
     #[ORM\Column(length: 50, nullable: true)]
+    #[Assert\Length(
+        min: 10,
+        max: 15,
+        minMessage: 'L\'adresse de l\'évènement doit comporter au moins {{ limit }} caractères',
+        maxMessage: 'L\'adresse de l\'évènement ne peut pas dépasser {{ limit }} caractères',
+    )]
     private ?string $address = null;
 
     #[ORM\Column(length: 50, nullable: true)]
+    #[Assert\Length(
+        min: 2,
+        max: 50,
+        minMessage: 'La ville de l\'évènement doit comporter au moins {{ limit }} caractères',
+        maxMessage: 'La ville de l\'évènement ne peut pas dépasser {{ limit }} caractères',
+    )]
     private ?string $city = null;
 
     #[ORM\Column(length: 5, nullable: true)]
+    #[Assert\Length(
+        exactly: 5,
+        exactMessage: 'le code postal de l\'évènement doit comporter exactement {{ limit }} caractères',
+        )]
     private ?string $zip = null;
 
     #[ORM\Column(length: 50, nullable: true)]
+    #[Assert\Length(
+        min: 2,
+        max: 50,
+        minMessage: 'Le pays où doit se dérouler de l\'évènement doit comporter au moins {{ limit }} caractères',
+        maxMessage: 'Le pays où doit se dérouler de l\'évènement ne peut pas dépasser {{ limit }} caractères',
+    )]
     private ?string $country = null;
 
     #[ORM\Column(length: 255)]

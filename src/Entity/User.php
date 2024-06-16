@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
@@ -20,7 +21,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 180)]
+    #[ORM\Column(length: 180, unique: true)]
+    #[Assert\Email(
+        message: 'L\'adresse e-mail "{{ value }}" n\'est pas valide. Veuillez réessayer.',
+    )]
     private ?string $email = null;
 
     /**
@@ -33,36 +37,90 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+    // #[Assert\Regex(
+    //     pattern: '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
+    //     message: 'Your password must contain : at least 1 uppercase letter, 1 lowercase letter, 1 number, at least 1 special character @$!%*?&, at least 8 characters'
+    // )]
     private ?string $password = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
     #[ORM\Column(length: 30, nullable: true)]
+    #[Assert\Length(
+        min: 2,
+        max: 50,
+        minMessage: 'Votre nom doit comporter au moins {{ limit }} caractères',
+        maxMessage: 'Votre nom ne peut pas dépasser {{ limit }} caractères',
+    )]
     private ?string $name = null;
 
     #[ORM\Column(length: 100, nullable: true)]
+    #[Assert\Length(
+        min: 2,
+        max: 50,
+        minMessage: 'Le nom de votre organisation doit comporter au moins {{ limit }} caractères',
+        maxMessage: 'Le nom de votre organisation ne peut pas dépasser {{ limit }} caractères',
+    )]
     private ?string $corporateName = null;
 
     #[ORM\Column(length: 14, nullable: true)]
+    #[Assert\Length(
+        exactly: 14,
+        exactMessage: 'Votre numéro de siret doit comporter {{limit}} caractères',
+    )]
     private ?string $siret = null;
 
-    #[ORM\Column(length: 15, nullable: true)]
+    #[ORM\Column(length: 13, nullable: true)]
+    #[Assert\Length(
+        min: 10,
+        max: 13,
+        minMessage: 'Votre numéro de téléphone doit comporter au moins {{ limit }} caractères',
+        maxMessage: 'Votre numéro de téléphone ne peut pas dépasser {{ limit }} caractères',
+    )]
     private ?string $phone = null;
 
     #[ORM\Column(length: 50, nullable: true)]
+    #[Assert\Length(
+        min: 2,
+        max: 50,
+        minMessage: 'Votre adresse doit comporter au moins {{ limit }} caractères',
+        maxMessage: 'Votre adresse ne peut pas dépasser {{ limit }} caractères',
+    )]
     private ?string $address = null;
 
     #[ORM\Column(length: 50, nullable: true)]
+    #[Assert\Length(
+        min: 2,
+        max: 50,
+        minMessage: 'Votre complément d\'adresse doit comporter au moins {{ limit }} caractères',
+        maxMessage: 'Votre complément d\'adresse ne peut pas dépasser {{ limit }} caractères',
+    )]
     private ?string $additionalAddress = null;
 
     #[ORM\Column(length: 50, nullable: true)]
+    #[Assert\Length(
+        min: 2,
+        max: 50,
+        minMessage: 'Votre ville doit comporter au moins {{ limit }} caractères',
+        maxMessage: 'Votre ville ne peut pas dépasser {{ limit }} caractères',
+    )]
     private ?string $city = null;
 
     #[ORM\Column(length: 5, nullable: true)]
+    #[Assert\Length(
+        exactly: 5,
+        exactMessage: 'Votre code postal doit comporter exactement {{ limit }} caractères',
+    )]
     private ?string $zip = null;
 
     #[ORM\Column(length: 50, nullable: true)]
+    #[Assert\Length(
+        min: 2,
+        max: 50,
+        minMessage: 'Votre pays doit comporter au moins {{ limit }} caractères',
+        maxMessage: 'Votre pays ne peut pas dépasser {{ limit }} caractères',
+    )]
     private ?string $country = null;
 
     #[ORM\Column(nullable: true)]

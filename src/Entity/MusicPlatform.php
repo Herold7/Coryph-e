@@ -6,6 +6,7 @@ use App\Repository\MusicPlatformRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MusicPlatformRepository::class)]
 class MusicPlatform
@@ -16,6 +17,12 @@ class MusicPlatform
     private ?int $id = null;
 
     #[ORM\Column(length: 30)]
+    #[Assert\Length(
+        min: 2,
+        max: 30,
+        minMessage: 'Le nom de la plateforme doit comporter au moins {{ limit }} caractères',
+        maxMessage: 'Le nom de la plateforme ne peut pas dépasser {{ limit }} caractères',
+    )]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
