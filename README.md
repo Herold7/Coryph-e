@@ -1,4 +1,4 @@
-# BnB platform
+# Coryphée platform
 
 ## Description
 
