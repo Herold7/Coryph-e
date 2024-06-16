@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EventRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -49,6 +51,17 @@ class Event
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updated_at = null;
+
+    /**
+     * @var Collection<int, Artist>
+     */
+    #[ORM\ManyToMany(targetEntity: Artist::class, mappedBy: 'events')]
+    private Collection $artists;
+
+    public function __construct()
+    {
+        $this->artists = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -195,6 +208,33 @@ class Event
     public function setUpdatedAt(?\DateTimeImmutable $updated_at): static
     {
         $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Artist>
+     */
+    public function getArtists(): Collection
+    {
+        return $this->artists;
+    }
+
+    public function addArtist(Artist $artist): static
+    {
+        if (!$this->artists->contains($artist)) {
+            $this->artists->add($artist);
+            $artist->addEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArtist(Artist $artist): static
+    {
+        if ($this->artists->removeElement($artist)) {
+            $artist->removeEvent($this);
+        }
 
         return $this;
     }

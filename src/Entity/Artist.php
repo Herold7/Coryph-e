@@ -144,6 +144,12 @@ class Artist
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
 
+    /**
+     * @var Collection<int, Event>
+     */
+    #[ORM\ManyToMany(targetEntity: Event::class, inversedBy: 'artists')]
+    private Collection $events;
+
     public function __construct()
     {
         $this->tag = new ArrayCollection();
@@ -160,6 +166,7 @@ class Artist
         $this->musicPlatform = new ArrayCollection();
         $this->eventPlatform = new ArrayCollection();
         $this->reviews = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -673,6 +680,30 @@ class Artist
     public function setCategory(?Category $category): static
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Event>
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): static
+    {
+        if (!$this->events->contains($event)) {
+            $this->events->add($event);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): static
+    {
+        $this->events->removeElement($event);
 
         return $this;
     }
