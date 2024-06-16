@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ArtistRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ArtistRepository::class)]
@@ -22,7 +23,7 @@ class Artist
     private ?string $number = null;
 
     #[ORM\Column]
-    private ?bool $professionnal = null;
+    private ?bool $professional = null;
 
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $city = null;
@@ -33,13 +34,13 @@ class Artist
     #[ORM\Column(length: 15)]
     private ?string $phone = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 180)]
     private ?string $mail = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
+    
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $bio = null;
 
     #[ORM\Column(length: 4, nullable: true)]
@@ -54,9 +55,6 @@ class Artist
     #[ORM\ManyToOne(inversedBy: 'artists')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
-
-    #[ORM\ManyToOne]
-    private ?Category $category = null;
 
     /**
      * @var Collection<int, Tag>
@@ -136,6 +134,16 @@ class Artist
     #[ORM\ManyToMany(targetEntity: EventPlatform::class, inversedBy: 'artists')]
     private Collection $eventPlatform;
 
+    /**
+     * @var Collection<int, Review>
+     */
+    #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'artist')]
+    private Collection $reviews;
+
+    #[ORM\ManyToOne(inversedBy: 'artists')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Category $category = null;
+
     public function __construct()
     {
         $this->tag = new ArrayCollection();
@@ -151,6 +159,7 @@ class Artist
         $this->socialNetwork = new ArrayCollection();
         $this->musicPlatform = new ArrayCollection();
         $this->eventPlatform = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -184,12 +193,12 @@ class Artist
 
     public function isProfessionnal(): ?bool
     {
-        return $this->professionnal;
+        return $this->professional;
     }
 
-    public function setProfessionnal(bool $professionnal): static
+    public function setProfessional(bool $professional): static
     {
-        $this->professionnal = $professionnal;
+        $this->professional = $professional;
 
         return $this;
     }
@@ -310,18 +319,6 @@ class Artist
     public function setUser(?User $user): static
     {
         $this->user = $user;
-
-        return $this;
-    }
-
-    public function getCategory(): ?Category
-    {
-        return $this->category;
-    }
-
-    public function setCategory(?Category $category): static
-    {
-        $this->category = $category;
 
         return $this;
     }
@@ -634,6 +631,48 @@ class Artist
     public function removeEventPlatform(EventPlatform $eventPlatform): static
     {
         $this->eventPlatform->removeElement($eventPlatform);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Review>
+     */
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function addReview(Review $review): static
+    {
+        if (!$this->reviews->contains($review)) {
+            $this->reviews->add($review);
+            $review->setArtist($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReview(Review $review): static
+    {
+        if ($this->reviews->removeElement($review)) {
+            // set the owning side to null (unless already changed)
+            if ($review->getArtist() === $this) {
+                $review->setArtist(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
 
         return $this;
     }
