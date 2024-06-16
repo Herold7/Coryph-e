@@ -72,12 +72,14 @@ class Artist
      * @var Collection<int, MusicalStyle>
      */
     #[ORM\ManyToMany(targetEntity: MusicalStyle::class, inversedBy: 'artists')]
+    #[ORM\JoinColumn(nullable: false)]
     private Collection $musicalStyle;
 
     /**
      * @var Collection<int, Instrument>
      */
     #[ORM\ManyToMany(targetEntity: Instrument::class, inversedBy: 'artists')]
+    #[ORM\JoinColumn(nullable: false)]
     private Collection $instrument;
 
     /**
