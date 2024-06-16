@@ -2,47 +2,122 @@
 
 namespace App\Form;
 
-use App\Entity\Artist;
-use App\Entity\Audio;
-use App\Entity\Category;
-use App\Entity\EventPlatform;
-use App\Entity\Favorite;
-use App\Entity\Instrument;
-use App\Entity\MusicalStyle;
-use App\Entity\MusicPlatform;
-use App\Entity\Performance;
-use App\Entity\Picture;
 use App\Entity\Set;
-use App\Entity\SocialNetwork;
 use App\Entity\Tag;
 use App\Entity\User;
+use App\Entity\Audio;
 use App\Entity\Video;
+use App\Entity\Artist;
+use App\Entity\Picture;
 use App\Entity\Website;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Category;
+use App\Entity\Favorite;
+use App\Entity\Instrument;
+use App\Entity\Performance;
+use App\Entity\MusicalStyle;
+use App\Entity\EventPlatform;
+use App\Entity\MusicPlatform;
+use App\Entity\SocialNetwork;
+use DateTimeImmutable;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Text;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Polyfill\Intl\Icu\DateFormat\YearTransformer;
 
 class ArtistType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nickname')
-            ->add('number')
-            ->add('professionnal')
-            ->add('city')
-            ->add('country')
-            ->add('phone')
-            ->add('mail')
-            ->add('image')
-            ->add('bio')
-            ->add('birthyear')
-            ->add('created_at', null, [
+            ->add('nickname', TextType::class, [
+                'label' => 'Pseudo',
+                'attr' => [
+                    'placeholder' => 'Votre pseudo'
+                ]
+            ])
+            ->add('number', TextType::class, [
+                'label' => 'Numéro',
+                'attr' => [
+                    'placeholder' => 'Votre numéro'
+                ]
+            ])
+            ->add('professionnal', CheckboxType::class, [
+                'label' => 'Professionnel',
+                'required' => false,
+            ])
+            ->add('city', TextType::class, [
+                'label' => 'Ville',
+                'attr' => [
+                    'placeholder' => 'Votre ville'
+                ]
+            ])
+            ->add('country', TextType::class, [
+                'label' => 'Pays',
+                'attr' => [
+                    'placeholder' => 'Votre pays'
+                ]
+            ])
+            ->add('phone', TextType::class, [
+                'label' => 'Téléphone',
+                'attr' => [
+                    'placeholder' => 'Votre téléphone'
+                ]
+            ])
+            ->add('mail', TextType::class, [
+                'label' => 'Email',
+                'attr' => [
+                    'placeholder' => 'Votre email'
+                ]
+            ])
+            ->add('bio', TextType::class, [
+                'label' => 'Biographie',
+                'attr' => [
+                    'placeholder' => 'Votre biographie'
+                ]
+            ])
+            ->add('birthyear', BirthdayType::class, [
+                'widget' => 'choice',
+                'year' => '1900',
+                'label' => 'Année de naissance',
+                'attr' => [
+                    'placeholder' => 'Votre année de naissance'
+                ]
+            ])
+                
+            ->add('image', FileType::class, [
+                'label' => 'Your profile picture',
+                'mapped' => false,
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-control-file mb-2'
+                ],
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'maxSizeMessage' => 'The file is too large ({{ size }} {{ suffix }}). Allowed maximum size is {{ limit }} {{ suffix }}.',
+                        'mimeTypes' => [
+                            'image/*',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid image',
+                    ])
+                ],
+            ])
+            ->add('created_at', DateType::class, [
                 'widget' => 'single_text',
+                'data' => new \DateTime(),
             ])
             ->add('updated_at', null, [
                 'widget' => 'single_text',
+                'DateTimeImmutable' => new \DateTime(),
+                'data' => new \DateTime(),
             ])
             ->add('user', EntityType::class, [
                 'class' => User::class,
@@ -50,17 +125,9 @@ class ArtistType extends AbstractType
             ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
-                'choice_label' => 'id',
-            ])
-            ->add('tag', EntityType::class, [
-                'class' => Tag::class,
-                'choice_label' => 'id',
-                'multiple' => true,
-            ])
-            ->add('favorite', EntityType::class, [
-                'class' => Favorite::class,
-                'choice_label' => 'id',
-                'multiple' => true,
+                'choice_label' => 'name',
+                'multiple' => false,
+                'expand'=> false,
             ])
             ->add('musicalStyle', EntityType::class, [
                 'class' => MusicalStyle::class,
@@ -71,16 +138,19 @@ class ArtistType extends AbstractType
                 'class' => Instrument::class,
                 'choice_label' => 'id',
                 'multiple' => true,
+                'expand'=> true,
             ])
             ->add('ensemble', EntityType::class, [
                 'class' => Set::class,
                 'choice_label' => 'id',
                 'multiple' => true,
+                'expand'=> true,
             ])
             ->add('performance', EntityType::class, [
                 'class' => Performance::class,
                 'choice_label' => 'id',
                 'multiple' => true,
+                'expand'=> true,
             ])
             ->add('website', EntityType::class, [
                 'class' => Website::class,
