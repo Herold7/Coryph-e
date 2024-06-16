@@ -15,7 +15,7 @@ The technologies used are:
 
 ### User
 
-This entity represents a user of the platform. The user can be a traveler or a host. They are defined by the `role` property.
+This entity represents a user of the platform. The user can be an artist's manager, a producer or an individual. They are defined by the `role` property.
 
 | Property          | Type       | Description          | Relation |
 |-------------------|------------|----------------------|----------|
@@ -43,7 +43,7 @@ This entity represents a user of the platform. The user can be a traveler or a h
 
 ### Artist
 
-This entity represents a room for rent.
+This entity represents an artist.
 
 | Property      | Type       | Description          | Relation      |
 |---------------|------------|----------------------|---------------|
@@ -60,11 +60,11 @@ This entity represents a room for rent.
 | created_at    | datetime   | NOT NULL             |               |
 | updated_at    | datetime   |                      |               |
 | user          | ManyToOne  | NOT NULL, OrphanTrue | User          |
-| category      | ManyToOne  |                      | Category      |
+| category      | ManyToOne  | NOT NULL             | Category      |
 | tag           | ManyToMany |                      | Tag           |
 | favorite      | ManyToMany |                      | Favorite      |
-| musicalStyle  | ManyToMany |                      | MusicalStyle  |
-| instrument    | ManyToMany |                      | Instrument    |
+| musicalStyle  | ManyToMany | NOT NULL             | MusicalStyle  |
+| instrument    | ManyToMany | NOT NULL             | Instrument    |
 | ensemble      | ManyToMany |                      | Set           |
 | performance   | ManyToMany |                      | Performance   |
 | picture       | ManyToMany |                      | Picture       |
@@ -75,12 +75,14 @@ This entity represents a room for rent.
 | musicPlatform | ManyToMany |                      | MusicPlatform |
 | eventPlatform | ManyToMany |                      | EventPlatform |
 | reviews       | OneToMany  |                      | Review        |
+| events        | ManyToMany |                      | Event         |
 
 ---
 
 ### Review
 
-This entity represents a review made by a traveler to a booking for a room.
+This entity represents a review made by a producer to an artist.
+
 
 | Property | Type      | Description | Relation |
 |----------|-----------|-------------|----------|
@@ -88,39 +90,40 @@ This entity represents a review made by a traveler to a booking for a room.
 | comment  | text      |             |          |
 | rating   | integer   | NOT NULL    |          |
 | user     | ManyToOne | NOT NULL    | User     |
-| artist   | ManyToOne |             | Artist   |
+| artist   | ManyToOne | NOT NULL    | Artist   |
 
 ---
 
 ### Event
 
-This entity represents a booking made by a traveler to a room.
+This entity represents an event in which an artist participates.
 
-| Property    | Type     | Description  | Relation |
-|-------------|----------|--------------|----------|
-| location    | string   | 50 NOT NULL  |          |
-| title       | string   | 30 NOT NULL  |          |
-| date        | datetime |              |          |
-| description | text     |              |          |
-| address     | string   | 50           |
-| city        | string   | 50           |          |
-| zip         | string   | 5            |          |
-| country     | string   | 50           |          |
-| image       | string   | 255 NOT NULL |          |
-| link        | string   | 255          |          |
-| created_at  | datetime | NOT NULL     |          |
-| updated_at  | datetime |              |          |
+| Property    | Type       | Description  | Relation |
+|-------------|------------|--------------|----------|
+| location    | string     | 50 NOT NULL  |          |
+| title       | string     | 30 NOT NULL  |          |
+| date        | datetime   |              |          |
+| description | text       |              |          |
+| address     | string     | 50           |
+| city        | string     | 50           |          |
+| zip         | string     | 5            |          |
+| country     | string     | 50           |          |
+| image       | string     | 255 NOT NULL |          |
+| link        | string     | 255          |          |
+| created_at  | datetime   | NOT NULL     |          |
+| updated_at  | datetime   |              |          |
+| artists     | ManyToMany |              | Artist   |
 
 
 ---
 
 ### Category
 
-This entity represents the equipments for a room.
+This entity represents the category of the artists.
 
 | Property    | Type      | Description  | Relation |
 |-------------|-----------|--------------|----------|
-| name        | string    | 50 NOT NULL  |          |
+| name        | string    | 30 NOT NULL  |          |
 | image       | string    | 255 NOT NULL |          |
 | description | string    | 255          |          |
 | artists     | OneToMany | NOT NULL     | Artist   |
@@ -129,7 +132,8 @@ This entity represents the equipments for a room.
 
 ### Tag
 
-This entity represents the equipments for a room.
+### Tag
+This entity represents a tag that links to a selection of artists.
 
 | Property | Type       | Description | Relation |
 |----------|------------|-------------|----------|
@@ -140,7 +144,7 @@ This entity represents the equipments for a room.
 
 ### Performance
 
-This entity represents the equipments for a room.
+This entity represents the performance of an artist.
 
 | Property | Type       | Description | Relation |
 |----------|------------|-------------|----------|
@@ -152,7 +156,7 @@ This entity represents the equipments for a room.
 
 ### Set
 
-This entity represents the equipments for a room.
+This entity represents the set of an artist.
 
 | Property | Type       | Description | Relation |
 |----------|------------|-------------|----------|
@@ -163,7 +167,7 @@ This entity represents the equipments for a room.
 
 ### MusicalStyle
 
-This entity represents the equipments for a room.
+This entity represents the musical style of an artist.
 
 | Property | Type       | Description | Relation |
 |----------|------------|-------------|----------|
@@ -174,7 +178,7 @@ This entity represents the equipments for a room.
 
 ### Instrument
 
-This entity represents the equipments for a room.
+This entity represents the intrument of an artist.
 
 | Property | Type       | Description | Relation |
 |----------|------------|-------------|----------|
@@ -185,7 +189,7 @@ This entity represents the equipments for a room.
 
 ### Favorite
 
-This entity represents the equipments for a room.
+This entity represents the favorite of an artist and a user.
 
 | Property | Type       | Description | Relation |
 |----------|------------|-------------|----------|
@@ -196,7 +200,7 @@ This entity represents the equipments for a room.
 
 ### Audio
 
-This entity represents the equipments for a room.
+This entity represents the audio style of an artist.
 
 | Property | Type       | Description  | Relation |
 |----------|------------|--------------|----------|
@@ -208,7 +212,7 @@ This entity represents the equipments for a room.
 
 ### Picture
 
-This entity represents the equipments for a room.
+This entity represents the picture style of an artist.
 
 | Property | Type       | Description  | Relation |
 |----------|------------|--------------|----------|
@@ -220,7 +224,7 @@ This entity represents the equipments for a room.
 
 ### Video
 
-This entity represents the equipments for a room.
+This entity represents the video of an artist.
 
 | Property | Type       | Description  | Relation |
 |----------|------------|--------------|----------|
@@ -232,7 +236,7 @@ This entity represents the equipments for a room.
 
 ### EventPlatform
 
-This entity represents the equipments for a room.
+This entity represents the event platform of an artist.
 
 | Property | Type       | Description  | Relation |
 |----------|------------|--------------|----------|
@@ -244,7 +248,7 @@ This entity represents the equipments for a room.
 
 ### MusicPlatform
 
-This entity represents the equipments for a room.
+This entity represents the music platform of an artist.
 
 | Property | Type       | Description  | Relation |
 |----------|------------|--------------|----------|
@@ -256,7 +260,7 @@ This entity represents the equipments for a room.
 
 ### SocialNetwork
 
-This entity represents the equipments for a room.
+This entity represents the social network of an artist.
 
 | Property | Type       | Description  | Relation |
 |----------|------------|--------------|----------|
@@ -268,7 +272,7 @@ This entity represents the equipments for a room.
 
 ### Website
 
-This entity represents the equipments for a room.
+This entity represents the website of an artist.
 
 | Property | Type       | Description  | Relation |
 |----------|------------|--------------|----------|
