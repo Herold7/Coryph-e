@@ -11,6 +11,26 @@ The technologies used are:
 - Twig
 - MySQL
 
+## Packages installation
+
+- Features to verify email addresses
+```sh
+composer require symfonycasts/verify-email-bundle
+```
+
+- Features to limit the rate of calls to certain parts of the application.
+
+
+```sh
+composer require symfony/rate-limiter
+```
+
+- locking features for resource management
+
+```sh
+composer require symfony/lock 
+```
+
 ## Entities
 
 ### User
