@@ -123,29 +123,6 @@ class Artist
     #[ORM\ManyToMany(targetEntity: Performance::class, inversedBy: 'artists')]
     private Collection $performance;
 
-    /**
-     * @var Collection<int, Picture>
-     */
-    #[ORM\ManyToMany(targetEntity: Picture::class, inversedBy: 'artists')]
-    private Collection $picture;
-
-    /**
-     * @var Collection<int, Video>
-     */
-    #[ORM\ManyToMany(targetEntity: Video::class, inversedBy: 'artists')]
-    private Collection $video;
-
-    /**
-     * @var Collection<int, Audio>
-     */
-    #[ORM\ManyToMany(targetEntity: Audio::class, inversedBy: 'artists')]
-    private Collection $audio;
-
-    /**
-     * @var Collection<int, Website>
-     */
-    #[ORM\ManyToMany(targetEntity: Website::class, inversedBy: 'artists')]
-    private Collection $website;
 
     /**
      * @var Collection<int, SocialNetwork>
@@ -181,6 +158,30 @@ class Artist
     #[ORM\ManyToMany(targetEntity: Event::class, inversedBy: 'artists')]
     private Collection $events;
 
+    /**
+     * @var Collection<int, Audio>
+     */
+    #[ORM\OneToMany(targetEntity: Audio::class, mappedBy: 'artist')]
+    private Collection $audios;
+
+    /**
+     * @var Collection<int, Picture>
+     */
+    #[ORM\OneToMany(targetEntity: Picture::class, mappedBy: 'artist')]
+    private Collection $pictures;
+
+    /**
+     * @var Collection<int, Video>
+     */
+    #[ORM\OneToMany(targetEntity: Video::class, mappedBy: 'artist')]
+    private Collection $videos;
+
+    /**
+     * @var Collection<int, Website>
+     */
+    #[ORM\OneToMany(targetEntity: Website::class, mappedBy: 'artist')]
+    private Collection $websites;
+
     public function __construct()
     {
         $this->tag = new ArrayCollection();
@@ -189,15 +190,15 @@ class Artist
         $this->instrument = new ArrayCollection();
         $this->ensemble = new ArrayCollection();
         $this->performance = new ArrayCollection();
-        $this->picture = new ArrayCollection();
-        $this->video = new ArrayCollection();
-        $this->audio = new ArrayCollection();
-        $this->website = new ArrayCollection();
         $this->socialNetwork = new ArrayCollection();
         $this->musicPlatform = new ArrayCollection();
         $this->eventPlatform = new ArrayCollection();
         $this->reviews = new ArrayCollection();
         $this->events = new ArrayCollection();
+        $this->audios = new ArrayCollection();
+        $this->pictures = new ArrayCollection();
+        $this->videos = new ArrayCollection();
+        $this->websites = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -506,102 +507,6 @@ class Artist
     }
 
     /**
-     * @return Collection<int, Picture>
-     */
-    public function getPicture(): Collection
-    {
-        return $this->picture;
-    }
-
-    public function addPicture(Picture $picture): static
-    {
-        if (!$this->picture->contains($picture)) {
-            $this->picture->add($picture);
-        }
-
-        return $this;
-    }
-
-    public function removePicture(Picture $picture): static
-    {
-        $this->picture->removeElement($picture);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Video>
-     */
-    public function getVideo(): Collection
-    {
-        return $this->video;
-    }
-
-    public function addVideo(Video $video): static
-    {
-        if (!$this->video->contains($video)) {
-            $this->video->add($video);
-        }
-
-        return $this;
-    }
-
-    public function removeVideo(Video $video): static
-    {
-        $this->video->removeElement($video);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Audio>
-     */
-    public function getAudio(): Collection
-    {
-        return $this->audio;
-    }
-
-    public function addAudio(Audio $audio): static
-    {
-        if (!$this->audio->contains($audio)) {
-            $this->audio->add($audio);
-        }
-
-        return $this;
-    }
-
-    public function removeAudio(Audio $audio): static
-    {
-        $this->audio->removeElement($audio);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Website>
-     */
-    public function getWebsite(): Collection
-    {
-        return $this->website;
-    }
-
-    public function addWebsite(Website $website): static
-    {
-        if (!$this->website->contains($website)) {
-            $this->website->add($website);
-        }
-
-        return $this;
-    }
-
-    public function removeWebsite(Website $website): static
-    {
-        $this->website->removeElement($website);
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, SocialNetwork>
      */
     public function getSocialNetwork(): Collection
@@ -735,6 +640,126 @@ class Artist
     public function removeEvent(Event $event): static
     {
         $this->events->removeElement($event);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Audio>
+     */
+    public function getAudios(): Collection
+    {
+        return $this->audios;
+    }
+
+    public function addAudio(Audio $audio): static
+    {
+        if (!$this->audios->contains($audio)) {
+            $this->audios->add($audio);
+            $audio->setArtist($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAudio(Audio $audio): static
+    {
+        if ($this->audios->removeElement($audio)) {
+            // set the owning side to null (unless already changed)
+            if ($audio->getArtist() === $this) {
+                $audio->setArtist(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Picture>
+     */
+    public function getPictures(): Collection
+    {
+        return $this->pictures;
+    }
+
+    public function addPicture(Picture $picture): static
+    {
+        if (!$this->pictures->contains($picture)) {
+            $this->pictures->add($picture);
+            $picture->setArtist($this);
+        }
+
+        return $this;
+    }
+
+    public function removePicture(Picture $picture): static
+    {
+        if ($this->pictures->removeElement($picture)) {
+            // set the owning side to null (unless already changed)
+            if ($picture->getArtist() === $this) {
+                $picture->setArtist(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Video>
+     */
+    public function getVideos(): Collection
+    {
+        return $this->videos;
+    }
+
+    public function addVideo(Video $video): static
+    {
+        if (!$this->videos->contains($video)) {
+            $this->videos->add($video);
+            $video->setArtist($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVideo(Video $video): static
+    {
+        if ($this->videos->removeElement($video)) {
+            // set the owning side to null (unless already changed)
+            if ($video->getArtist() === $this) {
+                $video->setArtist(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Website>
+     */
+    public function getWebsites(): Collection
+    {
+        return $this->websites;
+    }
+
+    public function addWebsite(Website $website): static
+    {
+        if (!$this->websites->contains($website)) {
+            $this->websites->add($website);
+            $website->setArtist($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWebsite(Website $website): static
+    {
+        if ($this->websites->removeElement($website)) {
+            // set the owning side to null (unless already changed)
+            if ($website->getArtist() === $this) {
+                $website->setArtist(null);
+            }
+        }
 
         return $this;
     }

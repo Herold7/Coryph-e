@@ -28,16 +28,9 @@ class Picture
     #[ORM\Column(length: 255)]
     private ?string $link = null;
 
-    /**
-     * @var Collection<int, Artist>
-     */
-    #[ORM\ManyToMany(targetEntity: Artist::class, mappedBy: 'picture')]
-    private Collection $artists;
+    #[ORM\ManyToOne(inversedBy: 'pictures')]
+    private ?Artist $artist = null;
 
-    public function __construct()
-    {
-        $this->artists = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -68,30 +61,16 @@ class Picture
         return $this;
     }
 
-    /**
-     * @return Collection<int, Artist>
-     */
-    public function getArtists(): Collection
+    public function getArtist(): ?Artist
     {
-        return $this->artists;
+        return $this->artist;
     }
 
-    public function addArtist(Artist $artist): static
+    public function setArtist(?Artist $artist): static
     {
-        if (!$this->artists->contains($artist)) {
-            $this->artists->add($artist);
-            $artist->addPicture($this);
-        }
+        $this->artist = $artist;
 
         return $this;
     }
 
-    public function removeArtist(Artist $artist): static
-    {
-        if ($this->artists->removeElement($artist)) {
-            $artist->removePicture($this);
-        }
-
-        return $this;
-    }
 }

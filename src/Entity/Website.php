@@ -28,16 +28,9 @@ class Website
     #[ORM\Column(length: 255)]
     private ?string $link = null;
 
-    /**
-     * @var Collection<int, Artist>
-     */
-    #[ORM\ManyToMany(targetEntity: Artist::class, mappedBy: 'website')]
-    private Collection $artists;
+    #[ORM\ManyToOne(inversedBy: 'websites')]
+    private ?Artist $artist = null;
 
-    public function __construct()
-    {
-        $this->artists = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -68,29 +61,14 @@ class Website
         return $this;
     }
 
-    /**
-     * @return Collection<int, Artist>
-     */
-    public function getArtists(): Collection
+    public function getArtist(): ?Artist
     {
-        return $this->artists;
+        return $this->artist;
     }
 
-    public function addArtist(Artist $artist): static
+    public function setArtist(?Artist $artist): static
     {
-        if (!$this->artists->contains($artist)) {
-            $this->artists->add($artist);
-            $artist->addWebsite($this);
-        }
-
-        return $this;
-    }
-
-    public function removeArtist(Artist $artist): static
-    {
-        if ($this->artists->removeElement($artist)) {
-            $artist->removeWebsite($this);
-        }
+        $this->artist = $artist;
 
         return $this;
     }
