@@ -1,0 +1,177 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon profil
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<div class="row pb-5">
+			<div class="col-lg-8 vstack gap-4 mt-5">
+				<div class="card">
+					<div class="card-body py-3">
+						<div class="d-sm-flex align-items-start text-center text-sm-start">
+							<div>
+								<div class="avatar avatar-xxl profile-n-3 mb-3">
+									<img class="avatar-img rounded-circle border border-white border-3" 
+									src="/uploads/users/{{ app.user.image }}" width="150">
+								</div>
+							</div>
+							<div class="ms-sm-4 mt-sm-3">
+								<h1 class="mb-0 h5">
+									{{ app.user.name }}
+									{{ app.user.corporateName }}
+									{% if app.user.isVerified %}
+										<i class="bi bi-patch-check-fill text-primary"></i>
+									{% endif %}
+								</h1>
+								<p>{{ app.user.email }}</p>
+							</div>
+							<div class="d-flex mt-3 justify-content-center ms-sm-auto">
+								<button class="btn btn-danger-soft me-2" data-bs-toggle="modal" 
+								data-bs-target="#updateModal" type="button">
+									<i class="bi bi-pencil-fill pe-1"></i>
+									Update
+								</button>
+							</div>
+						</div>
+						<ul class="list-inline mb-0 text-center text-sm-start mt-3 mt-sm-0">
+							<li class="list-inline-item">
+								<i class="bi bi-briefcase me-1"></i>
+								{{ app.user.siret }}
+							</li>
+							<li class="list-inline-item">
+								<i class="bi bi-geo-alt me-1"></i>
+								Live in
+								{{ app.user.city }}
+							</li>
+							<li class="list-inline-item">
+								<i class="bi bi-cake2"></i>
+								{{ app.user.country }}
+								yo
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="row">
+					{# Favorites #}
+					<div class="mb-4">
+						<div class="card">
+							<div class="card-header d-sm-flex justify-content-between align-items-center border-0">
+								<h5 class="card-title">
+									Your favorites
+									<span class="badge bg-danger bg-opacity-10 text-danger">
+										{{ app.user.favorites|length }}
+									</span>
+								</h5>
+								<a class="btn btn-primary-soft btn-sm" href={{ path('favorites') }}>
+									En voir plus
+								</a>
+							</div>
+							<div class="card-body position-relative pt-3">
+								<div class="d-flex gap-3 overflow-x-scroll">
+									{% for item in app.user.favorites %}
+										<div class="col-md-4 col-sm-12">
+											<div class="card shadow-none text-center h-100">
+												<div class="card-body p-2">
+													<img src="" class="img-fluid">
+													{{ dump(item.id) }}
+												</div>
+												<div class="card-footer p-2 border-0">
+													<button class="btn btn-sm btn-custom rounded-pill" 
+													data-bs-toggle="tooltip" data-bs-placement="top">
+														<i class="bi bi-eye"></i>
+														Check it
+									                </button>
+													<button class="btn btn-sm btn-dark rounded-pill" 
+													data-bs-toggle="tooltip" data-bs-placement="top">
+														<i class="bi bi-trash"></i>
+														Supprimer
+													</button>
+												</div>
+											</div>
+										</div>
+
+									{% endfor %}
+								</div>
+							</div>
+							<!-- Card body END -->
+						</div>
+					</div>
+
+					{# Artist #}
+					{% if is_granted('ROLE_MUSICIAN') %}
+						<div class="mb-4">
+							<div class="card">
+								<div class="card-header d-sm-flex justify-content-between align-items-center border-0">
+									<h5 class="card-title">
+										Vos artistes
+										<span class="badge bg-danger bg-opacity-10 text-danger">
+											{{ app.user.artists | length }}
+										</span>
+									</h5>
+									<a class="btn btn-primary-soft btn-sm" href="#">
+										En voir plus
+									</a>
+								</div>
+								<div class="card-body position-relative pt-3">
+									<div class="row g-3">
+
+										<div class="col-md-4 col-sm-12">
+											<div class="card shadow-none text-center h-100">
+												<div class="card-body p-2">
+													<img src="https://placehold.co/250" class="img-fluid">
+												</div>
+												<div class="card-footer p-2 border-0">
+													<button class="btn btn-sm btn-success rounded-pill" 
+													data-bs-toggle="tooltip" data-bs-placement="top">
+														<i class="bi bi-pencil"></i>
+														Manage
+													</button>
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+								<!-- Card body END -->
+							</div>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="updateModalLabel">Modifier vos informations</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					{{ form_start(form) }}
+						{{ form_row(form.roles) }}
+						{{ form_row(form.name) }}
+						{{ form_row(form.corporateName) }}
+						{{ form_row(form.siret) }}
+						{{ form_row(form.phone) }}
+						{{ form_row(form.address) }}
+						{{ form_row(form.additionalAddress) }}
+						{{ form_row(form.city) }}
+						{{ form_row(form.zip) }}
+						{{ form_row(form.country) }}
+						{{ form_row(form.image) }}
+						<button type="submit" class="btn btn-primary">Gardez les modifications</button>
+					{{ form_end(form) }}
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{% block footer %}
+		{% include 'components/footer-city.html.twig' %}
+	{% endblock %}
+{% endblock %}
