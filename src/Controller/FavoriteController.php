@@ -50,11 +50,11 @@ class FavoriteController extends AbstractController
         $em->persist($newFavorite);
         $em->flush();
 
-        $this->addFlash('success', 'Artist added to favorites successfully.');
+        $this->addFlash('success', 'artist added to favorites successfully.');
         return $this->redirect($previous);
     }
 
-    #[Route('/remove-favorite/{Artist}', name: 'remove_favorite', methods: ['GET'])]
+    #[Route('/remove-favorite/{artist}', name: 'remove_favorite', methods: ['GET'])]
     public function removeFavorite(
         Request $request,
         FavoriteRepository $favoriteRepository,
@@ -77,7 +77,7 @@ class FavoriteController extends AbstractController
             $em->persist($user);
             $em->remove($favorite);
             $em->flush();
-            $this->addFlash('success', 'Artist removed from favorites successfully.');
+            $this->addFlash('success', 'artist removed from favorites successfully.');
         }
 
         // Redirect to the last page visited by the user
