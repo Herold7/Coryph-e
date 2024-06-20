@@ -19,16 +19,34 @@ composer require symfonycasts/verify-email-bundle
 ```
 
 - Features to limit the rate of calls to certain parts of the application.
-
-
 ```sh
 composer require symfony/rate-limiter
 ```
 
 - locking features for resource management
-
 ```sh
 composer require symfony/lock 
+```
+
+- Provide fake data to test the database mapping
+```shell
+composer require --dev orm-fixtures
+php bin/console doctrine:fixtures:load
+```
+
+- Dashboard Admin
+```shell
+composer require easycorp/easyadmin-bundle
+```
+
+- Password hashing on demand
+```shell
+symfony console security:hash-password
+```
+
+- Pagination
+```shell
+composer require knplabs/knp-paginator-bundle
 ```
 
 ## Entities
@@ -37,27 +55,27 @@ composer require symfony/lock
 
 This entity represents a user of the platform. The user can be an artist's manager, a producer or an individual. They are defined by the `role` property.
 
-| Property          | Type       | Description          | Relation |
-|-------------------|------------|----------------------|----------|
-| email             | string     | 180 NOT NULL, UNIQUE |          |
-| roles             | string     | 50 NOT NULL          |          |
-| password          | string     | 255 NOT NULL         |          |
-| image             | string     | 255                  |          |
-| name              | string     | 30                   |          |
-| corporateName     | string     | 100                  |          |
-| siret             | string     | 14                   |          |
-| phone             | string     | 13                   |          |
-| address           | string     | 50                   |          |
-| additionalAddress | string     | 50                   |          |
-| city              | string     | 50                   |          |
-| zip               | string     | 5                    |          |
-| country           | string     | 50                   |          |
-| consent           | boolean    |                      |          |
-| created_at        | datetime   |                      |          |
-| updated_at        | datetime   |                      |          |
-| artists           | OneToMany  | OrphanTrue           | Artist   |
-| favorites         | ManyToMany |                      | Favorite |
-| reviews           | OneToMany  |                      | Review   |
+| Property          | Type      | Description          | Relation |
+|-------------------|-----------|----------------------|----------|
+| email             | string    | 180 NOT NULL, UNIQUE |          |
+| roles             | string    | 50 NOT NULL          |          |
+| password          | string    | 255 NOT NULL         |          |
+| image             | string    | 255                  |          |
+| name              | string    | 30                   |          |
+| corporateName     | string    | 100                  |          |
+| siret             | string    | 14                   |          |
+| phone             | string    | 13                   |          |
+| address           | string    | 50                   |          |
+| additionalAddress | string    | 50                   |          |
+| city              | string    | 50                   |          |
+| zip               | string    | 5                    |          |
+| country           | string    | 50                   |          |
+| consent           | boolean   |                      |          |
+| created_at        | datetime  |                      |          |
+| updated_at        | datetime  |                      |          |
+| artists           | OneToMany | OrphanTrue           | Artist   |
+| favorites         | OneToMany |                      | Favorite |
+| reviews           | OneToMany |                      | Review   |
 
 ---
 
@@ -87,10 +105,10 @@ This entity represents an artist.
 | instrument    | ManyToMany | NOT NULL             | Instrument    |
 | ensemble      | ManyToMany |                      | Set           |
 | performance   | ManyToMany |                      | Performance   |
-| picture       | ManyToMany |                      | Picture       |
-| video         | ManyToMany |                      | Video         |
-| audio         | ManyToMany |                      | Audio         |
-| website       | ManyToMany |                      | Website       |
+| pictures      | OneToMany  |                      | Picture       |
+| videos        | OneToMany  |                      | Video         |
+| audios        | OneToMany  |                      | Audio         |
+| websites      | OneToMany  |                      | Website       |
 | socialNetwork | ManyToMany |                      | SocialNetwork |
 | musicPlatform | ManyToMany |                      | MusicPlatform |
 | eventPlatform | ManyToMany |                      | EventPlatform |
@@ -151,8 +169,6 @@ This entity represents the category of the artists.
 ---
 
 ### Tag
-
-### Tag
 This entity represents a tag that links to a selection of artists.
 
 | Property | Type       | Description | Relation |
@@ -198,7 +214,7 @@ This entity represents the musical style of an artist.
 
 ### Instrument
 
-This entity represents the intrument of an artist.
+This entity represents the instrument of an artist.
 
 | Property | Type       | Description | Relation |
 |----------|------------|-------------|----------|
@@ -213,7 +229,7 @@ This entity represents the favorite of an artist and a user.
 
 | Property | Type       | Description | Relation |
 |----------|------------|-------------|----------|
-| user     | ManyToMany | NOT NULL    | User     |
+| user     | ManyToOne  | NOT NULL    | User     |
 | artists  | ManyToMany | NOT NULL    | Artist   |
 
 ---
@@ -222,11 +238,11 @@ This entity represents the favorite of an artist and a user.
 
 This entity represents the audio style of an artist.
 
-| Property | Type       | Description  | Relation |
-|----------|------------|--------------|----------|
-| name     | string     | 30 NOT NULL  |          |
-| link     | string     | 255 NOT NULL |          |
-| artists  | ManyToMany |              | Artist   |
+| Property | Type      | Description  | Relation |
+|----------|-----------|--------------|----------|
+| name     | string    | 30 NOT NULL  |          |
+| link     | string    | 255 NOT NULL |          |
+| artists  | ManyToOne |              | Artist   |
 
 ---
 
@@ -234,11 +250,11 @@ This entity represents the audio style of an artist.
 
 This entity represents the picture style of an artist.
 
-| Property | Type       | Description  | Relation |
-|----------|------------|--------------|----------|
-| name     | string     | 30 NOT NULL  |          |
-| link     | string     | 255 NOT NULL |          |
-| artists  | ManyToMany |              | Artist   |
+| Property | Type      | Description  | Relation |
+|----------|-----------|--------------|----------|
+| name     | string    | 30 NOT NULL  |          |
+| link     | string    | 255 NOT NULL |          |
+| artists  | ManyToOne |              | Artist   |
 
 ---
 
@@ -246,11 +262,11 @@ This entity represents the picture style of an artist.
 
 This entity represents the video of an artist.
 
-| Property | Type       | Description  | Relation |
-|----------|------------|--------------|----------|
-| name     | string     | 30 NOT NULL  |          |
-| link     | string     | 255 NOT NULL |          |
-| artists  | ManyToMany |              | Artist   |
+| Property | Type      | Description  | Relation |
+|----------|-----------|--------------|----------|
+| name     | string    | 30 NOT NULL  |          |
+| link     | string    | 255 NOT NULL |          |
+| artists  | ManyToOne |              | Artist   |
 
 ---
 
@@ -294,11 +310,11 @@ This entity represents the social network of an artist.
 
 This entity represents the website of an artist.
 
-| Property | Type       | Description  | Relation |
-|----------|------------|--------------|----------|
-| name     | string     | 30 NOT NULL  |          |
-| link     | string     | 255 NOT NULL |          |
-| artists  | ManyToMany |              | Artist   |
+| Property | Type      | Description  | Relation |
+|----------|-----------|--------------|----------|
+| name     | string    | 30 NOT NULL  |          |
+| link     | string    | 255 NOT NULL |          |
+| artists  | ManyToOne |              | Artist   |
 
 ---
 
