@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tous les artistes
+{% endblock %}
+
+{% block body %}
+<main class="classrooms">
+	<div class="container">
+		<div class="col">
+			{% for artist in artists %}
+				<div class="col-md-4 mb-4">
+					<div class="card">
+							<img class="card-img-top" src={{ asset('images/artist.webp') }} {{artist.image}} alt="{{ artist.nickname }}">
+						<div class="card-body">
+							<h5 class="card-title">{{ artist.name }}</h5>
+							<p class="card-text">{{ artist.description }}</p>
+							<a href="{{ path('artist_show', { id: artist.id }) }}" class="btn btn-primary">En savoir plus</a>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+				<div class="container">
+					{{ knp_pagination_render(artist) }}
+				</div>
+    </main>
+{% endblock %}
