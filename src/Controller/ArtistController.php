@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/a')] // prefix all artist routes with /a
-class artistController extends AbstractController
+class ArtistController extends AbstractController
 {
 
     #[Route('/', name: 'app_artist_index', methods: ['GET'])]
