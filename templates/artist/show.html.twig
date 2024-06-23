@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Artistes{% endblock %}
+
+{% block body %}
+    <h1>Artistes</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ artist.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom de l'artiste</th>
+                <td>{{ artist.nickname }}</td>
+            </tr>
+            <tr>
+                <th>Biographie</th>
+                <td>{{ artist.bio }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ artist.city }}</td>
+            </tr>
+            <tr>
+                <th>Pays</th>
+                <td>{{ artist.country }}</td>
+            </tr>
+            <tr>
+                <th>Année d'existence</th>
+                <td>{{ artist.birthyear }}</td>
+            </tr>
+            <tr>
+                <th>Nombre de membre</th>
+                <td>{{ artist.number }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ artist.professional ? 'Oui' : 'Non' }}</td>
+            </tr>
+            <tr>
+                <th>Email de l'artiste</th>
+                <td>{{ artist.mail }}</td>
+            </tr>
+
+            <tr>
+                <th>Téléphone de l'artiste</th>
+                <td>{{ artist.phone }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Média</h2>
+    <ul>
+        {% for media in project.medias %}
+            <li>
+                {{ media.title }}
+                <!-- Afficher d'autres propriétés de la tâche si nécessaire -->
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ path('app_artist_index') }}">retour à la liste des artist</a>
+
+    <a href="{{ path('app_artist_edit', {'id': artist.id}) }}">modifier</a>
+
+    {{ include('artist/_delete_form.html.twig') }}
+{% endblock %}
