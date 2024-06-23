@@ -16,10 +16,10 @@ class Picture
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 30)]
+    #[ORM\Column(length: 50)]
     #[Assert\Length(
         min: 2,
-        max: 30,
+        max: 50,
         minMessage: 'Le nom de votre image doit comporter au moins {{ limit }} caractères',
         maxMessage: 'Le nom de votre image ne peut pas dépasser {{ limit }} caractères',
     )]

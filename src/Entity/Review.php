@@ -18,7 +18,7 @@ class Review
     #[ORM\Column(length: 50)]
     #[Assert\Length(
         min: 2,
-        max: 30,
+        max: 50,
         minMessage: 'Le titre de votre avis doit comporter au moins {{ limit }} caractères',
         maxMessage: 'Le titre de votre avis ne peut pas dépasser {{ limit }} caractères',
     )]

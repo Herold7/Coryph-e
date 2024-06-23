@@ -17,10 +17,10 @@ class EventPlatform
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 30)]
+    #[ORM\Column(length: 50)]
     #[Assert\Length(
         min: 2,
-        max: 30,
+        max: 50,
         minMessage: 'Le nom de la plateforme doit comporter au moins {{ limit }} caractères',
         maxMessage: 'Le nom de la plateforme ne peut pas dépasser {{ limit }} caractères',
     )]

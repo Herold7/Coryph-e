@@ -48,7 +48,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
-    #[ORM\Column(length: 30, nullable: true)]
+    #[ORM\Column(length: 50, nullable: true)]
     #[Assert\Length(
         min: 2,
         max: 50,
@@ -60,7 +60,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 100, nullable: true)]
     #[Assert\Length(
         min: 2,
-        max: 50,
+        max: 100,
         minMessage: 'Le nom de votre organisation doit comporter au moins {{ limit }} caractères',
         maxMessage: 'Le nom de votre organisation ne peut pas dépasser {{ limit }} caractères',
     )]
@@ -75,10 +75,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     )]
     private ?string $siret = null;
 
-    #[ORM\Column(length: 19, nullable: true)]
+    #[ORM\Column(length: 20, nullable: true)]
     #[Assert\Length(
         min: 10,
-        max: 19,
+        max: 20,
         minMessage: 'Votre numéro de téléphone doit comporter au moins {{ limit }} caractères',
         maxMessage: 'Votre numéro de téléphone ne peut pas dépasser {{ limit }} caractères',
     )]

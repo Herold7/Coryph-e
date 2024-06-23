@@ -27,14 +27,13 @@ class Event
     )]
     private ?string $location = null;
 
-    #[ORM\Column(length: 30)]
+    #[ORM\Column(length: 50)]
     #[Assert\Length(
         min: 2,
-        max: 30,
+        max: 50,
         minMessage: 'le titre de l\'évènement doit comporter au moins {{ limit }} caractères',
         maxMessage: 'le titre de l\'évènement ne peut pas dépasser {{ limit }} caractères',
     )]
-
     private ?string $title = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]

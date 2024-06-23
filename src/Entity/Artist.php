@@ -18,7 +18,7 @@ class Artist
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 30)]
+    #[ORM\Column(length: 50)]
     #[Assert\Length(
         min: 2,
         max: 50,
@@ -51,10 +51,10 @@ class Artist
     )]
     private ?string $country = null;
 
-    #[ORM\Column(length: 13)]
+    #[ORM\Column(length: 20)]
     #[Assert\Length(
         min: 10,
-        max: 13,
+        max: 20,
         minMessage: 'Votre numéro de téléphone doit comporter au moins {{ limit }} caractères',
         maxMessage: 'Votre numéro de téléphone ne peut pas dépasser {{ limit }} caractères',
     )]

@@ -16,10 +16,10 @@ class Audio
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 30)]
+    #[ORM\Column(length: 50)]
     #[Assert\Length(
         min: 2,
-        max: 30,
+        max: 50,
         minMessage: 'Le titre de votre audio doit comporter au moins {{ limit }} caractères',
         maxMessage: 'Le titre de votre audio ne peut pas dépasser {{ limit }} caractères',
     )]

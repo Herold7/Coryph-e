@@ -16,10 +16,10 @@ class Website
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 30)]
+    #[ORM\Column(length: 50)]
     #[Assert\Length(
         min: 2,
-        max: 30,
+        max: 50,
         minMessage: 'Le nom de votre site internet doit comporter au moins {{ limit }} caractères',
         maxMessage: 'Le nom de votre site internet ne peut pas dépasser {{ limit }} caractères',
     )]
