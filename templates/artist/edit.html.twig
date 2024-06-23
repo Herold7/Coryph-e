@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier le profil artiste{% endblock %}
+
+{% block body %}
+    <h1>Modifier le profil artiste</h1>
+
+    {{ include('artist/_form.html.twig', {'button_label': 'Modifiez'}) }}
+
+    <a href="{{ path('app_artist_index') }}">Retour à la liste des artistes</a>
+
+    {{ include('artist/_delete_form.html.twig') }}
+{% endblock %}
