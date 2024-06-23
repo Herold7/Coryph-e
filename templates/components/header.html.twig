@@ -1,0 +1,77 @@
+<div class="top-area">
+	<div class="header-area">
+		<nav class="navbar navbar-default bootsnav navbar-sticky navbar-scrollspy" data-minus-value-desktop="70" data-minus-value-mobile="55" data-speed="1000">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+						<i class="fa fa-bars"></i>
+					</button>
+					<a class="navbar-brand" href="/">
+						<img src="images/logo-noir2.jpg" alt="Logo Coryphée" style="width: 50px;">
+					</a>
+				</div>
+				<div class="collapse navbar-collapse menu-ui-design" id="navbar-menu">
+					<ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
+						{% if app.request.attributes.get('_route') == 'app_home' %}
+							<li class="scroll">
+								<a href="#service">Service</a>
+							</li>
+							<li class="scroll">
+								<a href="#contact">Contact</a>
+							</li>
+								{% if is_granted('ROLE_USER') == false %}
+								<li>
+								<a href={{ path('app_register') }} class="">Sign up</a>
+								</li>
+								<li><a href={{ path('app_login') }} class="">Login</a>
+								</li>
+								{% endif %}
+						{% endif %}
+
+						{% if is_granted('ROLE_USER') %}
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ app.user.name }}
+									<span class="caret"></span>
+								</a>
+								<ul class="dropdown-menu">
+									<li>
+										<a href="{{ path('account') }}">account</a>
+									</li>
+									{# <li>
+										<a href="{{ path('app_bookings') }}">booking</a>
+									</li> #}
+									{% if is_granted('ROLE_ADMIN') %}
+										<li>
+											<a href="{{ path('admin') }}">Dashboard</a>
+										</li>
+									{% endif %}
+									<li class="divider"></li>
+									<li>
+										<strong>
+											<a href="{{ path('app_logout') }}">Logout</a>
+										</strong>
+									</li>
+								</ul>
+							</li>
+						{% endif %}
+					</ul>
+					{% if is_granted('ROLE_USER') %}
+						<ul class="nav navbar-nav navbar-right">
+							<li>
+								<a href="{{ path('app_home') }}">home</a>
+							</li>
+							<li>
+								<a href="{{ path('classrooms') }}">classrooms</a>
+							</li>
+						</ul>
+					{% endif %}
+				</div>
+				<!-- /.navbar-collapse -->
+			</div>
+			<!--/.container-->
+		</nav>
+	</div>
+	<!--/.header-area-->
+	<div class="clearfix"></div>
+</div>
+<!-- /.top-area-->
