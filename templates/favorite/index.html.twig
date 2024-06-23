@@ -10,8 +10,15 @@
         </div>
         {% if favorites|length > 0 %}
             {{ dump(favorites) }}
-            {% for item in favorites %}
+            {% for favorite in favorites %}
                 TODO: Create a card favorite component
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ favorite.name }}</h5>
+                        <p class="card-text">{{ favorite.description }}</p>
+                        <a href="{{ path('favorite_details', { id: favorite.id }) }}" class="btn btn-primary">En savoir plus</a>
+                    </div>
+                </div>
             {% endfor %}
 
         {% else %}
