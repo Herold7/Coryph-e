@@ -126,46 +126,45 @@ class ArtistType extends AbstractType
             ])
             ->add('musicalStyle', EntityType::class, [
                 'class' => MusicalStyle::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
                 'multiple' => true,
+                'expand'=> true,
             ])
             ->add('instrument', EntityType::class, [
                 'class' => Instrument::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
                 'multiple' => true,
                 'expand'=> true,
             ])
             ->add('ensemble', EntityType::class, [
                 'class' => Set::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
                 'multiple' => true,
                 'expand'=> true,
             ])
             ->add('performance', EntityType::class, [
                 'class' => Performance::class,
-                'choice_label' => 'id',
+                'choice_label' => 'type',
                 'multiple' => true,
                 'expand'=> true,
             ])
-            ->add('website', EntityType::class, [
-                'class' => Website::class,
-                'choice_label' => 'id',
-                'multiple' => true,
-            ])
             ->add('socialNetwork', EntityType::class, [
                 'class' => SocialNetwork::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
                 'multiple' => true,
+                'expand'=> true,
             ])
             ->add('musicPlatform', EntityType::class, [
                 'class' => MusicPlatform::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
                 'multiple' => true,
+                'expand'=> true,
             ])
             ->add('eventPlatform', EntityType::class, [
                 'class' => EventPlatform::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
                 'multiple' => true,
+                'expand'=> true,
             ])
         ;
     }

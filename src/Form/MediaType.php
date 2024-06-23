@@ -30,16 +30,21 @@ class MediaType extends AbstractType
         $builder
             ->add('picture', EntityType::class, [
                 'class' => Picture::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
                 'multiple' => true,
             ])
             ->add('video', EntityType::class, [
                 'class' => Video::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name', 
                 'multiple' => true,
             ])
             ->add('audio', EntityType::class, [
                 'class' => Audio::class,
+                'choice_label' => 'name',
+                'multiple' => true,
+            ])
+            ->add('website', EntityType::class, [
+                'class' => Website::class,
                 'choice_label' => 'id',
                 'multiple' => true,
             ])
