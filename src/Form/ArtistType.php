@@ -114,11 +114,6 @@ class ArtistType extends AbstractType
                 'widget' => 'single_text',
                 'data' => new \DateTime(),
             ])
-            ->add('updated_at', null, [
-                'widget' => 'single_text',
-                'DateTimeImmutable' => new \DateTime(),
-                'data' => new \DateTime(),
-            ])
             ->add('user', EntityType::class, [
                 'class' => User::class,
                 'choice_label' => 'id',
