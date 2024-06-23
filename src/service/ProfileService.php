@@ -41,7 +41,7 @@ class ProfileService// Service pour la gestion du profil utilisateur
 
         // Definir les rôles
         if($form->get('roles')->getData() == 'artist') {
-            $user->setRoles(['ROLE_ARTIST']);
+            $user->setRoles(['ROLE_MUSICIAN']);
         } else {
             $user->setRoles(['ROLE_USER']);
         }
