@@ -3,22 +3,23 @@
 namespace App\DataFixtures;
 
 use Faker\Factory;
-use App\Entity\Artist;
-use App\Entity\Category;
-use App\Entity\User;
+use App\Entity\Set;
 use App\Entity\Tag;
+use App\Entity\User;
+use App\Entity\Audio;
+use App\Entity\Event;
+use App\Entity\Video;
+use App\Entity\Artist;
+use App\Entity\Review;
+use App\Entity\Picture;
+use App\Entity\Website;
+use App\Entity\Category;
 use App\Entity\Instrument;
 use App\Entity\Performance;
-use App\Entity\Set;
-use App\Entity\Review;
-use App\Entity\Event;
-use App\Entity\Audio;
-use App\Entity\EventPlatform;
-use App\Entity\Picture;
-use App\Entity\SocialNetwork;
-use App\Entity\Video;
-use App\Entity\Website;
 use App\Entity\MusicalStyle;
+use App\Entity\EventPlatform;
+use App\Entity\MusicPlatform;
+use App\Entity\SocialNetwork;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
@@ -42,8 +43,7 @@ class AppFixtures extends Fixture
             ->setAdditionalAddress($faker->secondaryAddress)
             ->setCity($faker->city)
             ->setZip($faker->postcode)
-            ->setCountry('FR')
-            ->setCreatedAt($faker->dateTimeThisYear);
+            ->setCountry('FR');
         $manager->persist($admin);
 
         // Création d'un musicien
@@ -65,7 +65,7 @@ class AppFixtures extends Fixture
                 ->setZip($faker->postcode)
                 ->setCountry('FR')
                 ->setConsent($faker->boolean)
-                ->setCreatedAt($faker->dateTimeThisYear);
+                ->setCreatedAt($faker->dateTime);
             $manager->persist($musician);
             array_push($musicians, $musician);
         }
@@ -87,7 +87,7 @@ class AppFixtures extends Fixture
         $instrumentArray = [];
         for ($i = 0; $i < count($instruments); $i++) {
             $instrument = new Instrument();
-            $instrument->setName($categories[$i]);
+            $instrument->setName($instruments[$i]);
             $manager->persist($instrument);
             array_push($instrumentArray, $instrument);
         }
@@ -99,6 +99,7 @@ class AppFixtures extends Fixture
             $musicalStyle = new MusicalStyle();
             $musicalStyle->setName($musicalStyles[$i]);
             $manager->persist($musicalStyle);
+            array_push($musicalStyleArray, $musicalStyle);
         }
             // Création de type de performance
             $performances = ['concert', 'mariage', 'bal', 'festival', 'soirée privée', 'bat-mitzva', 'funerailles', 'anniversaire', 'cocktail', 'vernissage', 'défilé de mode', 'séminaire', 'congrès', 'salon', 'foire', 'exposition'];
@@ -123,17 +124,17 @@ class AppFixtures extends Fixture
 
         // ajout de plateforme Musicale
         $musicPlatforms = ['spotify', 'deezer', 'apple music', 'amazon music', 'youtube music', 'soundcloud', 'bandcamp', 'tidal', 'napster', 'qobuz', 'google play music'];
-        $musicPlatform = [];
+        $musicPlatformArray = [];
         for ($i = 0; $i < count($musicPlatforms); $i++) {
             $musicPlatform = new MusicPlatform();
             $musicPlatform->setName($musicPlatforms[$i])
                 ->setLink($faker->url);
-            array_push($musicPlatformArray, $musicPlatform);
-            $manager->persist($musicPlatform);
+                $manager->persist($musicPlatform);
+                array_push($musicPlatformArray, $musicPlatform);
 
             // ajout de plateforme evenementiel
             $eventPlatforms = ['evenementielpourtous', 'linkaband', 'mariage.com', 'mariage.net', 'zankyou', 'acteurfête'];
-            $eventPlatform = [];
+            $eventPlatformArray = [];
             for ($i = 0; $i < count($eventPlatforms); $i++) {
                 $eventPlatform = new EventPlatform();
                 $eventPlatform->setName($eventPlatforms[$i])
@@ -173,14 +174,14 @@ class AppFixtures extends Fixture
                     ->setImage(rand(0, 1) ? 'avatar-chant.webp' : 'avatar-groupe.webp')
                     ->setBio($faker->text)
                     ->setBirthyear($faker->year)
-                    ->setCreatedAt($faker->dateTimeThisYear)
+                    ->setCreatedAt($faker->dateTime)
                     ->setUser($faker->randomElement($musicians))
                     ->setCategory($faker->randomElement($categoryArray))
-                    ->setInstrument($faker->randomElement($instrumentArray))
+                    ->addInstrument($faker->randomElement($instrumentArray))
                     ->addEnsemble($faker->randomElement($setArray))
-                    ->setMusicalStyle($faker->randomElement($musicalStyleArray))
+                    ->addMusicalStyle($faker->randomElement($musicalStyleArray))
                     ->addPerformance($faker->randomElement($performanceArray))
-                    ->setSet($faker->randomElement($setArray))
+                    ->addEnsemble($faker->randomElement($setArray))
                     ->addSocialNetwork($faker->randomElement($socialNetworkArray))
                     ->addMusicPlatform($faker->randomElement($musicPlatformArray))
                     ->addEventPlatform($faker->randomElement($eventPlatformArray));
@@ -202,7 +203,7 @@ class AppFixtures extends Fixture
                     ->setZip($faker->postcode)
                     ->setCountry('FR')
                     ->setConsent($faker->boolean)
-                    ->setCreatedAt($faker->dateTimeThisYear);
+                    ->setCreatedAt($faker->dateTime);
                 $manager->persist($user);
 
                 // ajout review
@@ -211,7 +212,7 @@ class AppFixtures extends Fixture
                     ->setComment($faker->text)
                     ->setRating($faker->numberBetween(1, 5))
                     ->setUser($user)
-                    ->setArtist($review);
+                    ->setArtist($artist);
                 $manager->persist($review);
 
                 // ajout Event
@@ -219,7 +220,7 @@ class AppFixtures extends Fixture
                 $eventDate = $faker->dateTimeBetween('-4 months');
                 $event->setLocation($name)
                     ->setTitle($faker->numberBetween(1, 50))
-                    ->setDate($faker->dateTimeThisYear)
+                    ->setDate($faker->dateTime)
                     ->setDescription($faker->city)
                     ->setAddress($faker->streetAddress)
                     ->setCity($faker->city)

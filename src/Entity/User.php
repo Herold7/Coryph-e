@@ -66,17 +66,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     )]
     private ?string $corporateName = null;
 
-    #[ORM\Column(length: 14, nullable: true)]
+    #[ORM\Column(length: 17, nullable: true)]
     #[Assert\Length(
-        exactly: 14,
-        exactMessage: 'Votre numéro de siret doit comporter {{limit}} caractères',
+        min: 14,
+        max: 17,
+        minMessage: 'Votre numéro de siret doit comporter au mmoins {{limit}} caractères',
+        maxMessage: 'Votre numéro de siret doit comporter au plus {{limit}} caractères',
     )]
     private ?string $siret = null;
 
-    #[ORM\Column(length: 13, nullable: true)]
+    #[ORM\Column(length: 19, nullable: true)]
     #[Assert\Length(
         min: 10,
-        max: 13,
+        max: 19,
         minMessage: 'Votre numéro de téléphone doit comporter au moins {{ limit }} caractères',
         maxMessage: 'Votre numéro de téléphone ne peut pas dépasser {{ limit }} caractères',
     )]
