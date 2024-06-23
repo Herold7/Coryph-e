@@ -38,7 +38,7 @@ class AppFixtures extends Fixture
             ->setName('Herold')
             ->setCorporateName($faker->company)
             ->setSiret($faker->siret)
-            ->setPhone($faker->mobileNumber)
+            ->setPhone($faker->phoneNumber)
             ->setAddress($faker->streetAddress)
             ->setAdditionalAddress($faker->secondaryAddress)
             ->setCity($faker->city)
@@ -49,7 +49,7 @@ class AppFixtures extends Fixture
         // Création d'un musicien
         $musicians = [];
         for ($i = 0; $i < 10; $i++) {
-            $name = $faker->LastName();
+            $name = $faker->firstName();
             $musician = new User();
             $musician->setName($name)
                 ->setEmail($name . '@' . $faker->freeEmailDomain())
@@ -58,7 +58,7 @@ class AppFixtures extends Fixture
                 ->setImage('artist.webp')
                 ->setCorporateName($faker->company)
                 ->setSiret($faker->siret)
-                ->setPhone($faker->mobileNumber)
+                ->setPhone($faker->phoneNumber)
                 ->setAddress($faker->streetAddress)
                 ->setAdditionalAddress($faker->secondaryAddress)
                 ->setCity($faker->city)
@@ -83,7 +83,7 @@ class AppFixtures extends Fixture
         }
 
         // Création d'instruments
-        $instruments = ['piano', 'guitare', 'basse', 'batterie', 'saxophone', 'trompette', 'violon', 'violoncelle', 'contrebasse', 'flûte', 'clarinette', 'accordéon', 'harpe', 'orgue', 'percussions'];
+        $instruments = ['piano', 'guitare', 'basse', 'batterie', 'saxophone', 'trompette', 'violon'];
         $instrumentArray = [];
         for ($i = 0; $i < count($instruments); $i++) {
             $instrument = new Instrument();
@@ -93,7 +93,7 @@ class AppFixtures extends Fixture
         }
 
         // ajout de style de musique
-        $musicalStyles = ['jazz', 'rock', 'pop', 'classique', 'reggae', 'blues', 'soul', 'funk', 'rap', 'hip-hop', 'electro', 'techno', 'house', 'disco', 'country', 'folk', 'metal', 'punk', 'variété', 'musique du monde', 'musique traditionnelle'];
+        $musicalStyles = ['jazz', 'rock', 'pop', 'classique', 'reggae', 'blues', 'soul'];
         $musicalStyleArray = [];
         for ($i = 0; $i < count($musicalStyles); $i++) {
             $musicalStyle = new MusicalStyle();
@@ -102,7 +102,7 @@ class AppFixtures extends Fixture
             array_push($musicalStyleArray, $musicalStyle);
         }
             // Création de type de performance
-            $performances = ['concert', 'mariage', 'bal', 'festival', 'soirée privée', 'bat-mitzva', 'funerailles', 'anniversaire', 'cocktail', 'vernissage', 'défilé de mode', 'séminaire', 'congrès', 'salon', 'foire', 'exposition'];
+            $performances = ['concert', 'mariage', 'bal', 'festival', 'soirée privée', 'bat-mitzva', 'funerailles'];
             $performanceArray = [];
             for ($i = 0; $i < count($performances); $i++) {
                 $performance = new Performance();
@@ -123,7 +123,7 @@ class AppFixtures extends Fixture
             }
 
         // ajout de plateforme Musicale
-        $musicPlatforms = ['spotify', 'deezer', 'apple music', 'amazon music', 'youtube music', 'soundcloud', 'bandcamp', 'tidal', 'napster', 'qobuz', 'google play music'];
+        $musicPlatforms = ['spotify', 'deezer', 'apple music', 'amazon music', 'youtube music', 'soundcloud', 'bandcamp'];
         $musicPlatformArray = [];
         for ($i = 0; $i < count($musicPlatforms); $i++) {
             $musicPlatform = new MusicPlatform();
@@ -144,7 +144,7 @@ class AppFixtures extends Fixture
             }
 
             // ajout de réseau sociaux
-            $socialNetworks = ['facebook', 'instagram', 'twitter', 'linkedin', 'pinterest', 'tiktok', 'snapchat', 'youtube'];
+            $socialNetworks = ['facebook', 'instagram', 'twitter', 'linkedin', 'pinterest', 'tiktok', 'snapchat'];
             $socialNetworkArray = [];
             $socialNetwork = new SocialNetwork();
             $socialNetwork->setName($socialNetworks[$i])
@@ -160,16 +160,15 @@ class AppFixtures extends Fixture
 
 
             // Création d'un artist
-            $artists = [];
             for ($i = 0; $i < 50; $i++) {
-                $name = $faker->name();
+                $name = $faker->firstname();
                 $artist = new Artist();
                 $artist->setNickname($name)
                     ->setNumber($faker->numberBetween(1, 50))
                     ->setProfessional($faker->boolean)
                     ->setCity($faker->city)
                     ->setCountry('FR')
-                    ->setPhone($faker->mobileNumber)
+                    ->setPhone($faker->phoneNumber)
                     ->setMail($name . '@' . $faker->freeEmailDomain())
                     ->setImage(rand(0, 1) ? 'avatar-chant.webp' : 'avatar-groupe.webp')
                     ->setBio($faker->text)
@@ -193,10 +192,10 @@ class AppFixtures extends Fixture
                     ->setRoles(['ROLE_USER'])
                     ->setPassword('$2y$13$J2O4AgxFCpLTNwGXj.1nQe.QrGnaq/UCkF0OeJ84chNbknf85Ox7O')
                     ->setImage(rand(0, 1) ? 'avatar-particulier.webp' : 'avatar-producteur.webp')
-                    ->setName($faker->name)
+                    ->setName($faker->firstname)
                     ->setCorporateName($faker->company)
                     ->setSiret($faker->siret)
-                    ->setPhone($faker->mobileNumber)
+                    ->setPhone($faker->phoneNumber)
                     ->setAddress($faker->streetAddress)
                     ->setAdditionalAddress($faker->secondaryAddress)
                     ->setCity($faker->city)
