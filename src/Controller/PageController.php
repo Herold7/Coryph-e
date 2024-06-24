@@ -16,17 +16,18 @@ class PageController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(): Response
     {
-        return $this->render('page/index.html.twig', [
+        return $this->render('page/category.html.twig', [
             'controller_name' => 'PageController',
         ]);
     }
 
-    #[Route('/chant', name: 'chant', methods: ['GET'])]
-    public function Chant(): Response
+    #[Route('/chanteur', name: 'chanteur', methods: ['GET'])]
+    public function Chanteur(): Response
     {
         return $this->render('page/category.html.twig', [
-            'title' => 'chant',
-            'category' => 'chant',
+            'title' => 'chanteur',
+            'category' => 'chanteur',
+            'background' => 'chanteur',
             'description' => 'Vous recherchez un chanteur ou une chanteuse pour votre événement ? Vous êtes au bon endroit !',
         ]);
     }
@@ -37,6 +38,7 @@ class PageController extends AbstractController
         return $this->render('page/category.html.twig', [
             'title' => 'Musicien',
             'category' => 'musicien',
+            'background' => 'musicien',
             'description' => 'Vous recherchez un musicien pour votre événement ? Vous êtes au bon endroit !',
         ]);
     }
@@ -47,6 +49,7 @@ class PageController extends AbstractController
         return $this->render('page/category.html.twig', [
             'title' => 'groupe',
             'category' => 'groupe',
+            'background' => 'groupe',
             'description' => 'Vous recherchez groupe de musique pour votre événement ? Vous êtes au bon endroit !',
         ]);
     }
