@@ -67,7 +67,7 @@ class Artist
     private ?string $mail = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $image = null;
+    private ?string $image = 'avatar-chant.webp';
     
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $bio = null;
