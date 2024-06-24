@@ -1,77 +1,36 @@
-<div class="top-area">
-	<div class="header-area">
-		<nav class="navbar navbar-default bootsnav navbar-sticky navbar-scrollspy" data-minus-value-desktop="70" data-minus-value-mobile="55" data-speed="1000">
-			<div class="container">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
-						<i class="fa fa-bars"></i>
-					</button>
-					<a class="navbar-brand" href="/">
-						<img src="images/logo-noir2.jpg" alt="Logo Coryphée" style="width: 50px;">
-					</a>
-				</div>
-				<div class="collapse navbar-collapse menu-ui-design" id="navbar-menu">
-					<ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
-						{% if app.request.attributes.get('_route') == 'app_home' %}
-							<li class="scroll">
-								<a href="#service">Service</a>
-							</li>
-							<li class="scroll">
-								<a href="#contact">Contact</a>
-							</li>
-								{% if is_granted('ROLE_USER') == false %}
-								<li>
-								<a href={{ path('app_register') }} class="">Sign up</a>
-								</li>
-								<li><a href={{ path('app_login') }} class="">Login</a>
-								</li>
-								{% endif %}
-						{% endif %}
+<header class="d-flex justify-content-between align-items-center p-3 sticky-top bg-dark shadow-dark">
+	<a href={{ path('chanteur')}}>
+		<img src={{ asset('/images/logo/logo-noir2.jpeg') }} alt="logo Coryphée" width="60">
+	</a>
+	<div class="d-flex gap-3 align-items-center">
+			<a href={{ path('app_home') }} class="text-white text-decoration-none">Accueil</a>
+			<a href={{ path('app_artist_index') }} class="text-white text-decoration-none">Artistes</a>
 
-						{% if is_granted('ROLE_USER') %}
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ app.user.name }}
-									<span class="caret"></span>
-								</a>
-								<ul class="dropdown-menu">
-									<li>
-										<a href="{{ path('account') }}">account</a>
-									</li>
-									{# <li>
-										<a href="{{ path('app_bookings') }}">booking</a>
-									</li> #}
-									{% if is_granted('ROLE_ADMIN') %}
-										<li>
-											<a href="{{ path('admin') }}">Dashboard</a>
-										</li>
-									{% endif %}
-									<li class="divider"></li>
-									<li>
-										<strong>
-											<a href="{{ path('app_logout') }}">Logout</a>
-										</strong>
-									</li>
-								</ul>
-							</li>
-						{% endif %}
-					</ul>
-					{% if is_granted('ROLE_USER') %}
-						<ul class="nav navbar-nav navbar-right">
-							<li>
-								<a href="{{ path('app_home') }}">home</a>
-							</li>
-							<li>
-								<a href="{{ path('classrooms') }}">classrooms</a>
-							</li>
-						</ul>
+		{% if is_granted('ROLE_USER') %}
+			<div class="nav-item dropdown bg-body-tertiary py-2 px-3 rounded-pill">
+				<a class="nav-link dropdown-toggle" href="#" role="button" 
+				data-bs-toggle="dropdown" aria-expanded="false">Menu</a>
+				<ul class="dropdown-menu">
+					<li>
+						<a class="dropdown-item" href={{ path('account') }}>Mon compte</a>
+					</li>
+					<li>
+						<a class="dropdown-item" href={{ path('favorites') }}>Mes favoris</a>
+					</li>
+					{% if is_granted('ROLE_ADMIN') %}
+						<li>
+							<a class="dropdown-item" href={{ path('admin') }}>Admin dashboard</a>
+						</li>
 					{% endif %}
-				</div>
-				<!-- /.navbar-collapse -->
+					<li><hr class="dropdown-divider"></li>
+					<li>
+						<a class="dropdown-item" href={{ path('app_logout') }}>Logout</a>
+					</li>
+				</ul>
 			</div>
-			<!--/.container-->
-		</nav>
+		{% else %}
+			<a href={{ path('app_register') }} class="text-white text-decoration-none">S'enregistrer</a>
+			<a href={{ path('app_login') }} class="btn btn-light rounded-pill">Se connecter</a>
+		{% endif %}
 	</div>
-	<!--/.header-area-->
-	<div class="clearfix"></div>
-</div>
-<!-- /.top-area-->
+</header>

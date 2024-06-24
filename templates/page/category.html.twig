@@ -3,14 +3,15 @@
 {% block title %}{% endblock %}
 
 {% block body %}
-	<div class="vh-100 {{ background }} text-center d-flex flex-column justify-content-center">
-		<p class="title text-white fw-bolder">
+	<div class="vh-100 {{ background|default('artist.webp') }} text-center d-flex flex-column justify-content-center" >
+		<p class="title text-black fw-bolder">
 			{{ title }}
 		</p>
-		<p class="text-white">
+		<p class="text-black">
             {{ description }}
+		</p>
 		<div>
-			<a href={{ path('app_artist_category', { category: category}) }} class="btn btn-custom btn-lg mt-5 rounded-pill">Découvrez les artistes de cette catégory</a>
+			<a href={{ path('app_artist_category', { category: category}) }} class="btn btn-custom btn-lg mt-5 rounded-pill">Découvrez les artistes de cette catégorie</a>
 		</div>
 	</div>
 {% endblock %}
