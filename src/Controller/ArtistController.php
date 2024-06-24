@@ -15,44 +15,53 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/a')] // prefix all artist routes with /a
 class ArtistController extends AbstractController
 {
-
     #[Route('/', name: 'app_artist_index', methods: ['GET'])]
     public function index(
-        ArtistRepository $ArtistRepository,
+        ArtistRepository $artistRepository,
         PaginatorInterface $paginator,
-        Request $request,
+        Request $request
     ): Response {
         $pagination = $paginator->paginate(
-            $ArtistRepository->findAll(), // All artists
+            $artistRepository->findAll(), // All artists
             $request->query->getInt('page', 1), // Check page number
             12 // Items per page
         );
 
         return $this->render('artist/index.html.twig', [
             'artists' => $pagination,
-            'userArtists' => $ArtistRepository->findBy(
-                ['host' => $this->getUser()]
+            'userArtists' => $artistRepository->findBy(
+                ['user' => $this->getUser()]
             )
         ]);
     }
 
-    #[Route('/{category}', name: 'app_artist_category', methods: ['GET'])]
+    #[Route('/category/{category}', name: 'app_artist_category', methods: ['GET'])]
     public function category(
-        ArtistRepository $ArtistRepository,
+        ArtistRepository $artistRepository,
         PaginatorInterface $paginator,
         Request $request,
+        string $category
     ): Response {
         $pagination = $paginator->paginate(
-            $ArtistRepository->findBy(['category' => $request->attributes->get('category')]),
+            $artistRepository->findBy(['category' => $category]),
             $request->query->getInt('page', 1),
             12
         );
 
         return $this->render('artist/index.html.twig', [
             'artists' => $pagination,
-            'userArtists' => $ArtistRepository->findBy(
-                ['host' => $this->getUser()]
+            'userArtists' => $artistRepository->findBy(
+                ['user' => $this->getUser()]
             )
+        ]);
+    }
+
+    #[Route('/show/{id}', name: 'app_artist_show', methods: ['GET', 'POST'])]
+    public function show(
+        Artist $artist
+    ): Response {
+        return $this->render('artist/show.html.twig', [
+            'artist' => $artist,
         ]);
     }
 
@@ -76,34 +85,25 @@ class ArtistController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app-artist-show', methods: ['GET', 'POST'])]
-    public function show(
-        Artist $artist,
-    ): Response {
-        return $this->render('artist/show.html.twig', [
-            'artist' => $artist,
-        ]);
-    }
-
-    #[Route('/{id}/edit', name: 'app_artist_edit', methods: ['GET', 'POST'])]
+    #[Route('/edit/{id}', name: 'app_artist_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Artist $artist, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ArtistType::class, $artist);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-
+    
             return $this->redirectToRoute('app_artist_index', [], Response::HTTP_SEE_OTHER);
         }
-
+    
         return $this->render('artist/edit.html.twig', [
             'artist' => $artist,
             'form' => $form,
         ]);
     }
 
-    #[Route('/{id}', name: 'app_artist_delete', methods: ['POST'])]
+    #[Route('/delete/{id}', name: 'app_artist_delete', methods: ['POST'])]
     public function delete(Request $request, Artist $artist, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$artist->getId(), $request->request->get('_token'))) {
@@ -113,5 +113,4 @@ class ArtistController extends AbstractController
 
         return $this->redirectToRoute('app_artist_index', [], Response::HTTP_SEE_OTHER);
     }
-
 }
