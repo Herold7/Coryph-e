@@ -61,10 +61,10 @@ This entity represents a user of the platform. The user can be an artist's manag
 | roles             | string    | 50 NOT NULL          |          |
 | password          | string    | 255 NOT NULL         |          |
 | image             | string    | 255                  |          |
-| name              | string    | 30                   |          |
+| name              | string    | 50                   |          |
 | corporateName     | string    | 100                  |          |
-| siret             | string    | 14                   |          |
-| phone             | string    | 13                   |          |
+| siret             | string    | 17                   |          |
+| phone             | string    | 20                   |          |
 | address           | string    | 50                   |          |
 | additionalAddress | string    | 50                   |          |
 | city              | string    | 50                   |          |
@@ -85,12 +85,12 @@ This entity represents an artist.
 
 | Property      | Type       | Description          | Relation      |
 |---------------|------------|----------------------|---------------|
-| nickname      | string     | 30 NOT NULL          |               |
+| nickname      | string     | 50 NOT NULL          |               |
 | number        | integer    | NOT NULL             |               |
 | professional  | bool       | NOT NULL             |               |
 | city          | string     | 50                   |               |
 | country       | string     | 50                   |               |
-| phone         | string     | 13 NOT NULL          |               |
+| phone         | string     | 20 NOT NULL          |               |
 | mail          | string     | 180 NOT NULL         |               |
 | image         | string     | 255                  |               |
 | bio           | text       |                      |               |
@@ -139,7 +139,7 @@ This entity represents an event in which an artist participates.
 | Property    | Type       | Description  | Relation |
 |-------------|------------|--------------|----------|
 | location    | string     | 50 NOT NULL  |          |
-| title       | string     | 30 NOT NULL  |          |
+| title       | string     | 50 NOT NULL  |          |
 | date        | datetime   |              |          |
 | description | text       |              |          |
 | address     | string     | 50           |
@@ -161,7 +161,7 @@ This entity represents the category of the artists.
 
 | Property    | Type      | Description  | Relation |
 |-------------|-----------|--------------|----------|
-| name        | string    | 30 NOT NULL  |          |
+| name        | string    | 50 NOT NULL  |          |
 | image       | string    | 255 NOT NULL |          |
 | description | string    | 255          |          |
 | artists     | OneToMany | NOT NULL     | Artist   |
@@ -173,7 +173,7 @@ This entity represents a tag that links to a selection of artists.
 
 | Property | Type       | Description | Relation |
 |----------|------------|-------------|----------|
-| name     | string     | 30 NOT NULL |          |
+| name     | string     | 50 NOT NULL |          |
 | artists  | ManyToMany |             | Artist   |
 
 ---
@@ -196,7 +196,7 @@ This entity represents the set of an artist.
 
 | Property | Type       | Description | Relation |
 |----------|------------|-------------|----------|
-| name     | string     | 30 NOT NULL |          |
+| name     | string     | 50 NOT NULL |          |
 | artists  | ManyToMany |             | Artist   |
 
 ---
@@ -207,7 +207,7 @@ This entity represents the musical style of an artist.
 
 | Property | Type       | Description | Relation |
 |----------|------------|-------------|----------|
-| name     | string     | 30 NOT NULL |          |
+| name     | string     | 50 NOT NULL |          |
 | artists  | ManyToMany |             | Artist   |
 
 ---
@@ -218,7 +218,7 @@ This entity represents the instrument of an artist.
 
 | Property | Type       | Description | Relation |
 |----------|------------|-------------|----------|
-| name     | string     | 30 NOT NULL |          |
+| name     | string     | 50 NOT NULL |          |
 | artists  | ManyToMany |             | Artist   |
 
 ---
@@ -240,7 +240,7 @@ This entity represents the audio style of an artist.
 
 | Property | Type      | Description  | Relation |
 |----------|-----------|--------------|----------|
-| name     | string    | 30 NOT NULL  |          |
+| name     | string    | 50 NOT NULL  |          |
 | link     | string    | 255 NOT NULL |          |
 | artists  | ManyToOne |              | Artist   |
 
@@ -252,7 +252,7 @@ This entity represents the picture style of an artist.
 
 | Property | Type      | Description  | Relation |
 |----------|-----------|--------------|----------|
-| name     | string    | 30 NOT NULL  |          |
+| name     | string    | 50 NOT NULL  |          |
 | link     | string    | 255 NOT NULL |          |
 | artists  | ManyToOne |              | Artist   |
 
@@ -264,7 +264,7 @@ This entity represents the video of an artist.
 
 | Property | Type      | Description  | Relation |
 |----------|-----------|--------------|----------|
-| name     | string    | 30 NOT NULL  |          |
+| name     | string    | 50 NOT NULL  |          |
 | link     | string    | 255 NOT NULL |          |
 | artists  | ManyToOne |              | Artist   |
 
@@ -288,7 +288,7 @@ This entity represents the music platform of an artist.
 
 | Property | Type       | Description  | Relation |
 |----------|------------|--------------|----------|
-| name     | string     | 30 NOT NULL  |          |
+| name     | string     | 50 NOT NULL  |          |
 | link     | string     | 255 NOT NULL |          |
 | artists  | ManyToMany |              | Artist   |
 
@@ -300,7 +300,7 @@ This entity represents the social network of an artist.
 
 | Property | Type       | Description  | Relation |
 |----------|------------|--------------|----------|
-| name     | string     | 30 NOT NULL  |          |
+| name     | string     | 50 NOT NULL  |          |
 | link     | string     | 255 NOT NULL |          |
 | artists  | ManyToMany |              | Artist   |
 
@@ -312,7 +312,7 @@ This entity represents the website of an artist.
 
 | Property | Type      | Description  | Relation |
 |----------|-----------|--------------|----------|
-| name     | string    | 30 NOT NULL  |          |
+| name     | string    | 50 NOT NULL  |          |
 | link     | string    | 255 NOT NULL |          |
 | artists  | ManyToOne |              | Artist   |
 
