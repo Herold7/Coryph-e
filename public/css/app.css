@@ -1,8 +1,8 @@
 /* Variables */
 :root {
-    --custom-main: #c3906f;
-    --custom-secondary: #6a3455;
-    --custom-dark: #081c3c;
+    --custom-main: #c3906f ;
+    --custom-secondary: #6a3455 ;
+    --custom-dark: #081c3c ;
 }
 
 /* ReCustom from bootstrap */
@@ -10,33 +10,22 @@
     background-color: var(--custom-main);
     color: #fff;
 }
-
-.btn-custom:hover,
-.btn-custom:focus,
-.btn-custom:active {
+.btn-custom:hover, .btn-custom:focus, .btn-custom:active {
     background-color: var(--custom-secondary);
     color: #fff;
 }
-
 .bg-dark {
     background-color: var(--custom-dark) !important;
 }
-
 .text-main {
     color: var(--custom-main) !important;
 }
 
 /* Titles & Fonts */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-family: 'Plus Jakarta sans', sans-serif;
-    font-weight: 900;
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Plus Jakarta sans', sans-serif;
+  font-weight: 900;
 }
-
 body {
     font-family: 'Open sans', sans-serif;
     font-weight: 300;
@@ -44,44 +33,29 @@ body {
 
 /* City landing page */
 .chanteur {
-    background-image: url('/public/images/background/background-chant.webp');
+    background-image: url('images/background/background-chant.webp');
 }
-
 .musicien {
-    background-image: url('/images/background-groupe.webp');
+    background-image: url('images/background/background-groupe.webp');
+}
+.groupe {
+    background-image: url('public/images/background/background-groupe2.webp');
 }
 
-.groupe {
-    background-image: url('/images/background-groupe.webp');
-}
-
-.chanteur,
-.musician,
-.groupe {
+.chanteur, .musician, .groupe  {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 
 /* Title & Subtitle */
-.title,
-.subtitle {
+.title {
     font-family: 'Libre Franklin', sans-serif;
     font-size: 8vw;
     line-height: 1;
     font-weight: 900;
 }
 
-.subtitle {
-    -webkit-text-fill-color: transparent;
-    -webkit-text-stroke: .25vw;
-    -webkit-text-stroke-color: #fff;
-    transform: rotate(-180deg);
-}
-
-.subtitle-reverse {
-    transform: inherit;
-}
 
 /* Footer */
 footer {
@@ -90,10 +64,9 @@ footer {
 }
 
 /* Room Card */
-.img-overlay {
+.img-overlay{
     background-color: rgba(25, 25, 25, .4);
 }
-
 .card-host-info img {
     width: 32px;
 }
@@ -103,8 +76,7 @@ footer {
     --bs-pagination-border-width: 0;
 }
 
-.active>.page-link,
-.page-link.active {
+.active>.page-link, .page-link.active {
     background-color: var(--custom-dark);
 }
 
