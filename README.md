@@ -49,6 +49,12 @@ symfony console security:hash-password
 composer require knplabs/knp-paginator-bundle
 ```
 
+- Reset Password
+```shell
+composer require symfonycasts/reset-password-bundle
+bin/console make:reset-password
+```
+
 ## Entities
 
 ### User
