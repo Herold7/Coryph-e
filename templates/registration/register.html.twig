@@ -1,24 +1,109 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Créer un compte{% endblock %}
+{% block title %}Création d'un compte
+{% endblock %}
 
 {% block body %}
-    {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
 
-    <h1>Création d'un compte</h1>
+	{% for flash_error in app.flashes('verify_email_error') %}
+		<div class="alert alert-danger col-4 m-auto mb-5" role="alert">{{ flash_error }}</div>
+	{% endfor %}
 
-    {{ form_errors(registrationForm) }}
+	<div class="container vh-100 d-flex align-items-center">
 
-    {{ form_start(registrationForm, {'attr': {'class': 'login-form'}}) }}
-        {{ form_row(registrationForm.email,  {'attr': {'class': 'form-control'}}) }}
-        {{ form_row(registrationForm.plainPassword, {
-            {'label': 'Password', 'attr': {'class': 'form-control'}}
-        }) }}
-        {{ form_row(registrationForm.agreeTerms, {'label_attr': {'class': 'form-check-label'}}) }}
+		<div class="form-signing w-100 m-auto">
 
-        <button type="submit" class="btn">S'enregistrer</button>
-        <a href="{{ path('app_login') }}">J'ai déjà un compte</a>
-    {{ form_end(registrationForm) }}
+			{% if app.user %}
+				<div class="alert alert-info text-center" role="alert">
+					<h2>
+						Vous êtes déjà connecté.
+					</h2>
+					<a href="/" class="btn btn-dark">Retour à l'accueil</a>
+				</div>
+			{% else %}
+				{% if error is defined %}
+					<div class="alert alert-danger" role="alert">
+						{{ error }}
+					</div>
+				{% endif %}
+				<h1 class="h3 mb-3 fw-normal text-center">Créer votre compte</h1>
+
+				{% if error is defined %}
+					<div class="alert alert-danger" role="alert">
+						{{ error }}
+					</div>
+				{% endif %}
+
+				{{ form_errors(registrationForm) }}
+
+				{{ form_start(registrationForm, {
+                    attr:{
+                        class: 'col-4 m-auto',
+                    } 
+                }) }}
+
+				<div class="form-floating mb-2">
+					{{ form_widget(registrationForm.email, {
+                            attr: {
+                                class: 'form-control',
+                            },
+                        }) }}
+					<label for="floatingInput">Renseignez votre email ?</label>
+				</div>
+				<!-- END OF EMAIL INPUT -->
+
+				<div class="form-floating mb-2">
+					{{ form_widget(registrationForm.plainPassword, {
+                            attr: {
+                                class: 'form-control',
+                            }
+                        }) }}
+					<label for="floatingPassword">Renseignez votre mot de passe</label>
+				</div>
+				<!-- END OF PASSWORD INPUT -->
+
+				<div id="passwordHelpBlock" class="form-text mb-2 visually-hidden">
+					<p class="fw-light text-body-secondary">Votre mot de passe doit contenir :<br>
+						- au moins 1 majuscule lettre<br>
+						- au moins 1 minuscule lettre<br>
+						- au moins 1 chiffre<br>
+						- au moins 1 caractère spécial<br>- au moins 8 caractères
+					</p>
+				</div>
+				<!-- END OF PASSWORD HELP BLOCK -->
+
+				<div
+					class="mb-3 form-check">
+					<!-- TODO: add route to terms and conditions -->
+					{{ form_widget(registrationForm.agreeTerms, {
+                            attr: {
+                                class: 'form-check-input',
+                                id: 'floatingCheckbox',
+                            }
+                        }) }}
+					<label class="form-check-label" for="floatingCheckbox">Je donne mon consentement aux
+						<a href="#" class="text-decoration-none">politiques de confidentialités</a>
+					</label>
+				</div>
+				<!-- END OF TERMS AND CONDITIONS CHECKBOX -->
+
+				<button class="btn btn-primary w-100 py-2" type="submit">Créer un compte</button>
+
+				{{ form_end(registrationForm) }}
+
+				<div
+					class="text-center mt-3">
+					<!-- TODO: add route to sign in -->
+					<p>Vous avez déjà un compte ?
+						<a href={{ path('app_login') }} class="text-decoration-none">Se connecter</a>
+					</p>
+				</div>
+			{% endif %}
+
+			<p class="mt-5 mb-3 text-body-secondary text-center">&copy;
+				{{ 'now'|date('Y') }}</p>
+		</div>
+
+	</div>
 {% endblock %}
+
