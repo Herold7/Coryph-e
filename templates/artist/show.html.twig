@@ -3,67 +3,139 @@
 {% block title %}Artistes{% endblock %}
 
 {% block body %}
-    <h1>Artistes</h1>
+    <div class="p-5 mb-4 border-bottom border-2">
+        <h1 class="fs-1">
+            {{ artist.nickname }}
+        </h1>
+    </div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ artist.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom de l'artiste</th>
-                <td>{{ artist.nickname }}</td>
-            </tr>
-            <tr>
-                <th>Biographie</th>
-                <td>{{ artist.bio }}</td>
-            </tr>
-            <tr>
-                <th>Ville</th>
-                <td>{{ artist.city }}</td>
-            </tr>
-            <tr>
-                <th>Pays</th>
-                <td>{{ artist.country }}</td>
-            </tr>
-            <tr>
-                <th>Année d'existence</th>
-                <td>{{ artist.birthyear }}</td>
-            </tr>
-            <tr>
-                <th>Nombre de membre</th>
-                <td>{{ artist.number }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>{{ artist.professional ? 'Oui' : 'Non' }}</td>
-            </tr>
-            <tr>
-                <th>Email de l'artiste</th>
-                <td>{{ artist.mail }}</td>
-            </tr>
+    <div class="container pb-5">
+        <div class="row mb-3">
+            <img src="{{ asset('/uploads/artists/')}}{{ artist.image }}" alt="{{ artist.nickname }}" class="img-fluid rounded-3">
+        </div>
+        <div class="d-flex gap-2 align-items-center mb-3">
+            <div>
+                <p class="fs-3">{{ artist.category.name }}</p>
+            </div>
+        </div>
+        <div class="mb-5">
+            <p class="fs-3">Biographie</p>
+            <p class="fs-5">{{ artist.bio }}</p>
+        </div>
+        <div class="mb-5">
+            <p class="fs-3">Ville</p>
+            <p class="fs-5">{{ artist.city }}</p>
+        </div>
+        <div class="mb-5">
+            <p class="fs-3">Pays</p>
+            <p class="fs-5">{{ artist.country }}</p>
+        </div>
+        <div class="mb-5">
+            <p class="fs-3">Année d'existence</p>
+            <p class="fs-5">{{ artist.birthyear }}</p>
+        </div>
+        <div class="mb-5">
+            <p class="fs-3">Nombre de membres</p>
+            <p class="fs-5">{{ artist.number }}</p>
+        </div>
+        {# <div class="mb-5">
+            <p class="fs-3">Status</p>
+            <p class="fs-5">{{ artist.professional ? 'Oui' : 'Non' }}</p>
+        </div> #}
 
-            <tr>
-                <th>Téléphone de l'artiste</th>
-                <td>{{ artist.phone }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <!-- Instruments -->
+        <div class="row mb-5">
+            <div class="col-md-8 border-end">
+            <p class="fs-3">Instruments</p>
+            {% if artist.instrument is defined %}
+                {% for instrument in artist.instrument %}
+                <p class="fs-5">• {{ instrument.name|capitalize }}</p>
+                {% endfor %}
+            {% else %}
+                <p class="fs-5">No instruments found.</p>
+            {% endif %}
+            </div>
+        </div>
 
-    <h2>Média</h2>
-    <ul>
-        {% for media in project.medias %}
-            <li>
-                {{ media.title }}
-                <!-- Afficher d'autres propriétés de la tâche si nécessaire -->
-            </li>
-        {% endfor %}
-    </ul>
+        <!-- Styles musicaux -->
+        <div class="row mb-5">
+            <div class="col-md-8 border-end">
+            <p class="fs-3">Style musical</p>
+            {% if artist.musicalStyle is defined %}
+                {% for style in artist.musicalStyle %}
+                <p class="fs-5">• {{ style.name|capitalize }}</p>
+                {% endfor %}
+            {% else %}
+                <p class="fs-5">No musical styles found.</p>
+            {% endif %}
+            </div>
+        </div>
 
-    <a href="{{ path('app_artist_index') }}">retour à la liste des artist</a>
+        <!-- Types de prestations -->
+        <div class="row mb-5">
+            <div class="col-md-8 border-end">
+            <p class="fs-3">Type de prestation</p>
+            {% if artist.performance is defined %}
+                {% for performance in artist.performance %}
+                <p class="fs-5">• {{ performance.type|capitalize }}</p>
+                {% endfor %}
+            {% else %}
+                <p class="fs-5">No performances found.</p>
+            {% endif %}
+            </div>
+        </div>
 
-    <a href="{{ path('app_artist_edit', {'id': artist.id}) }}">modifier</a>
+        <!-- Types de prestations -->
+        <div class="row mb-5">
+            <div class="col-md-8 border-end">
+            <p class="fs-3">Type d'ensemble</p>
+            {% if artist.ensemble is defined %}
+                {% for ensemble in artist.ensemble %}
+                <p class="fs-5">• {{ ensemble.name|capitalize }}</p>
+                {% endfor %}
+            {% else %}
+                <p class="fs-5">No performances found.</p>
+            {% endif %}
+            </div>
+        </div>
 
-    {{ include('artist/_delete_form.html.twig') }}
+        <!-- Informations supplémentaires pour les utilisateurs connectés -->
+        {% if is_granted('ROLE_USER') %}
+            <div class="mb-5">
+                <p class="fs-3">Email de l'artiste</p>
+                <p class="fs-5">{{ artist.mail }}</p>
+            </div>
+            <div class="mb-5">
+                <p class="fs-3">Téléphone de l'artiste</p>
+                <p class="fs-5">{{ artist.phone }}</p>
+            </div>
+            <div class="mb-5">
+                <p class="fs-3">Réseaux Sociaux</p>
+                {% for socialNetwork in artist.socialNetwork %}
+                    <p class="fs-5">• {{ socialNetwork.name }}</p>
+                {% endfor %}
+            </div>
+            <div class="mb-5">
+                <p class="fs-3">Website</p>
+                {% for website in artist.websites %}
+                    <p class="fs-5">• <a href="{{ website.url }}">{{ website.url }}</a></p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {# Commented out price block until it is available #}
+        {# <div class="col-md-4">
+            <p class="fs-3">Price</p>
+            <p class="fs-5">{{ artist.price }} €</p>
+            <p class="fs-6">par nuit</p>
+        </div> #}
+    </div>
+
+    <a href="{{ path('app_artist_index') }}">retour à la liste des artistes</a>
+
+    {% if is_granted('ROLE_MUSICIAN') %}
+        <a href="{{ path('app_artist_edit', {'id': artist.id}) }}">modifier</a>
+    {% endif %}
+
+    {{ include('artist/_delete.html.twig') }}
 {% endblock %}

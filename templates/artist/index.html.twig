@@ -4,9 +4,9 @@
 {% endblock %}
 
 {% block body %}
-<main class="classrooms">
+<main class="p-5 mb-4 border-bottom border-2">
 	<div class="container">
-		<div class="col">
+		<div class="row">
 			{% for artist in artists %}
 				<div class="col-md-4 mb-4">
 					<div class="card">
@@ -14,7 +14,8 @@
 						<div class="card-body">
 							<h5 class="card-title">{{ artist.nickname }}</h5>
 							<p class="card-text">{{ artist.bio }}</p>
-							<a href="{{ path('artist_show', { id: artist.id }) }}" class="btn btn-primary">En savoir plus</a>
+							<h6 class="card-text">{{ artist.city }}</h6>
+							<a href="{{ path('app_artist_show', { id: artist.id }) }}" class="btn btn-primary">En savoir plus</a>
 						</div>
 					</div>
 				</div>
@@ -22,7 +23,7 @@
 		</div>
 	</div>
 				<div class="container">
-					{{ knp_pagination_render(artist) }}
+					{{ knp_pagination_render(artists) }}
 				</div>
     </main>
 {% endblock %}
