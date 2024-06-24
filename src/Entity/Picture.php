@@ -49,6 +49,12 @@ class Picture
         return $this;
     }
 
+    // __toString() allows to use the object as a string in forms
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
     public function getLink(): ?string
     {
         return $this->link;

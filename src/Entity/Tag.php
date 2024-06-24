@@ -45,6 +45,11 @@ class Tag
 
         return $this;
     }
+    // __toString() allows to use the object as a string in forms
+    public function __toString(): string
+    {
+        return $this->name;
+    }
 
     /**
      * @return Collection<int, Artist>
