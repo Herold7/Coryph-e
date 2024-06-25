@@ -14,141 +14,61 @@
 	</head>
 	<body class="bg-body-tertiary">
 		<div class="vh-100 d-flex flex-column align-items-center justify-content-center">
-			<img src="{{asset('./images/logo-noir.webp')}}" alt="Coryphée logo" width="200">
+			<img src="{{ asset('/images/logo/logo-noir2.jpeg') }}" alt="Coryphée logo" width="300">
 			<h1 class="text-center my-4">Completer votre profil</h1>
+			{% if app.user %}
             <p>
                 Juste quelques étapes supplémentaires afin de compléter votre profil et commencer à utiliser Coryphée.
             </p>
-			</p>
-			{{ form_start(form, {
-				'attr': {
-					'class': 'col-md-6 col-sm-10'}
-				}
-			) }}
-			{{ form_errors(form) }}
-			<div class="form-floating mb-2">
-				{{ form_widget(form.roles, {
-							attr: {
-								class: 'form-control',
-							},
-							'value': app.user.roles
-						}) }}
-				<label for="floatingInput">What kind of user are you?</label>
-			</div>
-			<div class="form-floating mb-2">
-				{{ form_widget(form.name, {
-							attr: {
-								class: 'form-control',
-							},
-							'value': app.user.name
-						}) }}
-				<label for="floatingInput">Votre nom</label>
-			</div>
-			<div class="form-floating mb-2">
-				{{ form_widget(form.corporateName, {
-							attr: {
-								class: 'form-control',
-							},
-							'value': app.user.corporateName
-						}) }}
-				<label for="floatingInput">Raison social</label>
-			</div>
-			<div class="form-floating mb-2">
-				{{ form_widget(form.siret, {
-							attr: {
-								class: 'form-control',
-							},
-							'value': app.user.siret
-						}) }}
-				<label for="floatingInput">Votre numéro de siret</label>
-			</div>
-			<div class="form-floating mb-2">
-				{{ form_widget(form.phone, {
-							attr: {
-								class: 'form-control',
-							},
-							'value': app.user.phone
-						}) }}
-				<label for="floatingInput">Votre numéro de téléphone</label>
-			</div>
-            <div class="form-floating mb-2">
-				{{ form_widget(form.address, {
-							attr: {
-								class: 'form-control',
-							},
-							'value': app.user.address
-						}) }}
-				<label for="floatingInput">Votre adresse</label>
-			</div>
-            <div class="form-floating mb-2">
-				{{ form_widget(form.additionalAddress, {
-							attr: {
-								class: 'form-control',
-							},
-							'value': app.user.additionalAddress
-						}) }}
-				<label for="floatingInput">Complément d'adresse</label>
-			</div>
-			<div class="form-floating mb-2">
-				{{ form_widget(form.city, {
-							attr: {
-								class: 'form-control',
-							},
-							'value': app.user.city
-						}) }}
-				<label for="floatingInput">Votre ville</label>
-			</div>
-			<div class="form-floating mb-2">
-				{{ form_widget(form.zip, {
-							attr: {
-								class: 'form-control',
-							},
-							'value': app.user.zip
-						}) }}
-				<label for="floatingInput">Votre code postal</label>
-			</div>
-			<div class="form-floating mb-2">
-				{{ form_widget(form.country, {
-							attr: {
-								class: 'form-control',
-							},
-							'value': app.user.country
-						}) }}
-				<label for="floatingInput">Votre pays</label>
-			</div>
-			<div class="input-group mb-2">
-				{{ form_widget(form.image, {
-							attr: {
-								class: 'form-control',
-							},
-							'value': app.user.image
-						}) }}
-				<label class="input-group-text">
-					<i class="bi bi-file-image"></i>
-				</label>
-			</div>
-            <div class="form-check mb-2">
-                <p>
-                    En envoyant ce formulaire, vous acceptez que Coryphée mémorise et utilise les informations collectées afin de traiter votre demande. Afin d'en savoir plus, vous pouvez cliquez sur notre politique de protection des donnees personnelles.
-                </p>
-                {{ form_widget(form.consent, {
-                    attr: {
-                        class: 'form-check-input',
-                    },
-                    'label_attr': {
-                        class: 'form-check-label',
-                    },
-                    'row_attr': {
-                        class: 'mb-2',
-                    },
-                    'value': app.user.consent
-                }) }}
-                <label class="form-check-label" for="{{ form.consent.vars.id }}">Oui, je donne mon consentement</label>
-            </div>
-			<button type="submit" class="mt-2 btn btn-dark btn-lg rounded-pill">
-				Enregistrer
-			</button>
-			{{ form_end(form) }}
+				{{ form_start(form, {'attr': {'class': 'col-md-6 col-sm-10'}}) }}
+				{{ form_errors(form) }}
+				<div class="form-floating mb-2">
+					{{ form_widget(form.name, {attr: {class: 'form-control'}, 'value': app.user.name}) }}
+					<label for="floatingInput">Votre nom</label>
+				</div>
+				<div class="form-floating mb-2">
+					{{ form_widget(form.corporateName, {attr: {class: 'form-control'}, 'required': false}) }}
+					<label for="floatingInput">Raison sociale</label>
+				</div>
+				<div class="form-floating mb-2">
+					{{ form_widget(form.siret, {attr: {class: 'form-control'}, 'required': false}) }}
+					<label for="floatingInput">Votre numéro de SIRET</label>
+				</div>
+				<div class="form-floating mb-2">
+					{{ form_widget(form.phone, {attr: {class: 'form-control'}, 'required': false}) }}
+					<label for="floatingInput">Votre numéro de téléphone</label>
+				</div>
+				<div class="form-floating mb-2">
+					{{ form_widget(form.address, {attr: {class: 'form-control'}, 'required': false}) }}
+					<label for="floatingInput">Votre adresse</label>
+				</div>
+				<div class="form-floating mb-2">
+					{{ form_widget(form.additionalAddress, {attr: {class: 'form-control'}, 'required': false}) }}
+					<label for="floatingInput">Complément d'adresse</label>
+				</div>
+				<div class="form-floating mb-2">
+					{{ form_widget(form.city, {attr: {class: 'form-control'}, 'value': app.user.city}) }}
+					<label for="floatingInput">Votre ville</label>
+				</div>
+				<div class="form-floating mb-2">
+					{{ form_widget(form.zip, {attr: {class: 'form-control'}, 'value': app.user.zip}) }}
+					<label for="floatingInput">Votre code postal</label>
+				</div>
+				<div class="form-floating mb-2">
+					{{ form_widget(form.country, {attr: {class: 'form-control'}, 'value': app.user.country, 'required': false}) }}
+					<label for="floatingInput">Votre pays</label>
+				</div>
+				<div class="input-group mb-2">
+					{{ form_widget(form.image, {attr: {class: 'form-control'}, 'value': app.user.image, 'required': false}) }}
+					<label class="input-group-text">
+						<i class="bi bi-file-image"></i>
+					</label>
+				</div>
+				<button type="submit" class="mt-2 btn btn-dark btn-lg rounded-pill">Enregistrer</button>
+				{{ form_end(form) }}
+			{% else %}
+				<p>Confirmer votre adresse email avant de compléter votre profil</p>
+			{% endif %}
 		</div>
 	</body>
-</html></body></html>
+</html>

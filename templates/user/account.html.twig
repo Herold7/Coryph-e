@@ -1,19 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mon profil
-{% endblock %}
+{% block title %}Mon profil{% endblock %}
 
 {% block body %}
 	<div class="container">
 		<div class="row pb-5">
 			<div class="col-lg-8 vstack gap-4 mt-5">
+				{% if app.user %}
 				<div class="card">
 					<div class="card-body py-3">
 						<div class="d-sm-flex align-items-start text-center text-sm-start">
 							<div>
 								<div class="avatar avatar-xxl profile-n-3 mb-3">
-									<img class="avatar-img rounded-circle border border-white border-3" 
-									src="/uploads/users/{{ app.user.image }}" width="150">
+									<img class="avatar-img rounded-circle border border-white border-3" src="/uploads/users/{{ app.user.image }}" width="150">
 								</div>
 							</div>
 							<div class="ms-sm-4 mt-sm-3">
@@ -27,27 +26,24 @@
 								<p>{{ app.user.email }}</p>
 							</div>
 							<div class="d-flex mt-3 justify-content-center ms-sm-auto">
-								<button class="btn btn-danger-soft me-2" data-bs-toggle="modal" 
-								data-bs-target="#updateModal" type="button">
+								<button class="btn btn-danger-soft me-2" data-bs-toggle="modal" data-bs-target="#updateModal" type="button">
 									<i class="bi bi-pencil-fill pe-1"></i>
-									Update
+									Mettre à jour
 								</button>
 							</div>
 						</div>
 						<ul class="list-inline mb-0 text-center text-sm-start mt-3 mt-sm-0">
 							<li class="list-inline-item">
-								<i class="bi bi-briefcase me-1"></i>
-								{{ app.user.siret }}
+								<i class="bi bi-phone"></i>
+								{{ app.user.phone }}
 							</li>
 							<li class="list-inline-item">
 								<i class="bi bi-geo-alt me-1"></i>
-								Live in
+								{{ app.user.address }}
+								{{ app.user.additionalAddress }}
 								{{ app.user.city }}
-							</li>
-							<li class="list-inline-item">
-								<i class="bi bi-cake2"></i>
+								{{ app.user.zip }}
 								{{ app.user.country }}
-								yo
 							</li>
 						</ul>
 					</div>
@@ -58,12 +54,12 @@
 						<div class="card">
 							<div class="card-header d-sm-flex justify-content-between align-items-center border-0">
 								<h5 class="card-title">
-									Your favorites
+									Vos favoris
 									<span class="badge bg-danger bg-opacity-10 text-danger">
 										{{ app.user.favorites|length }}
 									</span>
 								</h5>
-								<a class="btn btn-primary-soft btn-sm" href={{ path('favorites') }}>
+								<a class="btn btn-primary-soft btn-sm" href="{{ path('favorites') }}">
 									En voir plus
 								</a>
 							</div>
@@ -77,20 +73,17 @@
 													{{ dump(item.id) }}
 												</div>
 												<div class="card-footer p-2 border-0">
-													<button class="btn btn-sm btn-custom rounded-pill" 
-													data-bs-toggle="tooltip" data-bs-placement="top">
+													<button class="btn btn-sm btn-custom rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
 														<i class="bi bi-eye"></i>
 														Check it
-									                </button>
-													<button class="btn btn-sm btn-dark rounded-pill" 
-													data-bs-toggle="tooltip" data-bs-placement="top">
+													</button>
+													<button class="btn btn-sm btn-dark rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
 														<i class="bi bi-trash"></i>
 														Supprimer
 													</button>
 												</div>
 											</div>
 										</div>
-
 									{% endfor %}
 								</div>
 							</div>
@@ -115,22 +108,19 @@
 								</div>
 								<div class="card-body position-relative pt-3">
 									<div class="row g-3">
-
 										<div class="col-md-4 col-sm-12">
 											<div class="card shadow-none text-center h-100">
 												<div class="card-body p-2">
 													<img src="https://placehold.co/250" class="img-fluid">
 												</div>
 												<div class="card-footer p-2 border-0">
-													<button class="btn btn-sm btn-success rounded-pill" 
-													data-bs-toggle="tooltip" data-bs-placement="top">
+													<button class="btn btn-sm btn-success rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
 														<i class="bi bi-pencil"></i>
 														Manage
 													</button>
 												</div>
 											</div>
 										</div>
-
 									</div>
 								</div>
 								<!-- Card body END -->
@@ -138,6 +128,9 @@
 						</div>
 					{% endif %}
 				</div>
+				{% else %}
+					<p>Vous devez être connecté pour voir ces informations.</p>
+				{% endif %}
 			</div>
 		</div>
 	</div>
@@ -150,17 +143,16 @@
 				</div>
 				<div class="modal-body">
 					{{ form_start(form) }}
-						{{ form_row(form.roles) }}
 						{{ form_row(form.name) }}
-						{{ form_row(form.corporateName) }}
-						{{ form_row(form.siret) }}
+						{{ form_row(form.corporateName, {'required': false}) }}
+						{{ form_row(form.siret, {'required': false}) }}
 						{{ form_row(form.phone) }}
-						{{ form_row(form.address) }}
-						{{ form_row(form.additionalAddress) }}
+						{{ form_row(form.address, {'required': false}) }}
+						{{ form_row(form.additionalAddress, {'required': false}) }}
 						{{ form_row(form.city) }}
 						{{ form_row(form.zip) }}
 						{{ form_row(form.country) }}
-						{{ form_row(form.image) }}
+						{{ form_row(form.image, {'required': false}) }}
 						<button type="submit" class="btn btn-primary">Sauvegardez les modifications</button>
 					{{ form_end(form) }}
 				</div>
@@ -170,8 +162,4 @@
 			</div>
 		</div>
 	</div>
-
-	{% block footer %}
-		{% include 'components/footer-city.html.twig' %}
-	{% endblock %}
 {% endblock %}
