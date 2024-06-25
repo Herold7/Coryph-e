@@ -19,7 +19,7 @@ class ProfileService// Service pour la gestion du profil utilisateur
         $user->setSiret($form->get('siret')->getData());
         $user->setPhone($form->get('phone')->getData());
         $user->setAddress($form->get('address')->getData());
-        $user->setAdditionalAddress($form->get('additionnalAddress')->getData());
+        $user->setAdditionalAddress($form->get('additionalAddress')->getData());
         $user->setCity($form->get('city')->getData());
         $user->setZip($form->get('zip')->getData());
         $user->setCountry($form->get('country')->getData());
@@ -37,13 +37,6 @@ class ProfileService// Service pour la gestion du profil utilisateur
             } else {
                 $user->setImage($user->getImage());
             }
-        }
-
-        // Definir les rôles
-        if($form->get('roles')->getData() == 'artist') {
-            $user->setRoles(['ROLE_MUSICIAN']);
-        } else {
-            $user->setRoles(['ROLE_USER']);
         }
         
         $em->persist($user);// Enregistrer les modifications
