@@ -40,46 +40,55 @@ class ArtistType extends AbstractType
             ->add('nickname', TextType::class, [
                 'label' => 'Pseudo',
                 'attr' => [
+                    'class' => 'form-control  mb-2',
                     'placeholder' => 'Votre pseudo'
                 ]
             ])
             ->add('number', TextType::class, [
                 'label' => 'Numéro',
                 'attr' => [
+                    'class' => 'form-control  mb-2',
                     'placeholder' => 'Votre numéro'
                 ]
             ])
             ->add('professionnal', CheckboxType::class, [
                 'label' => 'Professionnel',
                 'required' => false,
+                'attr' => [
+                    'class' => 'form-control  mb-2',
+                ]
             ])
             ->add('city', TextType::class, [
                 'label' => 'Ville',
                 'attr' => [
+                    'class' => 'form-control  mb-2',
                     'placeholder' => 'Votre ville'
                 ]
             ])
             ->add('country', TextType::class, [
                 'label' => 'Pays',
                 'attr' => [
+                    'class' => 'form-control  mb-2',
                     'placeholder' => 'Votre pays'
                 ]
             ])
             ->add('phone', TextType::class, [
                 'label' => 'Téléphone',
                 'attr' => [
+                    'class' => 'form-control  mb-2',
                     'placeholder' => 'Votre téléphone'
                 ]
             ])
             ->add('mail', TextType::class, [
                 'label' => 'Email',
                 'attr' => [
+                    'class' => 'form-control  mb-2',
                     'placeholder' => 'Votre email'
                 ]
             ])
             ->add('bio', TextType::class, [
                 'label' => 'Biographie',
-                'attr' => [
+                'attr' => ['class' => 'form-control  mb-2',
                     'placeholder' => 'Votre biographie'
                 ]
             ])
@@ -87,7 +96,7 @@ class ArtistType extends AbstractType
                 'widget' => 'choice',
                 'year' => '1900',
                 'label' => 'Année de naissance',
-                'attr' => [
+                'attr' => ['class' => 'form-control  mb-2',
                     'placeholder' => 'Votre année de naissance'
                 ]
             ])

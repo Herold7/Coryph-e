@@ -37,41 +37,25 @@
 				{{ form_errors(registrationForm) }}
 
 				{{ form_start(registrationForm, {
-                    attr:{
-                        class: 'col-4 m-auto',
-                    } 
-                }) }}
+					attr: {
+						class: 'col-4 m-auto login-form'
+					}
+				}) }}
+				<div class="form-floating mb-2">
+					{{ form_row(registrationForm.roles, 
+					{'attr': {'class': 'form-control'}, 'label': 'Votre rôle'}) }}
+				</div>
 
 				<div class="form-floating mb-2">
-					{{ form_widget(registrationForm.email, {
-                            attr: {
-                                class: 'form-control',
-                            },
-                        }) }}
-					<label for="floatingInput">Renseignez votre email ?</label>
+					{{ form_row(registrationForm.email, 
+					{'attr': {'class': 'form-control'}, 'label': 'Votre email'}) }}
 				</div>
-				<!-- END OF EMAIL INPUT -->
 
 				<div class="form-floating mb-2">
-					{{ form_widget(registrationForm.plainPassword, {
-                            attr: {
-                                class: 'form-control',
-                            }
-                        }) }}
-					<label for="floatingPassword">Renseignez votre mot de passe</label>
+					{{ form_row(registrationForm.plainPassword, 
+					{'label': 'Votre mot de passe', 'attr': {'class': 'form-control'}}) }}
 				</div>
-				<!-- END OF PASSWORD INPUT -->
-
-				<div id="passwordHelpBlock" class="form-text mb-2 visually-hidden">
-					<p class="fw-light text-body-secondary">Votre mot de passe doit contenir :<br>
-						- au moins 1 majuscule lettre<br>
-						- au moins 1 minuscule lettre<br>
-						- au moins 1 chiffre<br>
-						- au moins 1 caractère spécial<br>- au moins 8 caractères
-					</p>
-				</div>
-				<!-- END OF PASSWORD HELP BLOCK -->
-
+				
 				<div
 					class="mb-3 form-check">
 					<!-- TODO: add route to terms and conditions -->
@@ -99,11 +83,9 @@
 					</p>
 				</div>
 			{% endif %}
-
-			<p class="mt-5 mb-3 text-body-secondary text-center">&copy;
-				{{ 'now'|date('Y') }}</p>
 		</div>
 
 	</div>
+
 {% endblock %}
 
