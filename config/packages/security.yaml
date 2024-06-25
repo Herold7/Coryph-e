@@ -30,7 +30,7 @@ security:
             logout:
                 path: app_logout
                 # where to redirect after logout
-                target: app_page
+                target: app_home
 
             remember_me:
                 secret: '%env(APP_SECRET)%'
