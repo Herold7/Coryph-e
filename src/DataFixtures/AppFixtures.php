@@ -35,7 +35,7 @@ class AppFixtures extends Fixture
         $admin = new User();
         $admin->setEmail('admin@admin.fr')
             ->setRoles(['ROLE_ADMIN'])
-            ->setPassword('$2y$13$ZFP4HUpiREYrRtQm/W8UY.5uUjzCtjEydgwxibsy8GbAL0Z509p4G')
+            ->setPassword('$2y$13$PYiOXXJt47RU62nPberC3.6x4MogOysbGqdXvyKMBCb4qy9Tp1IM6')
             ->setName('Herold')
             ->setCorporateName($faker->company)
             ->setSiret($faker->siret)
@@ -55,7 +55,7 @@ class AppFixtures extends Fixture
             $musician->setName($name)
                 ->setEmail($name . '@' . $faker->freeEmailDomain())
                 ->setRoles(['ROLE_MUSICIAN'])
-                ->setPassword('$2y$13$ZFP4HUpiREYrRtQm/W8UY.5uUjzCtjEydgwxibsy8GbAL0Z509p4G')
+                ->setPassword('$2y$13$PYiOXXJt47RU62nPberC3.6x4MogOysbGqdXvyKMBCb4qy9Tp1IM6')
                 ->setImage('artist.webp')
                 ->setCorporateName($faker->company)
                 ->setSiret($faker->siret)
@@ -186,7 +186,7 @@ class AppFixtures extends Fixture
                     $user = new User();
                     $user->setEmail($name . '@' . $faker->freeEmailDomain())
                         ->setRoles(['ROLE_USER'])
-                        ->setPassword('$2y$13$ZFP4HUpiREYrRtQm/W8UY.5uUjzCtjEydgwxibsy8GbAL0Z509p4G')
+                        ->setPassword('$2y$13$PYiOXXJt47RU62nPberC3.6x4MogOysbGqdXvyKMBCb4qy9Tp1IM6')
                         ->setImage(rand(0, 1) ? 'avatar-particulier.webp' : 'avatar-producteur.webp')
                         ->setName($faker->firstname)
                         ->setCorporateName($faker->company)
