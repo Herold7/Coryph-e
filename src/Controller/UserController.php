@@ -24,7 +24,7 @@ class UserController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
             $profileService->updateProfile($form, $this->getUser(), $em);
             
-            $this->addFlash('success', 'Your profile has been updated');
+            $this->addFlash('success', 'Votre profil a été modifié');
             return $this->redirectToRoute('account');
         }
         return $this->render('user/profile.html.twig', [
