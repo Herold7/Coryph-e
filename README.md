@@ -103,8 +103,8 @@ This entity represents an artist.
 | birthyear     | integer    |                      |               |
 | created_at    | datetime   | NOT NULL             |               |
 | updated_at    | datetime   |                      |               |
-| user          | ManyToOne  | NOT NULL, OrphanTrue | User          |
-| category      | ManyToOne  | NOT NULL             | Category      |
+| musician      | ManyToOne  | NOT NULL, OrphanTrue | User          |
+| category      | ManyToMany | NOT NULL             | Category      |
 | tag           | ManyToMany |                      | Tag           |
 | favorite      | ManyToMany |                      | Favorite      |
 | musicalStyle  | ManyToMany | NOT NULL             | MusicalStyle  |
@@ -165,12 +165,12 @@ This entity represents an event in which an artist participates.
 
 This entity represents the category of the artists.
 
-| Property    | Type      | Description  | Relation |
-|-------------|-----------|--------------|----------|
-| name        | string    | 50 NOT NULL  |          |
-| image       | string    | 255 NOT NULL |          |
-| description | string    | 255          |          |
-| artists     | OneToMany | NOT NULL     | Artist   |
+| Property    | Type       | Description  | Relation |
+|-------------|------------|--------------|----------|
+| name        | string     | 50 NOT NULL  |          |
+| image       | string     | 255 NOT NULL |          |
+| description | string     | 255          |          |
+| artists     | ManyToMany | NOT NULL     | Artist   |
 
 ---
 
