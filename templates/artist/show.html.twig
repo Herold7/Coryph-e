@@ -3,6 +3,7 @@
 {% block title %}Artistes{% endblock %}
 
 {% block body %}
+<main class="p-5 mb-4 border-bottom border-2">
     <div class="p-5 mb-4 border-bottom border-2">
         <h1 class="fs-1">
             {{ artist.nickname }}
@@ -13,11 +14,13 @@
         <div class="row mb-3">
             <img src="{{ asset('/uploads/artists/')}}{{ artist.image }}" alt="{{ artist.nickname }}" class="img-fluid rounded-3">
         </div>
-        <div class="d-flex gap-2 align-items-center mb-3">
-            <div>
-                <p class="fs-3">{{ artist.category.name }}</p>
-            </div>
-        </div>
+            {# {% if artist.category is defined %}
+                <div class="d-flex gap-2 align-items-center mb-3">
+                    <div>
+                <p class="fs-3">{{ artist.category.name}}</p>
+                    </div>
+                </div>
+            {% endif %} #}
         <div class="mb-5">
             <p class="fs-3">Biographie</p>
             <p class="fs-5">{{ artist.bio }}</p>
@@ -131,11 +134,13 @@
         </div> #}
     </div>
 
-    <a href="{{ path('app_artist_index') }}">retour à la liste des artistes</a>
-
-    {% if is_granted('ROLE_MUSICIAN') %}
-        <a href="{{ path('app_artist_edit', {'id': artist.id}) }}">modifier</a>
+    <div class="row">
+        <div class="col"><a href="{{ path('app_artist_index') }}" class="btn btn-primary">retour à la liste des artistes</a></div>
+    {# and artist.user == app.user #}
+        {% if is_granted('ROLE_MUSICIAN')  %}
+            <div class="col"><a href="{{ path('app_artist_edit', {'id': artist.id}) }}" class="btn btn-success">modifier</a></div>
+            <div class="col">{{ include('artist/_delete.html.twig')}}</div> 
+    </div>
     {% endif %}
-
-    {{ include('artist/_delete.html.twig') }}
+</main>
 {% endblock %}
