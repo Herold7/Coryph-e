@@ -23,7 +23,7 @@ class RegistrationFormType extends AbstractType
             'label' => 'Je suis un :',
             'mapped' => false,
             'choices' => [
-                'Artiste' => 'artist',
+                'Artiste' => 'musician',
                 'Producteur' => 'user',
                 'Particulier' => 'user',
             ],
