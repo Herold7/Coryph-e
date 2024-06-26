@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Entity\Audio;
 use App\Entity\Video;
 use App\Entity\Artist;
+use DateTimeImmutable;
 use App\Entity\Picture;
 use App\Entity\Website;
 use App\Entity\Category;
@@ -18,7 +19,6 @@ use App\Entity\MusicalStyle;
 use App\Entity\EventPlatform;
 use App\Entity\MusicPlatform;
 use App\Entity\SocialNetwork;
-use DateTimeImmutable;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -27,16 +27,19 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Text;
+use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
-use Symfony\Polyfill\Intl\Icu\DateFormat\YearTransformer;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Text;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class ArtistType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
-        $builder
+    {// Formulaire d'inscription d'un artiste
+        $builder 
             ->add('nickname', TextType::class, [
                 'label' => 'Pseudo',
                 'attr' => [
@@ -51,11 +54,16 @@ class ArtistType extends AbstractType
                     'placeholder' => 'Votre numéro'
                 ]
             ])
-            ->add('professionnal', CheckboxType::class, [
+            ->add('professionnal', ChoiceType::class, [
                 'label' => 'Professionnel',
-                'required' => false,
+                'mapped' => false,
+                'choices' => [
+                    '<-- sélectionnez l\'une des deux options -->' => null,
+                    'Oui' => true,
+                    'Non' => false,
+                ],
                 'attr' => [
-                    'class' => 'form-control  mb-2',
+                    'class' => 'form-control form-check',
                 ]
             ])
             ->add('city', TextType::class, [
@@ -92,27 +100,26 @@ class ArtistType extends AbstractType
                     'placeholder' => 'Votre biographie'
                 ]
             ])
-            ->add('birthyear', BirthdayType::class, [
-                'widget' => 'choice',
-                'year' => '1900',
+            ->add('birthyear', IntegerType::class, [
+                
                 'label' => 'Année de naissance',
                 'attr' => ['class' => 'form-control  mb-2',
                     'placeholder' => 'Votre année de naissance'
                 ]
             ])
                 
-            ->add('image', FileType::class, [
+            ->add('image', FileType::class, [// Ajouter une image
                 'label' => 'Your profile picture',
                 'mapped' => false,
                 'required' => false,
                 'attr' => [
                     'class' => 'form-control-file mb-2'
                 ],
-                'constraints' => [
+                'constraints' => [// Contraintes sur le fichier
                     new File([
-                        'maxSize' => '1024k',
+                        'maxSize' => '2048k',// Taille maximale du fichier
                         'maxSizeMessage' => 'The file is too large ({{ size }} {{ suffix }}). Allowed maximum size is {{ limit }} {{ suffix }}.',
-                        'mimeTypes' => [
+                        'mimeTypes' => [// Types de fichiers autorisés
                             'image/*',
                         ],
                         'mimeTypesMessage' => 'Please upload a valid image',
@@ -123,57 +130,62 @@ class ArtistType extends AbstractType
                 'widget' => 'single_text',
                 'data' => new \DateTime(),
             ])
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
-            ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'name',
-                'multiple' => false,
-                'expand'=> false,
+                'multiple'=> true,
+                'expanded'=> true,
+                'by_reference' => false,
+                
             ])
             ->add('musicalStyle', EntityType::class, [
                 'class' => MusicalStyle::class,
+                'required' => false,
                 'choice_label' => 'name',
-                'multiple' => true,
-                'expand'=> true,
+                'multiple'=> true,
+                
             ])
             ->add('instrument', EntityType::class, [
                 'class' => Instrument::class,
+                'required' => false,
                 'choice_label' => 'name',
-                'multiple' => true,
-                'expand'=> true,
+                'multiple'=> true,
+                
             ])
             ->add('ensemble', EntityType::class, [
                 'class' => Set::class,
+                'required' => false,
                 'choice_label' => 'name',
-                'multiple' => true,
-                'expand'=> true,
+                'multiple'=> true,
+                
             ])
             ->add('performance', EntityType::class, [
                 'class' => Performance::class,
+                'required' => false,
                 'choice_label' => 'type',
-                'multiple' => true,
-                'expand'=> true,
+                'multiple'=> true,
+                
             ])
             ->add('socialNetwork', EntityType::class, [
                 'class' => SocialNetwork::class,
+                'required' => false,
                 'choice_label' => 'name',
-                'multiple' => true,
-                'expand'=> true,
+                'multiple'=> true,
+                
             ])
             ->add('musicPlatform', EntityType::class, [
                 'class' => MusicPlatform::class,
+                'required' => false,
                 'choice_label' => 'name',
-                'multiple' => true,
-                'expand'=> true,
+                'multiple'=> true,
+                
             ])
             ->add('eventPlatform', EntityType::class, [
                 'class' => EventPlatform::class,
+                'required' => false,
                 'choice_label' => 'name',
-                'multiple' => true,
-                'expand'=> true,
+                'multiple'=> true,
+                
             ])
         ;
     }
