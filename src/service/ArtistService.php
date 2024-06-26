@@ -12,7 +12,7 @@ class ArtistService// Service pour la gestion du profil artiste
         $this->parameterBag = $parameterBag;
     }
 
-    public function updateArtist($form, $artist, $em)
+    public function createArtist($form, $artist, $em)
     {// gérer la mise à jour du profil artiste (hydrater l'objet Artist)
         $artist->setNickname($form->get('nickname')->getData());
         $artist->setNumber($form->get('number')->getData());
@@ -33,7 +33,7 @@ class ArtistService// Service pour la gestion du profil artiste
             $artist->setImage($filename);
         } else {
             if($artist->getImage() == null) {
-                $artist->setImage('default.png');
+                $artist->setImage('avatar-chant.webp');
             } else {
                 $artist->setImage($artist->getImage());
             }
