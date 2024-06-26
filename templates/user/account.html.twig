@@ -102,28 +102,50 @@
 											{{ app.user.artists | length }}
 										</span>
 									</h5>
-									<a class="btn btn-primary-soft btn-sm" href="#">
-										En voir plus
+									<a class="btn btn-primary btn-sm" href="{{ path('app_artist_new') }}">
+										Créer une fiche artiste
+									</a>
 									</a>
 								</div>
-								<div class="card-body position-relative pt-3">
-									<div class="row g-3">
-										<div class="col-md-4 col-sm-12">
-											<div class="card shadow-none text-center h-100">
-												<div class="card-body p-2">
-													<img src="https://placehold.co/250" class="img-fluid">
-												</div>
-												<div class="card-footer p-2 border-0">
-													<button class="btn btn-sm btn-success rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
-														<i class="bi bi-pencil"></i>
-														Manage
-													</button>
+								{% if app.user.artists is defined %}
+    								{% for artist in app.user.artists %}
+									<div class="card-body position-relative pt-3">
+										<div class="row g-3">
+											<div class="col-md-4 col-sm-12">
+												<div class="card shadow-none text-center h-100">
+													<div class="card-body p-2">
+														<img src="/uploads/artists/{{ artist.image }}" class="img-fluid">
+													</div>
+													<div class="card-text">
+														<h1 class="fs-3">
+															{{ artist.nickname }}
+														</h1>
+														<p>{{ artist.bio }}</p>
+														<p>{{ artist.city }}</p>
+													<div>  {% if artist.musicalStyle is defined %}
+															{% for style in artist.musicalStyle %}
+																<p class="fs-5"> {{ style.name|capitalize }}</p>
+																{% endfor %}
+																{% else %}
+																	<p class="fs-5">No musical styles found.</p>
+															{% endif %}
+														</div>
+													</div>
+													<div class="card-footer p-2 border-0">
+														<a href="{{ path('app_artist_edit', {'id': artist.id}) }}">
+														<button class="btn btn-sm btn-success rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
+															<i class="bi bi-pencil"></i>
+															Manage
+														</button>
+														</a>
+													</div>
 												</div>
 											</div>
 										</div>
-									</div>
-								</div>
-								<!-- Card body END -->
+									</div>								
+									<!-- Card body END -->
+    								{% endfor %}
+								{% endif %}
 							</div>
 						</div>
 					{% endif %}
