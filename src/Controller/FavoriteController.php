@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controller;
-
+use App\Entity\User;
 use App\Entity\Favorite;
 use App\Entity\Artist;
 use App\Repository\FavoriteRepository;
@@ -40,7 +40,7 @@ class FavoriteController extends AbstractController
         }
 
         $previous = $request->headers->get('referer');
-        $user = $this->getUser();
+        $user = new User();
         
         $newFavorite = new Favorite();
         $newFavorite->setUser($user);
@@ -50,7 +50,7 @@ class FavoriteController extends AbstractController
         $em->persist($newFavorite);
         $em->flush();
 
-        $this->addFlash('success', 'artist added to favorites successfully.');
+        $this->addFlash('success', 'L\artiste a été ajouté à vos favoris.');
         return $this->redirect($previous);
     }
 
@@ -66,7 +66,7 @@ class FavoriteController extends AbstractController
         }
 
         $previous = $request->headers->get('referer');
-        $user = $this->getUser();
+        $user = new User();
 
         $favorite = $favoriteRepository->findOneBy([
             'user' => $user
@@ -77,7 +77,7 @@ class FavoriteController extends AbstractController
             $em->persist($user);
             $em->remove($favorite);
             $em->flush();
-            $this->addFlash('success', 'artist removed from favorites successfully.');
+            $this->addFlash('success', 'L\'artiste a été retiré de vos favoris.');
         }
 
         // Redirect to the last page visited by the user
