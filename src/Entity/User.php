@@ -137,12 +137,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?DateTimeInterface $updated_at = null;
 
     /**
-     * @var Collection<int, Artist>
-     */
-    #[ORM\OneToMany(targetEntity: Artist::class, mappedBy: 'user', orphanRemoval: true)]
-    private Collection $artists;
-
-    /**
      * @var Collection<int, Review>
      */
     #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'user')]
@@ -157,11 +151,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Favorite::class, mappedBy: 'user')]
     private Collection $favorites;
 
+    /**
+     * @var Collection<int, Artist>
+     */
+    #[ORM\OneToMany(mappedBy: 'musician', targetEntity: Artist::class, cascade: ['persist', 'remove'])]
+    private Collection $artists;
+
     public function __construct()
     {
-        $this->artists = new ArrayCollection();
         $this->reviews = new ArrayCollection();
         $this->favorites = new ArrayCollection();
+        $this->artists = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -395,35 +395,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Artist>
-     */
-    public function getArtists(): Collection
-    {
-        return $this->artists;
-    }
 
-    public function addArtist(Artist $artist): static
-    {
-        if (!$this->artists->contains($artist)) {
-            $this->artists->add($artist);
-            $artist->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeArtist(Artist $artist): static
-    {
-        if ($this->artists->removeElement($artist)) {
-            // set the owning side to null (unless already changed)
-            if ($artist->getUser() === $this) {
-                $artist->setUser(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Review>
@@ -501,5 +473,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __toString(): string
     {
         return $this->name;
+    }
+
+    /**
+     * @return Collection<int, Artist>
+     */
+    public function getArtists(): Collection
+    {
+        return $this->artists;
+    }
+
+    public function addArtist(Artist $artist): static
+    {
+        if (!$this->artists->contains($artist)) {
+            $this->artists->add($artist);
+            $artist->setMusician($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArtist(Artist $artist): static
+    {
+        if ($this->artists->removeElement($artist)) {
+            // set the owning side to null (unless already changed)
+            if ($artist->getMusician() === $this) {
+                $artist->setMusician(null);
+            }
+        }
+
+        return $this;
     }
 }

@@ -30,7 +30,7 @@ class Artist
     #[ORM\Column]
     private ?int $number = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?bool $professional = null;
 
     #[ORM\Column(length: 50, nullable: true)]
@@ -67,7 +67,7 @@ class Artist
     private ?string $mail = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $image = 'avatar-chant.webp';
+    private ?string $image = null;
     
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $bio = null;
@@ -80,10 +80,6 @@ class Artist
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updated_at = null;
-
-    #[ORM\ManyToOne(inversedBy: 'artists')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $user = null;
 
     /**
      * @var Collection<int, Tag>
@@ -100,46 +96,46 @@ class Artist
     /**
      * @var Collection<int, MusicalStyle>
      */
-    #[ORM\ManyToMany(targetEntity: MusicalStyle::class, inversedBy: 'artists')]
+    #[ORM\ManyToMany(targetEntity: MusicalStyle::class, inversedBy: 'artists', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private Collection $musicalStyle;
 
     /**
      * @var Collection<int, Instrument>
      */
-    #[ORM\ManyToMany(targetEntity: Instrument::class, inversedBy: 'artists')]
+    #[ORM\ManyToMany(targetEntity: Instrument::class, inversedBy: 'artists', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private Collection $instrument;
 
     /**
      * @var Collection<int, Set>
      */
-    #[ORM\ManyToMany(targetEntity: Set::class, inversedBy: 'artists')]
+    #[ORM\ManyToMany(targetEntity: Set::class, inversedBy: 'artists', cascade: ['persist', 'remove'])]
     private Collection $ensemble;
 
     /**
      * @var Collection<int, Performance>
      */
-    #[ORM\ManyToMany(targetEntity: Performance::class, inversedBy: 'artists')]
+    #[ORM\ManyToMany(targetEntity: Performance::class, inversedBy: 'artists', cascade: ['persist', 'remove'])]
     private Collection $performance;
 
 
     /**
      * @var Collection<int, SocialNetwork>
      */
-    #[ORM\ManyToMany(targetEntity: SocialNetwork::class, inversedBy: 'artists')]
+    #[ORM\ManyToMany(targetEntity: SocialNetwork::class, inversedBy: 'artists', cascade: ['persist', 'remove'])]
     private Collection $socialNetwork;
 
     /**
      * @var Collection<int, MusicPlatform>
      */
-    #[ORM\ManyToMany(targetEntity: MusicPlatform::class, inversedBy: 'artists')]
+    #[ORM\ManyToMany(targetEntity: MusicPlatform::class, inversedBy: 'artists', cascade: ['persist', 'remove'])]
     private Collection $musicPlatform;
 
     /**
      * @var Collection<int, EventPlatform>
      */
-    #[ORM\ManyToMany(targetEntity: EventPlatform::class, inversedBy: 'artists')]
+    #[ORM\ManyToMany(targetEntity: EventPlatform::class, inversedBy: 'artists', cascade: ['persist', 'remove'])]
     private Collection $eventPlatform;
 
     /**
@@ -148,39 +144,45 @@ class Artist
     #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'artist')]
     private Collection $reviews;
 
-    #[ORM\ManyToOne(inversedBy: 'artists')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Category $category = null;
-
     /**
      * @var Collection<int, Event>
      */
-    #[ORM\ManyToMany(targetEntity: Event::class, inversedBy: 'artists')]
+    #[ORM\ManyToMany(targetEntity: Event::class, inversedBy: 'artists', cascade: ['persist', 'remove'])]
     private Collection $events;
 
     /**
      * @var Collection<int, Audio>
      */
-    #[ORM\OneToMany(targetEntity: Audio::class, mappedBy: 'artist')]
+    #[ORM\OneToMany(targetEntity: Audio::class, mappedBy: 'artist', cascade: ['persist', 'remove'])]
     private Collection $audios;
 
     /**
      * @var Collection<int, Picture>
      */
-    #[ORM\OneToMany(targetEntity: Picture::class, mappedBy: 'artist')]
+    #[ORM\OneToMany(targetEntity: Picture::class, mappedBy: 'artist', cascade: ['persist', 'remove'])]
     private Collection $pictures;
 
     /**
      * @var Collection<int, Video>
      */
-    #[ORM\OneToMany(targetEntity: Video::class, mappedBy: 'artist')]
+    #[ORM\OneToMany(targetEntity: Video::class, mappedBy: 'artist', cascade: ['persist', 'remove'])]
     private Collection $videos;
 
     /**
      * @var Collection<int, Website>
      */
-    #[ORM\OneToMany(targetEntity: Website::class, mappedBy: 'artist')]
+    #[ORM\OneToMany(targetEntity: Website::class, mappedBy: 'artist', cascade: ['persist', 'remove'])]
     private Collection $websites;
+
+    #[ORM\ManyToOne(inversedBy: 'artists')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $musician = null;
+
+    /**
+     * @var Collection<int, Category>
+     */
+    #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'artists', cascade: ['persist', 'remove'])]
+    private Collection $category;
 
     public function __construct()
     {
@@ -199,6 +201,7 @@ class Artist
         $this->pictures = new ArrayCollection();
         $this->videos = new ArrayCollection();
         $this->websites = new ArrayCollection();
+        $this->category = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -314,12 +317,12 @@ class Artist
         return $this;
     }
 
-    public function getBirthyear(): ?string
+    public function getBirthyear(): ?int
     {
         return $this->birthyear;
     }
 
-    public function setBirthyear(?string $birthyear): static
+    public function setBirthyear(?int $birthyear): static
     {
         $this->birthyear = $birthyear;
 
@@ -346,18 +349,6 @@ class Artist
     public function setUpdatedAt(?\DateTimeInterface $updated_at): static
     {
         $this->updated_at = $updated_at;
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): static
-    {
-        $this->user = $user;
 
         return $this;
     }
@@ -608,17 +599,6 @@ class Artist
         return $this;
     }
 
-    public function getCategory(): ?Category
-    {
-        return $this->category;
-    }
-
-    public function setCategory(?Category $category): static
-    {
-        $this->category = $category;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Event>
@@ -760,6 +740,42 @@ class Artist
                 $website->setArtist(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMusician(): ?User
+    {
+        return $this->musician;
+    }
+
+    public function setMusician(?User $musician): static
+    {
+        $this->musician = $musician;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Category>
+     */
+    public function getCategory(): Collection
+    {
+        return $this->category;
+    }
+
+    public function addCategory(Category $category): static
+    {
+        if (!$this->category->contains($category)) {
+            $this->category->add($category);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): static
+    {
+        $this->category->removeElement($category);
 
         return $this;
     }
