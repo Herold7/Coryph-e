@@ -41,7 +41,7 @@ class RegistrationController extends AbstractController
 
             // encode the role
             $role = $form->get('roles')->getData();
-            if ($role === 'artist') {
+            if ($role === 'musician') {
                 $user->setRoles(['ROLE_MUSICIAN']);
             } else {
                 $user->setRoles(['ROLE_USER']);
