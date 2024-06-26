@@ -19,8 +19,8 @@
 			{% endif %}
 			{# Musician info : img + nickname #}
 			<div class="card-musician-info d-flex gap-2 align-items-center">
-				<img src="{{ asset('uploads/users/') }}{{ item.musician.image }}" alt="{{ item.musician.nickname }} {{item.musician.city }}" class="rounded-pill">
-				<p class="text-white m-0">{{ item.artist.nickname }}</p>
+				<img src="{{ asset('uploads/users/') }}{{ item.musician.image }}" alt="{{ item.musician.name }} {{item.musician.city }}" class="rounded-pill">
+				<p class="text-white m-0">{{ item.artist.name }}</p>
 			</div>
 		</div>
 		<img src="{{ asset('uploads/artists/') }}{{ item.image }}" class="img-fluid rounded-4" alt="{{ item.title }}">
@@ -29,9 +29,9 @@
 	<div>
 	{% if is_granted('ROLE_MUSICIAN') %}
 	<a class="text-dark text-decoration-none" href={{ path('artist', { id : item.id}) }}>
-				<p class="fw-bold mt-3 mb-1 text-dark">{{ item.title|slice(0,30) }}...</p>
+				<p class="fw-bold mt-3 mb-1 text-dark">{{ item.nickname|slice(0,30) }}...</p>
 				<p class="text-dark mb-1">start from
-					<span class="fw-bold">{{ item.price }}€</span>
+					<span class="fw-bold">{{ item.category }}</span>
 					per night</p>
 				<p class="text-dark">Details
 					<i class="bi bi-arrow-right"></i>
