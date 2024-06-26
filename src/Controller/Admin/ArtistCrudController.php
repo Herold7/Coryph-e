@@ -64,8 +64,8 @@ class ArtistCrudController extends AbstractCrudController
                 ->hideOnForm()
                 ->setSortProperty('name'),
             ImageField::new('image')
-                ->setBasePath('uploads/users/')
-                ->setUploadDir('public/uploads/users/'),
+                ->setBasePath('uploads/artists/')
+                ->setUploadDir('public/uploads/artists/'),
         ];
     }
 }
