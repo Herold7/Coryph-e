@@ -6,14 +6,38 @@
 {% block body %}
 <main class="p-5 mb-4 border-bottom border-2">
 	<div class="container">
-		<div class="row">
+		<div class="row row-cols-1 row-cols-md-3 g-4">
 			{% for artist in artists %}
-				<div class="col-md-4 mb-4">
-					<div class="card">
-							<img class="card-img-top" src={{ asset('images/artist.webp') }} {{artist.image}} alt="{{ artist.nickname }}">
-						<div class="card-body">
+				<div class="col">
+					<div class="card h-100">
+								
+								<img class="card-img-top" src={{ asset('images/artist.webp') }} {{artist.image}} alt="{{ artist.nickname }}">
+							
+							<div class="card-body">
+							<div class=" d-flex justify-content-end">
+								{# Check favorite #}
+								{% if is_granted('IS_AUTHENTICATED_FULLY') %}	
+									{% if artist.Favorite(app.user) %}
+										<a class="text-end" href={{ path('remove_favorite', { artist: artist.id }) }}>
+											<i class="bi bi-heart-fill text-danger"></i>
+										</a>
+									{% else %}
+										<a class="text-end" href={{ path('add_favorite', { artist: artist.id }) }}>
+											<i class="bi bi-heart text-white"></i>
+										</a>
+									{% endif %}
+								{% else %}
+										<a class="text-end" href={{ path('add_favorite', { artist: artist.id }) }}>
+											<i class="bi bi-heart text-white"></i>
+										</a>
+								{% endif %}
+							</div>
 							<h5 class="card-title">{{ artist.nickname }}</h5>
-							<p class="card-text">{{ artist.bio }}</p>
+							{% if artist.bio is defined and artist.bio|length > 100 %}
+								<p class="card-text">{{ artist.bio|slice(0, 100) }}...</p>
+							{% elseif artist.bio is defined %}
+								<p class="card-text">{{ artist.bio }}</p>
+							{% endif %}
 							<h6 class="card-text">{{ artist.city }}</h6>
 							<a href="{{ path('app_artist_show', { id: artist.id }) }}" class="btn btn-primary">En savoir plus</a>
 						</div>
@@ -22,8 +46,10 @@
 			{% endfor %}
 		</div>
 	</div>
-				<div class="container">
-					{{ knp_pagination_render(artists) }}
-				</div>
+
+	{# pagination #}
+	<div class="container d-flex my-5 justify-content-center">
+		{{ knp_pagination_render(artists) }}
+	</div>
     </main>
 {% endblock %}
