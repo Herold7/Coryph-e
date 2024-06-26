@@ -27,7 +27,7 @@ class Category
     /**
      * @var Collection<int, Artist>
      */
-    #[ORM\OneToMany(targetEntity: Artist::class, mappedBy: 'category')]
+    #[ORM\ManyToMany(targetEntity: Artist::class, mappedBy: 'category')]
     private Collection $artists;
 
     public function __construct()
@@ -76,38 +76,37 @@ class Category
         return $this;
     }
 
-    /**
-     * @return Collection<int, Artist>
-     */
-    public function getArtists(): Collection
-    {
-        return $this->artists;
-    }
-
-    public function addArtist(Artist $artist): static
-    {
-        if (!$this->artists->contains($artist)) {
-            $this->artists->add($artist);
-            $artist->setCategory($this);
+        /**
+         * @return Collection<int, Artist>
+         */
+        public function getArtists(): Collection
+        {
+            return $this->artists;
         }
 
-        return $this;
-    }
-
-    public function removeArtist(Artist $artist): static
-    {
-        if ($this->artists->removeElement($artist)) {
-            // set the owning side to null (unless already changed)
-            if ($artist->getCategory() === $this) {
-                $artist->setCategory(null);
+        public function addArtist(Artist $artist): static
+        {
+            if (!$this->artists->contains($artist)) {
+                $this->artists->add($artist);
+                $artist->addCategory($this);
             }
+
+            return $this;
         }
 
-        return $this;
-    }
+        public function removeArtist(Artist $artist): static
+        {
+            if ($this->artists->removeElement($artist)) {
+                $artist->removeCategory($this);
+            }
+
+            return $this;
+        }
         // __toString() allows to use the object as a string in forms
         public function __toString(): string
         {
-            return $this->name;
+                return $this->name;
         }
+
 }
+
