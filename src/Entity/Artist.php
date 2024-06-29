@@ -91,7 +91,7 @@ class Artist
      * @var Collection<int, Favorite>
      */
     #[ORM\ManyToMany(targetEntity: Favorite::class, inversedBy: 'artists')]
-    private Collection $favorite;
+    private Collection $favorites;
 
     /**
      * @var Collection<int, MusicalStyle>
@@ -141,7 +141,7 @@ class Artist
     /**
      * @var Collection<int, Review>
      */
-    #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'artist')]
+    #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'artist', cascade: ['persist', 'remove'])]
     private Collection $reviews;
 
     /**
@@ -187,7 +187,7 @@ class Artist
     public function __construct()
     {
         $this->tag = new ArrayCollection();
-        $this->favorite = new ArrayCollection();
+        $this->favorites = new ArrayCollection();
         $this->musicalStyle = new ArrayCollection();
         $this->instrument = new ArrayCollection();
         $this->ensemble = new ArrayCollection();
@@ -380,15 +380,16 @@ class Artist
     /**
      * @return Collection<int, Favorite>
      */
-    public function getFavorite(): Collection
+    public function getFavorites(): Collection
     {
-        return $this->favorite;
+        return $this->favorites;
     }
 
     public function addFavorite(Favorite $favorite): static
     {
-        if (!$this->favorite->contains($favorite)) {
-            $this->favorite->add($favorite);
+        if (!$this->favorites->contains($favorite)) {
+            $this->favorites->add($favorite);
+            $favorite->addArtist($this);
         }
 
         return $this;
@@ -396,9 +397,24 @@ class Artist
 
     public function removeFavorite(Favorite $favorite): static
     {
-        $this->favorite->removeElement($favorite);
+        $this->favorites->removeElement($favorite);
+        $favorite->removeArtist($this);
 
         return $this;
+    }
+
+
+    // Check if the room is already in the user's favorites
+    public function isFavorite(User $user): bool
+    {
+        foreach ($this->favorites as $favorite) {
+            if ($favorite->getUser() === $user) {
+                return true;
+            }
+        }
+
+        return false;
+        // return $this->favorites->exists(fn (int $key, Favorite $favorite) => $favorite->getUser() === $user);
     }
 
     /**
