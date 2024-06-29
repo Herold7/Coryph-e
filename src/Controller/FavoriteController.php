@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controller;
-use App\Entity\User;
 use App\Entity\Favorite;
 use App\Entity\Artist;
 use App\Repository\FavoriteRepository;
@@ -40,7 +39,7 @@ class FavoriteController extends AbstractController
         }
 
         $previous = $request->headers->get('referer');
-        $user = new User();
+        $user = $this->getUser();
         
         $newFavorite = new Favorite();
         $newFavorite->setUser($user);
@@ -50,13 +49,12 @@ class FavoriteController extends AbstractController
         $em->persist($newFavorite);
         $em->flush();
 
-        $this->addFlash('success', 'L\artiste a été ajouté à vos favoris.');
+        $this->addFlash('success', 'L\'artiste a été ajouté à vos favoris.');
         return $this->redirect($previous);
     }
 
-    #[Route('/remove-favorite/{artist}', name: 'remove_favorite', methods: ['GET'])]
+    #[Route('/remove-favorite/{artist}', name: 'remove_favorite', methods: ['POST'])]
     public function removeFavorite(
-        Request $request,
         FavoriteRepository $favoriteRepository,
         EntityManagerInterface $em
     ): Response
@@ -65,8 +63,7 @@ class FavoriteController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        $previous = $request->headers->get('referer');
-        $user = new User();
+        $user = $this->getUser();
 
         $favorite = $favoriteRepository->findOneBy([
             'user' => $user
@@ -74,13 +71,13 @@ class FavoriteController extends AbstractController
 
         if ($favorite) {
             $user->removeFavorite($favorite);
-            $em->persist($user);
+            $em->persist($user); // Ajouter $em->remove($review)
             $em->remove($favorite);
             $em->flush();
             $this->addFlash('success', 'L\'artiste a été retiré de vos favoris.');
         }
 
         // Redirect to the last page visited by the user
-        return $this->redirect($previous);
+        return $this->redirectToRoute('account');
     }
 }
