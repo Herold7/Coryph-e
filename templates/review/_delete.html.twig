@@ -1,0 +1,6 @@
+
+<form method="post" action="{{ path('remove_review', {'artist': artist.id}) }}" onsubmit="return confirm('Etes-vous sûr de vouloir supprimer cet avis ?');">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('remove-review') }}">
+    <button class="btn btn-danger">Supprimer cet avis</button>
+</form>
+
