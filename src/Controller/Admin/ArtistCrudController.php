@@ -44,7 +44,7 @@ class ArtistCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             TextField::new('nickname'),
             IntegerField::new('number'),
-            BooleanField::new('professional'),
+            // BooleanField::new('professional'),
             TextField::new('city')->hideOnIndex(),
             CountryField::new('country')->hideOnIndex(),
             TelephoneField::new('phone')->hideOnIndex(),
@@ -52,14 +52,13 @@ class ArtistCrudController extends AbstractCrudController
             TextareaField::new('bio')
                 ->hideOnIndex()
                 ->setNumOfRows(30),
-            DateField::new('birthyear')
-                ->hideOnIndex()
-                ->setFormat('yyyy'),
+            IntegerField::new('birthyear')
+                ->hideOnIndex(),
             DateTimeField::new('created_at')->hideOnIndex(),
             DateTimeField::new('updated_at')->hideOnIndex(),
-            AssociationField::new('user')
-                ->hideOnForm()
-                ->setSortProperty('name'),
+            // AssociationField::new('user')
+            //     ->hideOnForm()
+            //     ->setSortProperty('name'),
             AssociationField::new('category')
                 ->hideOnForm()
                 ->setSortProperty('name'),
