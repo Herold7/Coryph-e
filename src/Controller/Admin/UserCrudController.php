@@ -53,7 +53,7 @@ class UserCrudController extends AbstractCrudController
             BooleanField::new('consent')->hideOnIndex(),
             DateTimeField::new('created_at')->hideOnIndex(),
             DateTimeField::new('updated_at')->hideOnIndex(),
-            ImageField::new('cover')
+            ImageField::new('image')
                 ->setBasePath('uploads/users/')
                 ->setUploadDir('public/uploads/users/'),
             AssociationField::new('artists')
