@@ -139,7 +139,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Review>
      */
-    #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'user')]
+    #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'user', cascade: ['persist', 'remove'])]
     private Collection $reviews;
 
     #[ORM\Column]
@@ -148,7 +148,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Favorite>
      */
-    #[ORM\OneToMany(targetEntity: Favorite::class, mappedBy: 'user')]
+    #[ORM\OneToMany(targetEntity: Favorite::class, mappedBy: 'user', cascade: ['persist', 'remove'])]
     private Collection $favorites;
 
     /**
@@ -472,7 +472,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     // __toString() allows to use the object as a string in forms
     public function __toString(): string
     {
-        return $this->name;
+        return $this->getName() ?? '';
     }
 
     /**
