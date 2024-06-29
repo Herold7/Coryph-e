@@ -31,7 +31,7 @@ class PerformanceCrudController extends AbstractCrudController
             FormField::addTab('Identification')
                 ->setIcon('home')->addCssClass('optional')
                 ->setHelp('Toutes les informations à propos de performance'),
-            IdField::new('id'),
+            IdField::new('id')->hideOnForm(),
             TextField::new('type'),
             TextField::new('location'),
         ];

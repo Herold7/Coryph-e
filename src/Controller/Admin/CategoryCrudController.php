@@ -33,7 +33,7 @@ class CategoryCrudController extends AbstractCrudController
             FormField::addTab('Identification')
                 ->setIcon('category')->addCssClass('optional')
                 ->setHelp('Toutes les informations à propos des categories'),
-            IdField::new('id'),
+            IdField::new('id')->hideOnForm(),
             TextField::new('name'),
             TextEditorField::new('description'),
             ImageField::new('image')

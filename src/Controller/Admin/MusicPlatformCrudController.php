@@ -32,7 +32,7 @@ class MusicPlatformCrudController extends AbstractCrudController
             FormField::addTab('Identification')
                 ->setIcon('home')->addCssClass('optional')
                 ->setHelp('Toutes les informations à propos des plateformes ded streaming musical'),
-            IdField::new('id'),
+            IdField::new('id')->hideOnForm(),
             TextField::new('name'),
             UrlField::new('link'),
         ];

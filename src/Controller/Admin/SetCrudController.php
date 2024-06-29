@@ -32,7 +32,7 @@ class SetCrudController extends AbstractCrudController
             FormField::addTab('Identification')
                 ->setIcon('home')->addCssClass('optional')
                 ->setHelp('Toutes les informations à propos des ensembles musicaux'),
-            IdField::new('id'),
+            IdField::new('id')->hideOnForm(),
             TextField::new('name'),
         ];
     }

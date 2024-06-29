@@ -34,7 +34,7 @@ class EventPlatformCrudController extends AbstractCrudController
             FormField::addTab('Identification')
                 ->setIcon('home')->addCssClass('optional')
                 ->setHelp('Toutes les informations à propos des plateformes d\'événements'),
-            IdField::new('id'),
+            IdField::new('id')->hideOnForm(),
             TextField::new('name'),
             UrlField::new('link'),
             AssociationField::new('artists')
