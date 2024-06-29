@@ -18,7 +18,7 @@ class Favorite
     /**
      * @var Collection<int, Artist>
      */
-    #[ORM\ManyToMany(targetEntity: Artist::class, mappedBy: 'favorite')]
+    #[ORM\ManyToMany(targetEntity: Artist::class, mappedBy: 'favorites')]
     private Collection $artists;
 
     #[ORM\ManyToOne(inversedBy: 'favorites')]
@@ -74,5 +74,11 @@ class Favorite
         return $this;
     }
 
+
+    // __toString() allows to use the object as a string in forms
+    public function __toString(): string
+    {
+        return $this->user ? (string) $this->user->getId() : '';
+    }
 
 }
