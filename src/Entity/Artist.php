@@ -795,4 +795,9 @@ class Artist
 
         return $this;
     }
+        // __toString() allows to use the object as a string in forms
+        public function __toString(): string
+        {
+            return $this->nickname;
+        }
 }
