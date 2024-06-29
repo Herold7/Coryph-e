@@ -17,13 +17,13 @@
 							<div class=" d-flex justify-content-end">
 								{# Check favorite #}
 								{% if is_granted('IS_AUTHENTICATED_FULLY') %}	
-									{% if artist.Favorite(app.user) %}
+									{% if artist.isFavorite(app.user) %}
 										<a class="text-end" href={{ path('remove_favorite', { artist: artist.id }) }}>
 											<i class="bi bi-heart-fill text-danger"></i>
 										</a>
 									{% else %}
 										<a class="text-end" href={{ path('add_favorite', { artist: artist.id }) }}>
-											<i class="bi bi-heart text-white"></i>
+											<i class="bi bi-heart text-danger"></i>
 										</a>
 									{% endif %}
 								{% else %}
