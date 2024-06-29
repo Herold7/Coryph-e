@@ -25,13 +25,7 @@
             </div>
             <div class="row">
                 <div class="col-md-6">
-                {% if artist.category is defined %}
-                    <div class="d-flex gap-2 align-items-center mb-3">
-                        <div>
-                    <p class="fs-3">{{ artist.category.name}}</p>
-                        </div>
-                    </div>
-                {% endif %}
+
             <div class="mb-5">
                 <p class="fs-3">Biographie</p>
                 <p class="fs-5">{{ artist.bio }}</p>
@@ -53,8 +47,12 @@
                 <p class="fs-5">{{ artist.number }}</p>
             </div>
             <div class="mb-5">
-                <p class="fs-3">Status</p>
-                <p class="fs-5">{{ artist.professional ? 'Oui' : 'Non' }}</p>
+            {% if artist.professional is defined %}
+                {% for professional in artist.professional %}
+                    <p class="fs-3">Status</p>
+                    <p class="fs-5">{{ artist.professional }}</p>
+                {% endfor %}
+            {% endif %}
             </div>
             </div>
                     <div class="col-md-6">
@@ -146,7 +144,9 @@
             <p class="fs-6">par nuit</p>
         </div> #}
         </div>
-
+<div>
+{{ include('review/index.html.twig') }}
+</div>
     <div class="row">
             <div class="col"><a href="{{ path('app_artist_index') }}" 
             class="btn btn-primary">Retour à la liste des artistes</a></div>
