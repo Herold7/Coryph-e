@@ -9,7 +9,7 @@
 				{% if app.user %}
 				<div class="card">
 					<div class="card-body py-3">
-						<div class="d-sm-flex align-items-start text-center text-sm-start">
+						<div class="d-sm-flex align-favorites-start text-center text-sm-start">
 							<div>
 								<div class="avatar avatar-xxl profile-n-3 mb-3">
 									<img class="avatar-img rounded-circle border border-white border-3" src="/uploads/users/{{ app.user.image }}" width="150">
@@ -33,11 +33,11 @@
 							</div>
 						</div>
 						<ul class="list-inline mb-0 text-center text-sm-start mt-3 mt-sm-0">
-							<li class="list-inline-item">
+							<li class="list-inline-favorite">
 								<i class="bi bi-phone"></i>
 								{{ app.user.phone }}
 							</li>
-							<li class="list-inline-item">
+							<li class="list-inline-favorite">
 								<i class="bi bi-geo-alt me-1"></i>
 								{{ app.user.address }}
 								{{ app.user.additionalAddress }}
@@ -52,7 +52,7 @@
 					{# Favorites #}
 					<div class="mb-4">
 						<div class="card">
-							<div class="card-header d-sm-flex justify-content-between align-items-center border-0">
+							<div class="card-header d-sm-flex justify-content-between align-favorites-center border-0">
 								<h5 class="card-title">
 									Vos favoris
 									<span class="badge bg-danger bg-opacity-10 text-danger">
@@ -65,27 +65,43 @@
 							</div>
 							<div class="card-body position-relative pt-3">
 								<div class="d-flex gap-3 overflow-x-scroll">
-									{% for item in app.user.favorites %}
-										<div class="col-md-4 col-sm-12">
-											<div class="card shadow-none text-center h-100">
-												<div class="card-body p-2">
-													<img src="" class="img-fluid">
-													{{ dump(item.id) }}
-												</div>
-												<div class="card-footer p-2 border-0">
-													<button class="btn btn-sm btn-custom rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
-														<i class="bi bi-eye"></i>
-														Check it
-													</button>
-													<button class="btn btn-sm btn-dark rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
-														<i class="bi bi-trash"></i>
-														Supprimer
-													</button>
+									{% if app.user.favorites is defined and app.user.favorites|length > 0 %}
+										{% for favorite in app.user.favorites %}
+											<div class="col-md-4 col-sm-12">
+												<div class="card shadow-none text-center h-100">
+													<div class="card-body p-2">
+														{{ dump(favorite.id) }}
+														{% for artist in favorite.artists %}
+														<div class="card-body p-2">
+														<img src="/uploads/artists/{{ artist.image }}" class="img-fluid">
+													</div>
+													<h1 class="fs-3">
+                        									{{ artist.nickname }}<br>  {# Affiche le nom de chaque artiste associé à l'favorite #}
+                    								</h1>	
+														{% endfor %}
+													</div>
+													
+													<div class="card-footer p-2 border-0">
+													<a class="" href="{{ path('app_artist_show', { id: favorite.id }) }}">
+														<button class="btn btn-sm btn-custom rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
+															<i class="bi bi-eye"></i>
+															Check it
+														</button>
+															<a class="" href="{{ path('remove_favorite', { 'artist': favorite.id }) }}">
+																<button class="btn btn-sm btn-dark rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
+																		<i class="bi bi-trash"></i>
+																	Supprimer
+																</button>
+															</a>
+													</div>
 												</div>
 											</div>
-										</div>
-									{% endfor %}
+										{% endfor %}
+									{% else %}
+										<p>Vous n'avez pas d'artistes favoris.</p>
+									{% endif %}
 								</div>
+							</div>
 							</div>
 							<!-- Card body END -->
 						</div>
@@ -95,7 +111,7 @@
 					{% if is_granted('ROLE_MUSICIAN') %}
 						<div class="mb-4">
 							<div class="card">
-								<div class="card-header d-sm-flex justify-content-between align-items-center border-0">
+								<div class="card-header d-sm-flex justify-content-between align-favorites-center border-0">
 									<h5 class="card-title">
 										Vos artistes
 										<span class="badge bg-danger bg-opacity-10 text-danger">
@@ -105,7 +121,7 @@
 									<a class="btn btn-primary btn-sm" href="{{ path('app_artist_new') }}">
 										Créer une fiche artiste
 									</a>
-									</a>
+									
 								</div>
 								{% if app.user.artists is defined %}
     								{% for artist in app.user.artists %}
@@ -127,7 +143,7 @@
 																<p class="fs-5"> {{ style.name|capitalize }}</p>
 																{% endfor %}
 																{% else %}
-																	<p class="fs-5">No musical styles found.</p>
+																	<p class="fs-5">Pas de style musical défini.</p>
 															{% endif %}
 														</div>
 													</div>
