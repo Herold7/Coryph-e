@@ -1,0 +1,29 @@
+{% block title %}Donnez votre avis {% endblock %}
+
+{% block body %}
+{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="updateModalLabel">Déposez votre avis</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{ form_start(form) }}
+                    {{ form_row(form.title) }}
+                    {{ form_row(form.comment, {'required': false}) }}
+                    {{ form_row(form.rating, {'required': false}) }}
+                    <button type="submit" class="btn btn-primary">Sauvegardez votre avis</button>
+                {{ form_end(form) }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+    <p>Vous devez être connecté pour ajouter un avis.</p>
+{% endif %}
+{% endblock %}
