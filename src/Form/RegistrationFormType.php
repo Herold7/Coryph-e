@@ -48,7 +48,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                     new Regex([
                         'pattern' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
-                        'message' => 'Votre mot de passe doit contenir : at least 1 uppercase letter, 1 lowercase letter, 1 number, at least 1 special character, at least 8 characters',
+                        'message' => 'Votre mot de passe doit contenir au moins : 8 caractères, dont  1 lettre majuscule , 1 lettre minuscule, 1 chiffre, 1 caractère spécial (@, $, !, %, *, ?, &).',
                     ]),
                 ],
             ])
