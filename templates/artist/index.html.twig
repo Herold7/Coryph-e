@@ -7,16 +7,18 @@
 <main class="p-5 mb-4 border-bottom border-2">
 	<div class="container">
 		<div class="row text-center py-5 mx-5">
-            <h1 class="m-5">Tous les artistes</h1>
-		
+            <h1 class="mb-5">Tous les artistes</h1>
 			<p>
-			Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ab veniam necessitatibus deserunt rem! Saepe sit aliquid ex! Aliquam, placeat dignissimos error et consectetur exercitationem autem, quae assumenda, ipsam pariatur aperiam!
+			Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
+			Ab veniam necessitatibus deserunt rem! Saepe sit aliquid ex! 
+			Aliquam, placeat dignissimos error et consectetur exercitationem autem, 
+			quae assumenda, ipsam pariatur aperiam!
 			</p>
         </div>
 		<div class="row row-cols-1 row-cols-md-3 g-4">
 			{% for artist in artists %}
 				<div class="col">
-					<div class="card h-100 shadow p-3 mb-5 bg-body-tertiary rounded">
+					<div class="card h-100 shadow-sm p-3 mb-5 bg-body-info rounded">
 							<img class="card-img-top" src={{ asset('images/artist.webp') }} {{artist.image}} alt="{{ artist.nickname }}">
 							<div class="card-body ">
 							<div class=" d-flex justify-content-end">

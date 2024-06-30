@@ -1,11 +1,14 @@
-<h1>Bonjour! Merci de valider votre adresse email!</h1>
+<div class="container">
+    <h1 class="text-center">Bonjour! Merci de valider votre adresse email!</h1>
 
-<p>
-    Nous vous invitons à confirmer votre adresse email en cliquant sur le lien suivant : <br><br>
-    <a href="{{ signedUrl|raw }}">Je valide mon email</a>.
-    Ce lien de confirmation expire dans {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
-</p>
+    <p class="text-center">
+        Nous vous invitons à confirmer votre adresse email en cliquant sur le lien suivant : <br><br>
+        <a href="{{ signedUrl|raw }}" class="btn btn-primary">Je valide mon email</a>.
+        Ce lien de confirmation expire dans {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
+    </p>
 
-<p>
-    Musicalement !
+    <p class="text-center">
+        Musicalement !
+    </p>
+</div>
 </p>
