@@ -3,24 +3,15 @@
 {% block title %}Modifier le profil artiste{% endblock %}
 
 {% block body %}
-    <h1>Modifier le profil artiste</h1>
+    <div class="container p-5 mb-5">
+        <div>
+            <h1 class="text-center">Modifier le profil artiste</h1>
+        <!--Inclure le formulaire de modification-->
+            {{ include('artist/_form.html.twig', {'button_label': 'Modifiez'}) }}
+            <div class="text-center ">
+                {{ include('artist/_delete.html.twig') }}
 
-<div class="container">
-<div class="">
-
-    {{ include('artist/_form.html.twig', {'button_label': 'Modifiez'}) }}
-
-    <a href="{{ path('app_artist_index') }}" class="btn btn-primary">Retour à la liste des artistes</a>
-
-    {{ include('artist/_delete.html.twig') }}
-
-<a href="{{ path('account') }}" class="btn btn-warning">Retour à votre compte</a>
-
-
-
-</div>
-<div>
-
-
-    {# {{ include('artist/_delete_form.html.twig') }} #}
-{% endblock %}
+            </div>
+        </div>
+    </div>
+    {% endblock %}
