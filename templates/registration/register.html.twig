@@ -26,8 +26,18 @@
 						{{ error }}
 					</div>
 				{% endif %}
-				<h1 class="h3 mb-3 fw-normal text-center">Créer votre compte</h1>
 
+			<div class="d-flex justify-content-center align-items-center">
+					<div class="text-center mb-5 p-4 shadow border-info rounded-3 col-md-5">
+						<h2 class="h4 mb-3 fw-normal text-center">
+						Vous pouvez vous inscrire en tant que
+						</h2>
+						<p><span class="fw-bold text-capitalize">▷ artiste</span>, si vous souhaitez proposer des services de musique </br>
+						<span class="fw-bold text-capitalize">▷ producteur</span>, si vous recherchez des artistes à produire </br>
+						<span class="fw-bold text-capitalize">▷ particulier</span>, si vous recherchez des artistes pour un événement</p>
+					</div>
+			</div>
+				<h1 class="h3 mt-5 mb-3 fw-normal text-center">Créer votre compte</h1>
 				{% if error is defined %}
 					<div class="alert alert-danger" role="alert">
 						{{ error }}
@@ -75,8 +85,7 @@
 
 				{{ form_end(registrationForm) }}
 
-				<div
-					class="text-center mt-3">
+				<div class="text-center mt-3 mb-5">
 					<!-- TODO: add route to sign in -->
 					<p>Vous avez déjà un compte ?
 						<a href={{ path('app_login') }} class="text-decoration-none">Se connecter</a>
