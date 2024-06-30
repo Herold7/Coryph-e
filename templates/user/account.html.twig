@@ -73,31 +73,33 @@
 														{{ dump(favorite.id) }}
 														{% for artist in favorite.artists %}
 														<div class="card-body p-2">
-														<img src="/uploads/artists/{{ artist.image }}" class="img-fluid">
-													</div>
-													<h1 class="fs-3">
-                        									{{ artist.nickname }}<br>  {# Affiche le nom de chaque artiste associé à l'favorite #}
-                    								</h1>	
+															<img src="/uploads/artists/{{ artist.image }}" class="img-fluid">
+														</div>
+														<div class="card-text">
+															<h1 class="fs-3">
+                        										{{ artist.nickname }}<br>  {# Affiche le nom de chaque artiste associé à l'favorite #}
+                    										</h1>
+														</div>	
 														{% endfor %}
 													</div>
-													
 													<div class="card-footer p-2 border-0">
-													<a class="" href="{{ path('app_artist_show', { id: favorite.id }) }}">
-														<button class="btn btn-sm btn-custom rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
-															<i class="bi bi-eye"></i>
-															Check it
-														</button>
-															<a class="" href="{{ path('remove_favorite', { 'artist': favorite.id }) }}">
-																<button class="btn btn-sm btn-dark rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
+														<a class="" href="{{ path('app_artist_show', { id: favorite.id }) }}">
+															<button class="btn btn-sm btn-custom rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
+																<i class="bi bi-eye"></i>
+																Check it
+															</button>
+														</a>
+														<a class="" href="{{ path('remove_favorite', { 'artist': favorite.id }) }}">
+															<button class="btn btn-sm btn-dark rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
 																		<i class="bi bi-trash"></i>
-																	Supprimer
-																</button>
-															</a>
+																Supprimer
+															</button>
+														</a>
 													</div>
 												</div>
 											</div>
 										{% endfor %}
-									{% else %}
+										{% else %}
 										<p>Vous n'avez pas d'artistes favoris.</p>
 									{% endif %}
 								</div>
@@ -109,9 +111,10 @@
 
 					{# Artist #}
 					{% if is_granted('ROLE_MUSICIAN') %}
+					<div class="row">
 						<div class="mb-4">
 							<div class="card">
-								<div class="card-header d-sm-flex justify-content-between align-favorites-center border-0">
+								<div class="card-header d-sm-flex justify-content-between align-artists-center border-0">
 									<h5 class="card-title">
 										Vos artistes
 										<span class="badge bg-danger bg-opacity-10 text-danger">
@@ -121,12 +124,11 @@
 									<a class="btn btn-primary btn-sm" href="{{ path('app_artist_new') }}">
 										Créer une fiche artiste
 									</a>
-									
 								</div>
 								{% if app.user.artists is defined %}
     								{% for artist in app.user.artists %}
 									<div class="card-body position-relative pt-3">
-										<div class="row g-3">
+										<div class="d-flex gap-3 overflow-x-scroll">
 											<div class="col-md-4 col-sm-12">
 												<div class="card shadow-none text-center h-100">
 													<div class="card-body p-2">
@@ -136,14 +138,15 @@
 														<h1 class="fs-3">
 															{{ artist.nickname }}
 														</h1>
-														<p>{{ artist.bio }}</p>
-														<p>{{ artist.city }}</p>
-													<div>  {% if artist.musicalStyle is defined %}
-															{% for style in artist.musicalStyle %}
-																<p class="fs-5"> {{ style.name|capitalize }}</p>
+															<p>{{ artist.bio }}</p>
+															<p>{{ artist.city }}</p>
+														<div>  
+															{% if artist.musicalStyle is defined %}
+																{% for style in artist.musicalStyle %}
+																	<p class="fs-5"> {{ style.name|capitalize }}</p>
 																{% endfor %}
-																{% else %}
-																	<p class="fs-5">Pas de style musical défini.</p>
+															{% else %}
+																<p class="fs-5">Pas de style musical défini.</p>
 															{% endif %}
 														</div>
 													</div>
@@ -164,6 +167,7 @@
 								{% endif %}
 							</div>
 						</div>
+					</div>
 					{% endif %}
 				</div>
 				{% else %}
