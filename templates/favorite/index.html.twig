@@ -52,11 +52,18 @@
                                     </button>
                                 </a>
                             </div>
+                            <div>
+                            
+            {# {{ include('review/index.html.twig') }} #}
+                            </div>
                         </div>
                     </div>
                 {% endfor %}
             {% else %}
-                <p>Vous n'avez pas d'artistes favoris.</p>
+            
+            <div class=" justify-item-center">
+                <p >Vous n'avez pas d'artistes favoris.</p>
+            </div>
             {% endif %}
         </div>
     </div>
