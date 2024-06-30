@@ -35,15 +35,15 @@ class ArtistController extends AbstractController
         ]);
     }
 
-    #[Route('/category/{category}', name: 'app_artist_category', methods: ['GET'])]
+    #[Route('/{category}', name: 'app_artist_category', methods: ['GET'])]
     public function category(
         ArtistRepository $artistRepository,
         PaginatorInterface $paginator,
         Request $request,
-        string $category
+        
     ): Response {
         $pagination = $paginator->paginate(
-            $artistRepository->findBy(['category' => $category]),
+            $artistRepository->findBy(['category' => $request->attributes->get('category')]),
             $request->query->getInt('page', 1),
             12
         );
