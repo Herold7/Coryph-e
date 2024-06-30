@@ -20,8 +20,7 @@ class MusicalStyleCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm(),
-            TextField::new('title'),
-            TextEditorField::new('description'),
+            TextField::new('name'),
         ];
     }
     
