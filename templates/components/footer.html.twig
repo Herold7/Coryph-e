@@ -1,33 +1,10 @@
-<footer class="bg-dark shadow text-white fixed-bottom d-flex gap-3 justify-content-center py-3 px-4 w-100">
-    <div class="container fluid">
-        <div class="row align-items-center justify-content-between flex-column flex-sm-row">
-            <div class="col-auto">
-                <div class="small m-0">Hérold Pommier &copy; Tous droits réservés
-                 {{ 'now'|date('Y') }}</class=>
-                </div>
-            </div>
-            <div class="col-auto">
-                <a href="/contact" class="large link-underline link-underline-opacity-0">contact</a>
-                
-                <a href="https://www.tiktok.com" target="_blank" class="">
-                <i class="bi bi-tiktok"></i></a>
-                
-                <a href="https://www.facebook.com" target="_blank" class=""  alt="logo facebook">
-                <i class="bi bi-facebook"></i></a>
-                
-                <a href="https://www.instagram.com" target="_blank" class="large" alt="logo instagram">
-                <i class="bi bi-instagram"></i></a>
-
-                <a href="https://x.com" target="_blank" class="" alt="logo X">
-                <i class="bi bi-twitter-x"></i></a>
-            </div>
-        </div>
-    </div>
-    
+<footer class="bg-dark shadow text-white text-wrap fixed-bottom d-flex flex-column flex-md-row justify-content-between py-3 px-4 w-100">
+                <p class="flex-md-fill">Hérold Pommier &copy; {{ 'now'|date('Y') }}</p>
+                <a class="nav-link flex-md-fill" href="#" target="_blank">politiques de confidentialités</a>
+                <ul class="nav">
+                    <li class="nav-item flex-md-fill bi bi-tiktok"><a class="nav-link" href="https://www.tiktok.com" target="_blank"></a></li>
+                    <li class="nav-item flex-md-fill bi bi-facebook"><a class="nav-link" href="https://www.facebook.com" target="_blank" alt="logo facebook"></a></li>
+                    <li class="nav-item flex-md-fill bi bi-instagram"><a class="nav-link" href="https://www.instagram.com" target="_blank" alt="logo instagram"></a></li>
+                    <li class="nav-item flex-md-fill bi bi-twitter-x"><a class="nav-link" href="https://x.com" target="_blank" alt="logo X"></a></li>
+                </ul>
 </footer>
-{# 
-<div id="scroll-Top">
-    <div class="return-to-top">
-        <i class="bi bi-arrow-up" id="scroll-top" data-toggle="tooltip" data-placement="top" title="Back to Top" aria-hidden="true"></i>
-    </div>
-</div><!--/.scroll-Top--> #}

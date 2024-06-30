@@ -1,10 +1,11 @@
-<header class="d-flex justify-content-between align-items-center p-3 sticky-top bg-dark shadow-dark">
-	<a href={{ path('chanteur')}}>
+<header class="d-flex justify-content-between align-items-center p-3 sticky-top bg-dark shadow">
+	<a href={{ path('app_home')}}>
 		<img src={{ asset('/images/logo/logo-noir2.jpeg') }} alt="logo Coryphée" width="60">
 	</a>
 	<div class="d-flex gap-3 align-items-center">
 			<a href={{ path('app_home') }} class="text-white text-decoration-none">Accueil</a>
 			<a href={{ path('app_artist_index') }} class="text-white text-decoration-none">Artistes</a>
+			<a href={{ path('app_artist_index') }} class="text-white text-decoration-none">Contact</a>
 
 		{% if is_granted('ROLE_USER') %}
 			<div class="nav-item dropdown bg-body-tertiary py-2 px-3 rounded-pill">
