@@ -43,15 +43,15 @@ class ArtistType extends AbstractType
             ->add('nickname', TextType::class, [
                 'label' => 'Pseudo',
                 'attr' => [
-                    'class' => 'form-control  mb-2',
+                    'class' => 'form-control  mb-6',
                     'placeholder' => 'Votre pseudo'
                 ]
             ])
             ->add('number', TextType::class, [
                 'label' => 'Numéro',
                 'attr' => [
-                    'class' => 'form-control  mb-2',
-                    'placeholder' => 'Votre numéro'
+                    'class' => 'form-control  mb-6',
+                    'placeholder' => 'Le nombre de membre'
                 ]
             ])
             ->add('professionnal', ChoiceType::class, [
@@ -63,13 +63,13 @@ class ArtistType extends AbstractType
                     'Non' => false,
                 ],
                 'attr' => [
-                    'class' => 'form-control form-check',
+                    'class' => 'form-control mb-6 form-check',
                 ]
             ])
             ->add('city', TextType::class, [
                 'label' => 'Ville',
                 'attr' => [
-                    'class' => 'form-control  mb-2',
+                    'class' => 'form-control  mb-6',
                     'placeholder' => 'Votre ville'
                 ]
             ])
@@ -104,7 +104,7 @@ class ArtistType extends AbstractType
                 
                 'label' => 'Année de naissance',
                 'attr' => ['class' => 'form-control  mb-2',
-                    'placeholder' => 'Votre année de naissance'
+                    'placeholder' => 'L\'année de création'
                 ]
             ])
                 
@@ -129,6 +129,7 @@ class ArtistType extends AbstractType
             ->add('created_at', DateType::class, [
                 'widget' => 'single_text',
                 'data' => new \DateTime(),
+                'disabled' => true,
             ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
