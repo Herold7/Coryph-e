@@ -108,28 +108,28 @@ class ArtistType extends AbstractType
                 ]
             ])
                 
-            ->add('image', FileType::class, [// Ajouter une image
-                'label' => 'Your profile picture',
+            ->add('image', FileType::class, [
+                'label' => "Photo de l\'artiste",
                 'mapped' => false,
                 'required' => false,
                 'attr' => [
-                    'class' => 'form-control-file mb-2'
+                    'class' => 'form-control-file mb-4'
                 ],
-                'constraints' => [// Contraintes sur le fichier
+                'constraints' => [
                     new File([
-                        'maxSize' => '2048k',// Taille maximale du fichier
-                        'maxSizeMessage' => 'The file is too large ({{ size }} {{ suffix }}). Allowed maximum size is {{ limit }} {{ suffix }}.',
-                        'mimeTypes' => [// Types de fichiers autorisés
+                        'maxSize' => '1024k',
+                        'maxSizeMessage' => 'Le fichier est trop gros ({{ size }} {{ suffix }}). La taille maximale est de {{ limit }} {{ suffix }}.',
+                        'mimeTypes' => [
                             'image/*',
                         ],
-                        'mimeTypesMessage' => 'Please upload a valid image',
+                        'mimeTypesMessage' => 'Veuillez charger une image valide. Les formats acceptés sont : {{ types }}.',
                     ])
-                ],
-            ])
+                    ],
+                    ])
             ->add('created_at', DateType::class, [
                 'widget' => 'single_text',
                 'data' => new \DateTime(),
-                'disabled' => true,
+                'label' => 'Date de création',
             ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
