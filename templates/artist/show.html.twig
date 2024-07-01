@@ -13,148 +13,197 @@
     }
 </style>
 
-<main class="p-5 mb-5 bg-light">
-    <div class="container ">
-            <h1 class="display-1 text-center mb-5">{{ artist.nickname }}</h1>
-            <div class="row mb-3 justify-content-center">
-                <div class="col-lg-6">
-                    <img src="{{ asset('/uploads/artists/') }}{{ artist.image }}" 
-                    alt="{{ artist.nickname }}" class="img-fluid rounded shadow-lg" 
-                    style="width: 50%;">
+<main class="p-5 mb-5 ">
+    <div class="container mb-3 shadow-sm rounded-4 p-5">
+        <h1 class="display-1 text-center mb-5 fw-bold">{{ artist.nickname }}</h1>
+        <div class="row mb-3 justify-content-center">
+            <div class="col-lg-6 text-center mb-5">
+                <img src="{{ asset('/uploads/artists/') }}{{ artist.image }}" alt="{{ artist.nickname }}" class="img-fluid rounded shadow-lg" style="width: 50%;">
+            </div>
+        </div>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <!-- categorie -->
+            <div class="col">
+                <div class="card mb-5 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Categorie</h5>
+                        {% if artist.category is defined %}
+                            {% for category in artist.category %}
+                                <p class="card-text">• {{ category.name|capitalize }}</p>
+                            {% endfor %}
+                        {% else %}
+                        {% endif %}
+                    </div>
                 </div>
             </div>
+            <div class="col">
+                <div class="card mb-5 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Biographie</h5>
+                        <p class="card-text">{{ artist.bio }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col" style="width: 50%;">
+                <div class="card mb-5 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Ville</h5>
+                        <p class="card-text">{{ artist.city }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-5 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Pays</h5>
+                        <p class="card-text">{{ artist.country }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            <div class="col">
+                <div class="card mb-5 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Année d'existence</h5>
+                        <p class="card-text">{{ artist.birthyear }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-5 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Nombre de membres</h5>
+                        <p class="card-text">{{ artist.number }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-5 shadow">
+                    <div class="card-body">
+                        {% if artist.professional is defined %}
+                            {% for professional in artist.professional %}
+                                <h5 class="card-title">Status</h5>
+                                <p class="card-text">{{ artist.professional }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <!-- Instruments -->
+            <div class="col">
+                <div class="card mb-5 shadow p-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Instruments</h5>
+                        {% if artist.instrument is defined %}
+                            {% for instrument in artist.instrument %}
+                                <p class="card-text">• {{ instrument.name|capitalize }}</p>
+                            {% endfor %}
+                        {% else %}
+                            <p class="card-text">Pas d'instrument de musique.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            <!-- Styles musicaux -->
+            <div class="col">
+                <div class="card mb-5 p-3 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Style musical</h5>
+                        {% if artist.musicalStyle is defined %}
+                            {% for style in artist.musicalStyle %}
+                                <p class="card-text">• {{ style.name|capitalize }}</p>
+                            {% endfor %}
+                        {% else %}
+                            <p class="card-text">Pas de style musical.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <!-- Types de prestations -->
+            <div class="col" style="width: 50%;">
+                <div class="card mb-5 p-3 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Type de prestation</h5>
+                        {% if artist.performance is defined %}
+                            {% for performance in artist.performance %}
+                                <p class="card-text">• {{ performance.type|capitalize }}</p>
+                            {% endfor %}
+                        {% else %}
+                            <p class="card-text">Pas de Type de prestation.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <!-- Types de prestations -->
+            <div class="col" style="width: 50%;">
+                <div class="card mb-5 p-3 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Type d'ensemble</h5>
+                        {% if artist.ensemble is defined %}
+                            {% for ensemble in artist.ensemble %}
+                                <p class="card-text">• {{ ensemble.name|capitalize }}</p>
+                            {% endfor %}
+                        {% else %}
+                            <p class="card-text">Pas de Type d'ensemble.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <!-- Informations supplémentaires pour les utilisateurs connectés -->
+            {% if is_granted('ROLE_USER') %}
+            <div class="col">
+                <div class="card mb-5 p-3 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Email de l'artiste</h5>
+                        <p class="card-text">{{ artist.mail }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            <div class="col">
+                <div class="card mb-5 p-3 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Téléphone de l'artiste</h5>
+                        <p class="card-text">{{ artist.phone }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-5 p-3 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Réseaux Sociaux</h5>
+                        {% for socialNetwork in artist.socialNetwork %}
+                            <p class="card-text">• {{ socialNetwork.name }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-5 p-3 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Website</h5>
+                        {% for website in artist.websites %}
+                            <p class="card-text">• <a href="{{ website.url }}">{{ website.url }}</a></p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
             <div class="row">
-                <div class="col-md-6">
-
-            <div class="mb-5">
-                <p class="fs-3">Biographie</p>
-                <p class="fs-5">{{ artist.bio }}</p>
-            </div>
-            <div class="mb-5">
-                <p class="fs-3">Ville</p>
-                <p class="fs-5">{{ artist.city }}</p>
-            </div>
-            <div class="mb-5">
-                <p class="fs-3">Pays</p>
-                <p class="fs-5">{{ artist.country }}</p>
-            </div>
-            <div class="mb-5">
-                <p class="fs-3">Année d'existence</p>
-                <p class="fs-5">{{ artist.birthyear }}</p>
-            </div>
-            <div class="mb-5">
-                <p class="fs-3">Nombre de membres</p>
-                <p class="fs-5">{{ artist.number }}</p>
-            </div>
-            <div class="mb-5">
-            {% if artist.professional is defined %}
-                {% for professional in artist.professional %}
-                    <p class="fs-3">Status</p>
-                    <p class="fs-5">{{ artist.professional }}</p>
-                {% endfor %}
-            {% endif %}
-            </div>
-            </div>
-                    <div class="col-md-6">
-                <!-- Instruments -->
-                <div class="row mb-5">
-                    <div class="col-md-8 border-end">
-                    <p class="fs-3">Instruments</p>
-                    {% if artist.instrument is defined %}
-                        {% for instrument in artist.instrument %}
-                        <p class="fs-5">• {{ instrument.name|capitalize }}</p>
-                        {% endfor %}
-                    {% else %}
-                        <p class="fs-5">No instruments found.</p>
-                    {% endif %}
-                    </div>
+                <div class="col"><a href="{{ path('app_artist_index') }}" 
+                class="btn btn-primary">Retour à la liste des artistes</a></div>
+                {% if is_granted('ROLE_MUSICIAN') %}
+                    <div class="col"><a href="{{ path('app_artist_edit', {'id': artist.id}) }}" 
+                    class="btn btn-success">Modifier</a></div>
+                    <div class="col">{{ include('artist/_delete.html.twig') }}</div> 
+                {% endif %}
                 </div>
-
-                <!-- Styles musicaux -->
-                <div class="row mb-5">
-                    <div class="col-md-8 border-end">
-                    <p class="fs-3">Style musical</p>
-                    {% if artist.musicalStyle is defined %}
-                        {% for style in artist.musicalStyle %}
-                        <p class="fs-5">• {{ style.name|capitalize }}</p>
-                        {% endfor %}
-                    {% else %}
-                        <p class="fs-5">No musical styles found.</p>
-                    {% endif %}
-                    </div>
-                </div>
-
-                <!-- Types de prestations -->
-                <div class="row mb-5">
-                    <div class="col-md-8 border-end">
-                    <p class="fs-3">Type de prestation</p>
-                    {% if artist.performance is defined %}
-                        {% for performance in artist.performance %}
-                        <p class="fs-5">• {{ performance.type|capitalize }}</p>
-                        {% endfor %}
-                    {% else %}
-                        <p class="fs-5">No performances found.</p>
-                    {% endif %}
-                    </div>
-                </div>
-
-                <!-- Types de prestations -->
-                <div class="row mb-5">
-                    <div class="col-md-8 border-end">
-                    <p class="fs-3">Type d'ensemble</p>
-                    {% if artist.ensemble is defined %}
-                        {% for ensemble in artist.ensemble %}
-                        <p class="fs-5">• {{ ensemble.name|capitalize }}</p>
-                        {% endfor %}
-                    {% else %}
-                        <p class="fs-5">No performances found.</p>
-                    {% endif %}
-                    </div>
-                </div>
-        </div>
-        </div>
-        <!-- Informations supplémentaires pour les utilisateurs connectés -->
-        {% if is_granted('ROLE_USER') %}
-            <div class="mb-5">
-                <p class="fs-3">Email de l'artiste</p>
-                <p class="fs-5">{{ artist.mail }}</p>
             </div>
-            <div class="mb-5">
-                <p class="fs-3">Téléphone de l'artiste</p>
-                <p class="fs-5">{{ artist.phone }}</p>
-            </div>
-            <div class="mb-5">
-                <p class="fs-3">Réseaux Sociaux</p>
-                {% for socialNetwork in artist.socialNetwork %}
-                    <p class="fs-5">• {{ socialNetwork.name }}</p>
-                {% endfor %}
-            </div>
-            <div class="mb-5">
-                <p class="fs-3">Website</p>
-                {% for website in artist.websites %}
-                    <p class="fs-5">• <a href="{{ website.url }}">{{ website.url }}</a></p>
-                {% endfor %}
-            </div>
-        {% endif %}
-
-        {# Commented out price block until it is available #}
-        {# <div class="col-md-4">
-            <p class="fs-3">Price</p>
-            <p class="fs-5">{{ artist.price }} €</p>
-            <p class="fs-6">par nuit</p>
-        </div> #}
-        </div>
-<div>
-
-</div>
-    <div class="row">
-            <div class="col"><a href="{{ path('app_artist_index') }}" 
-            class="btn btn-primary">Retour à la liste des artistes</a></div>
-            {% if is_granted('ROLE_MUSICIAN') %}
-                <div class="col"><a href="{{ path('app_artist_edit', {'id': artist.id}) }}" 
-                class="btn btn-success">Modifier</a></div>
-                <div class="col">{{ include('artist/_delete.html.twig') }}</div> 
-            {% endif %}
         </div>
     </div>
 </main>
