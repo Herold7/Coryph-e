@@ -54,6 +54,11 @@ composer require knplabs/knp-paginator-bundle
 composer require symfonycasts/reset-password-bundle
 bin/console make:reset-password
 ```
+- Creates a local certificate authority
+
+```sh
+symfony server:ca:instal
+```
 
 ## Entities
 
