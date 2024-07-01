@@ -42,8 +42,8 @@ class UserController extends AbstractController
         ProfileService $profileService
     ): Response
     {
-        if(!$this->getUser()->getUserIdentifier()) {
-            return $this->redirectToRoute('complete_profile');
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
         }
 
         $form = $this->createForm(ProfileType::class, $this->getUser());
