@@ -65,12 +65,13 @@
 							</div>
 							<div class="card-body position-relative pt-3">
 								<div class="d-flex gap-3 overflow-x-scroll">
+								<!-- Verifie si l'utilisateur a des favoris -->
 									{% if app.user.favorites is defined and app.user.favorites|length > 0 %}
 										{% for favorite in app.user.favorites %}
 											<div class="col-md-4 col-sm-12">
 												<div class="card shadow-none text-center h-100">
 													<div class="card-body p-2">
-														{{ dump(favorite.id) }}
+													<!-- Boucle sur les artistes associés aux favorite -->
 														{% for artist in favorite.artists %}
 														<div class="card-body p-2">
 															<img src="/uploads/artists/{{ artist.image }}" class="img-fluid">
@@ -83,10 +84,10 @@
 														{% endfor %}
 													</div>
 													<div class="card-footer p-2 border-0">
-														<a class="" href="{{ path('app_artist_show', { id: favorite.id }) }}">
+														<a class="text-decoration-none" href="{{ path('app_artist_show', { 'id': favorite.artists[0].id }) }}">
 															<button class="btn btn-sm btn-custom rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
 																<i class="bi bi-eye"></i>
-																Check it
+																Voir
 															</button>
 														</a>
 														<a class="" href="{{ path('remove_favorite', { 'artist': favorite.id }) }}">
