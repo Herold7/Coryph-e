@@ -20,14 +20,14 @@ class ProfileType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [// champ pour définir le nom de l'utilisateur
-                'label' => 'Name',
+                'label' => 'Nom',
                 'attr' => [
                     'class' => 'form-control  mb-2',
                     'placeholder' => 'Votre nom'
                 ]
             ])
             ->add('corporateName', TextType::class, [// champ pour définir le nom de l'entreprise de l'utilisateur
-                'label' => 'Corporate name',
+                'label' => 'Raison sociale',
                 'attr' => [
                     'class' => 'form-control  mb-2',
                     'placeholder' => 'Le nom de votre organisation',
@@ -43,14 +43,14 @@ class ProfileType extends AbstractType
                 ]
             ])
             ->add('phone', TextType::class, [// champ pour définir le numéro de téléphone de l'utilisateur
-                'label' => 'Phone',
+                'label' => 'Téléphone',
                 'attr' => [
                     'class' => 'form-control  mb-2',
                     'placeholder' => 'Votre numéro de téléphone'
                 ]
             ])
             ->add('address', TextType::class, [// champ pour définir l'adresse de l'utilisateur
-                'label' => 'Address',
+                'label' => 'Adresse',
                 'attr' => [
                     'class' => 'form-control  mb-2',
                     'placeholder' => 'Votre adresse',
@@ -58,7 +58,7 @@ class ProfileType extends AbstractType
                 ]
             ])
             ->add('additionalAddress', TextType::class, [// champ pour définir l'adresse complémentaire de l'utilisateur
-                'label' => 'Additional address',
+                'label' => 'Adresse complémentaire',
                 'attr' => [
                     'class' => 'form-control  mb-2',
                     'placeholder' => 'Un complément d\'adresse',
@@ -66,21 +66,21 @@ class ProfileType extends AbstractType
                 ]
             ])
             ->add('city', TextType::class, [// champ pour définir la ville de l'utilisateur
-                'label' => 'City',
+                'label' => 'Ville',
                 'attr' => [
                     'class' => 'form-control  mb-2',
                     'placeholder' => 'Votre ville'
                 ]
             ])
             ->add('zip', TextType::class, [// champ pour définir le code postal de l'utilisateur
-                'label' => 'Zip',
+                'label' => 'Code postal',
                 'attr' => [
                     'class' => 'form-control  mb-2',
                     'placeholder' => 'Votre code postal'
                 ]
             ])
             ->add('country', TextType::class, [// champ pour définir le pays de l'utilisateur
-                'label' => 'Country',
+                'label' => 'Pays',
                 'attr' => [
                     'class' => 'form-control  mb-4',
                     'placeholder' => 'Votre pays'
