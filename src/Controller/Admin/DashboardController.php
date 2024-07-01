@@ -3,22 +3,24 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Set;
+use App\Entity\Tag;
 use App\Entity\User;
 use App\Entity\Artist;
 use App\Entity\Category;
-use App\Entity\EventPlatform;
 use App\Entity\Instrument;
 use App\Entity\Performance;
 use App\Entity\MusicalStyle;
+use App\Entity\EventPlatform;
 use App\Entity\MusicPlatform;
 use App\Entity\SocialNetwork;
-use App\Entity\Tag;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 
+#[IsGranted('ROLE_ADMIN')]
 class DashboardController extends AbstractDashboardController
 {
     #[Route('/admin', name: 'admin')]
