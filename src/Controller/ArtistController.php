@@ -35,15 +35,15 @@ class ArtistController extends AbstractController
         ]);
     }
 
-    #[Route('/{category}', name: 'app_artist_category', methods: ['GET'])]
+    #[Route('/category/{category}', name: 'app_artist_category', methods: ['GET'])]
     public function category(
         ArtistRepository $artistRepository,
         PaginatorInterface $paginator,
         Request $request,
-        
+        string $category
     ): Response {
         $pagination = $paginator->paginate(
-            $artistRepository->findBy(['category' => $request->attributes->get('category')]),
+            $artistRepository->findBy(['category' => $category]),
             $request->query->getInt('page', 1),
             12
         );
@@ -68,6 +68,10 @@ class ArtistController extends AbstractController
     #[Route('/new', name: 'app_artist_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         $artist = new Artist();
         $artist->setMusician($this->getUser()); // Définir le musicien sur l'utilisateur actuellement connecté
         $form = $this->createForm(ArtistType::class, $artist);
@@ -90,6 +94,10 @@ class ArtistController extends AbstractController
     #[Route('/edit/{id}', name: 'app_artist_edit', methods: ['GET', 'POST'])]// Route pour modifier un artiste
     public function edit(Request $request, Artist $artist, EntityManagerInterface $entityManager): Response
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
         try {
             // Vérifiez si le musicien est autorisé à modifier l'artiste
             if ($artist->getMusician() !== $this->getUser()) {
