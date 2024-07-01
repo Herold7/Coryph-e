@@ -67,6 +67,10 @@ class ReviewController extends AbstractController
 #[Route('/edit-review/{artist}', name: 'edit_review', methods: ['GET', 'POST'])]// Route pour modifier un artiste
     public function edit(Request $request, Review $review, EntityManagerInterface $em): Response
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
         try {
             // Vérifiez si l'utilisateur est autorisé à modifier l'avis
             if ($review->getUser() !== $this->getUser()) {
@@ -101,6 +105,11 @@ class ReviewController extends AbstractController
         EntityManagerInterface $em
     ): Response
     {
+
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
         try {
             // Check if the user is authorized to delete the artist
             if ($review->getUser() !== $this->getUser()) {
