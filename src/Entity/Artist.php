@@ -181,7 +181,7 @@ class Artist
     /**
      * @var Collection<int, Category>
      */
-    #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'artists', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'artists', cascade: ['persist'])]
     private Collection $category;
 
     public function __construct()
