@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use App\Form\ProfileType;
 use App\Service\ProfileService;
+use App\Repository\ArtistRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 
 class PageController extends AbstractController
 {
@@ -53,7 +55,5 @@ class PageController extends AbstractController
             'description' => 'Vous recherchez groupe de musique pour votre événement ? Vous êtes au bon endroit !',
         ]);
     }
-
-
 }
 
