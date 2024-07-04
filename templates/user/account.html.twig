@@ -48,8 +48,8 @@
 						</ul>
 					</div>
 				</div>
-				<div class="row">
 					{# Favorites #}
+				<div class="row">
 					<div class="mb-4">
 						<div class="card">
 							<div class="card-header d-sm-flex justify-content-between align-favorites-center border-0">
@@ -63,53 +63,118 @@
 									En voir plus
 								</a>
 							</div>
-							<div class="card-body position-relative pt-3">
-								<div class="d-flex gap-3 overflow-x-scroll">
-								<!-- Verifie si l'utilisateur a des favoris -->
-									{% if app.user.favorites is defined and app.user.favorites|length > 0 %}
-										{% for favorite in app.user.favorites %}
-											<div class="col-md-4 col-sm-12">
-												<div class="card shadow-none text-center h-100">
-													<div class="card-body p-2">
-													<!-- Boucle sur les artistes associés aux favorite -->
-														{% for artist in favorite.artists %}
+							<div>
+								<div class="card-body position-relative pt-3">
+									<div class="d-flex gap-3 overflow-x-scroll">
+									<!-- Verifie si l'utilisateur a des favoris -->
+										{% if app.user.favorites is defined and app.user.favorites|length > 0 %}
+											{% for favorite in app.user.favorites %}
+												<div class="col-md-4 col-sm-12">
+													<div class="card shadow-none text-center h-100">
 														<div class="card-body p-2">
-															<img src="/uploads/artists/{{ artist.image }}" class="img-fluid">
+															<!-- Boucle sur les artistes associés aux favorite -->
+															{% for artist in favorite.artists %}
+															<div class="card-body p-2">
+																<img src="/uploads/artists/{{ artist.image }}" class="img-fluid">
+															</div>
+															<div class="card-text">
+																<h1 class="fs-3">
+																{{ artist.nickname }}<br>  {# Affiche le nom de chaque artiste associé à l'favorite #}
+																</h1>
+															</div>	
+															{% endfor %}
 														</div>
-														<div class="card-text">
-															<h1 class="fs-3">
-                        										{{ artist.nickname }}<br>  {# Affiche le nom de chaque artiste associé à l'favorite #}
-                    										</h1>
-														</div>	
-														{% endfor %}
-													</div>
-													<div class="card-footer p-2 border-0">
-														<a class="text-decoration-none" href="{{ path('app_artist_show', { 'id': favorite.artists[0].id }) }}">
-															<button class="btn btn-sm btn-custom rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
-																<i class="bi bi-eye"></i>
-																Voir
-															</button>
-														</a>
-														<a class="" href="{{ path('remove_favorite', { 'artist': favorite.id }) }}">
-															<button class="btn btn-sm btn-dark rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
+														<div class="card-footer p-2 border-0">
+															<a class="text-decoration-none" href="{{ path('app_artist_show', { 'id': favorite.artists[0].id }) }}">
+																<button class="btn btn-sm btn-custom rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
+																	<i class="bi bi-eye"></i>
+																	Voir
+																</button>
+															</a>
+															<a class="" href="{{ path('remove_favorite', { 'artist': favorite.id }) }}">
+																<button class="btn btn-sm btn-dark rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
 																		<i class="bi bi-trash"></i>
-																Supprimer
-															</button>
-														</a>
+																	Supprimer
+																</button>
+															</a>
+														</div>
 													</div>
 												</div>
-											</div>
-										{% endfor %}
+											{% endfor %}
 										{% else %}
-										<p>Vous n'avez pas d'artistes favoris.</p>
-									{% endif %}
+											<p>Vous n'avez pas déposé d'avis.</p>
+										{% endif %}
+									</div>
 								</div>
-							</div>
 							</div>
 							<!-- Card body END -->
 						</div>
 					</div>
-
+				</div>
+					{# reviews #}
+				<div class="row">
+					<div class="mb-5">
+						<div class="card">
+							<div class="card-header d-sm-flex justify-content-between align-favorites-center border-0">
+								<h5 class="card-title">
+									Vos Avis
+									<span class="badge bg-danger bg-opacity-10 text-danger">
+										{{ app.user.reviews|length }}
+									</span>
+								</h5>
+								{# <a class="btn btn-primary-soft btn-sm" href="{{ path('reviews') }}"> #}
+									en voir plus
+								</a>
+								</a>
+							</div>
+							<div>
+								<div class="card-body position-relative pt-3">
+									<div class="d-flex gap-3 overflow-x-scroll">
+									<!-- Verifie si l'utilisateur a des avis -->
+										{% if app.user.reviews is defined %}
+											{% for review in app.user.reviews %}
+												<div class="col-md-4 col-sm-12">
+													<div class="card shadow-none text-center h-100">
+														<div class="card-body p-2">
+															<!-- Boucle sur les artistes associés aux avis -->
+															{% for artist in review.artist %}
+															<div class="card-body p-2">
+																<img src="/uploads/artists/{{ artist.image }}" class="img-fluid">
+															</div>
+															<div class="card-text">
+																<h1 class="fs-3">
+																{{ artist.nickname }}<br>  {# Affiche le nom de chaque artiste associé à l'avis #}
+																</h1>
+															</div>	
+															{% endfor %}
+														</div>
+														<div class="card-footer p-2 border-0">
+															{# <a class="text-decoration-none" href="{{ path('add_review', { 'id': artist.id}) }}"> #}
+																<button class="btn btn-sm btn-custom rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
+																	<i class="bi bi-eye"></i>
+																	Voir
+																</button>
+															</a>
+															{# <a class="" href="{{ path('remove_review', { 'artist': artist.id }) }}"> #}
+																<button class="btn btn-sm btn-dark rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
+																		<i class="bi bi-trash"></i>
+																	Supprimer
+																</button>
+															</a>
+														</div>
+													</div>
+												</div>
+											{% endfor %}
+										{% else %}
+											<p>Vous n'avez pas d'artistes favoris.</p>
+										{% endif %}
+									</div>
+								</div>
+							</div>
+							<!-- Card body END -->
+						</div>
+					</div>
+				</div>
 					{# Artist #}
 					{% if is_granted('ROLE_MUSICIAN') %}
 					<div class="row">
@@ -126,46 +191,46 @@
 										Créer une fiche artiste
 									</a>
 								</div>
-								{% if app.user.artists is defined %}
-    								{% for artist in app.user.artists %}
 									<div class="card-body position-relative pt-3">
 										<div class="d-flex gap-3 overflow-x-scroll">
-											<div class="col-md-4 col-sm-12">
-												<div class="card shadow-none text-center h-100">
-													<div class="card-body p-2">
-														<img src="/uploads/artists/{{ artist.image }}" class="img-fluid">
-													</div>
-													<div class="card-text">
-														<h1 class="fs-3">
-															{{ artist.nickname }}
-														</h1>
-															<p>{{ artist.bio }}</p>
-															<p>{{ artist.city }}</p>
-														<div>  
-															{% if artist.musicalStyle is defined %}
-																{% for style in artist.musicalStyle %}
-																	<p class="fs-5"> {{ style.name|capitalize }}</p>
-																{% endfor %}
-															{% else %}
-																<p class="fs-5">Pas de style musical défini.</p>
-															{% endif %}
+											{% if app.user.artists is defined %}
+												{% for artist in app.user.artists %}
+												<div class="col-md-4 col-sm-12">
+													<div class="card shadow-none text-center h-100">
+														<div class="card-body p-2">
+															<img src="/uploads/artists/{{ artist.image }}" class="img-fluid">
+														</div>
+														<div class="card-text">
+															<h1 class="fs-3">
+																{{ artist.nickname }}
+															</h1>
+																<p>{{ artist.bio }}</p>
+																<p>{{ artist.city }}</p>
+															<div>  
+																{% if artist.musicalStyle is defined %}
+																	{% for style in artist.musicalStyle %}
+																		<p class="fs-5"> {{ style.name|capitalize }}</p>
+																	{% endfor %}
+																{% else %}
+																	<p class="fs-5">Pas de style musical défini.</p>
+																{% endif %}
+															</div>
+														</div>
+														<div class="card-footer p-2 border-0">
+															<a href="{{ path('app_artist_edit', {'id': artist.id}) }}">
+															<button class="btn btn-sm btn-success rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
+																<i class="bi bi-pencil"></i>
+																Manage
+															</button>
+															</a>
 														</div>
 													</div>
-													<div class="card-footer p-2 border-0">
-														<a href="{{ path('app_artist_edit', {'id': artist.id}) }}">
-														<button class="btn btn-sm btn-success rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
-															<i class="bi bi-pencil"></i>
-															Manage
-														</button>
-														</a>
-													</div>
 												</div>
-											</div>
+												{% endfor %}
+											{% endif %}
 										</div>
 									</div>								
 									<!-- Card body END -->
-    								{% endfor %}
-								{% endif %}
 							</div>
 						</div>
 					</div>
