@@ -4,18 +4,7 @@ namespace App\Form;
 
 use App\Entity\Artist;
 use App\Entity\Audio;
-use App\Entity\Category;
-use App\Entity\EventPlatform;
-use App\Entity\Favorite;
-use App\Entity\Instrument;
-use App\Entity\MusicalStyle;
-use App\Entity\MusicPlatform;
-use App\Entity\Performance;
 use App\Entity\Picture;
-use App\Entity\Set;
-use App\Entity\SocialNetwork;
-use App\Entity\Tag;
-use App\Entity\User;
 use App\Entity\Video;
 use App\Entity\Website;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
