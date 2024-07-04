@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvel avis{% endblock %}
+
+{% block body %}
+<main class="container p-3 ">
+    <div class="">
+        <h1 class=" text-center">Déposez un nouvel avis</h1>
+
+    {{ include('review/_form.html.twig') }}
+
+    </div>
+</main>
+
+{% endblock %}
