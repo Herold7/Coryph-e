@@ -24,7 +24,7 @@
 				{{ form_errors(form) }}
 				<div class="form-floating mb-2">
 					{{ form_widget(form.name, {attr: {class: 'form-control'}, 'value': app.user.name}) }}
-					<label for="floatingInput">Votre nom</label>
+					<label for="floatingInput">Votre nom *</label>
 				</div>
 				<div class="form-floating mb-2">
 					{{ form_widget(form.corporateName, {attr: {class: 'form-control'}, 'required': false}) }}
@@ -48,11 +48,11 @@
 				</div>
 				<div class="form-floating mb-2">
 					{{ form_widget(form.city, {attr: {class: 'form-control'}, 'value': app.user.city}) }}
-					<label for="floatingInput">Votre ville</label>
+					<label for="floatingInput">Votre ville *</label>
 				</div>
 				<div class="form-floating mb-2">
 					{{ form_widget(form.zip, {attr: {class: 'form-control'}, 'value': app.user.zip}) }}
-					<label for="floatingInput">Votre code postal</label>
+					<label for="floatingInput">Votre code postal *</label>
 				</div>
 				<div class="form-floating mb-2">
 					{{ form_widget(form.country, {attr: {class: 'form-control'}, 'value': app.user.country, 'required': false}) }}
