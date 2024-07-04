@@ -8,9 +8,12 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\Regex;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
@@ -24,6 +27,17 @@ class ProfileType extends AbstractType
                 'attr' => [
                     'class' => 'form-control  mb-2',
                     'placeholder' => 'Votre nom'
+                ],
+                'constraint' => [
+                    new NotBlank([
+                        'message' => 'Veuillez renseigner votre nom',
+                    ]),
+                    new Length([
+                        'min' => 2,
+                        'minMessage' => 'Votre nom doit contenir au moins {{ limit }} caractères',
+                        'max' => 50,
+                        'maxMessage' => 'Votre nom doit contenir au maximum {{ limit }} caractères',
+                    ]),
                 ]
             ])
             ->add('corporateName', TextType::class, [// champ pour définir le nom de l'entreprise de l'utilisateur
@@ -32,6 +46,14 @@ class ProfileType extends AbstractType
                     'class' => 'form-control  mb-2',
                     'placeholder' => 'Le nom de votre organisation',
                     'required' => false
+                ],
+                'constraint' => [
+                    new Length([
+                        'min' => 2,
+                        'minMessage' => 'Votre nom doit contenir au moins {{ limit }} caractères',
+                        'max' => 50,
+                        'maxMessage' => 'Votre nom doit contenir au maximum {{ limit }} caractères',
+                    ]),
                 ]
             ])
             ->add('siret', TextType::class, [// champ pour définir le numéro de SIRET de l'entreprise de l'utilisateur
@@ -40,6 +62,14 @@ class ProfileType extends AbstractType
                     'class' => 'form-control  mb-2',
                     'placeholder' => 'Son numéro SIRET',
                     'required' => false,
+                ],
+                'constraint' => [
+                    new Length([
+                        'min' => 14,
+                        'minMessage' => 'Votre numéro de SIRET doit contenir {{ limit }} caractères',
+                        'max' => 17,
+                        'maxMessage' => 'Votre numéro de SIRET doit contenir {{ limit }} caractères',
+                    ]),
                 ]
             ])
             ->add('phone', TextType::class, [// champ pour définir le numéro de téléphone de l'utilisateur
@@ -47,6 +77,18 @@ class ProfileType extends AbstractType
                 'attr' => [
                     'class' => 'form-control  mb-2',
                     'placeholder' => 'Votre numéro de téléphone'
+                ],
+                'constraint' => [
+                    new Length([
+                        'min' => 10,
+                        'minMessage' => 'Votre numéro de téléphone doit contenir {{ limit }} caractères',
+                        'max' => 19,
+                        'maxMessage' => 'Votre numéro de téléphone doit contenir {{ limit }} caractères',
+                    ]),
+                    new Regex([
+                        'pattern' => '/^0[1-9]([-. ]?[0-9]{2}){4}$/',
+                        'message' => 'Votre numéro de téléphone doit être au format français',
+                    ]),
                 ]
             ])
             ->add('address', TextType::class, [// champ pour définir l'adresse de l'utilisateur
@@ -70,6 +112,18 @@ class ProfileType extends AbstractType
                 'attr' => [
                     'class' => 'form-control  mb-2',
                     'placeholder' => 'Votre ville'
+                ],
+                'constraint' => [
+                    new Regex([
+                        'pattern' => '/^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/',
+                        'message' => 'Votre ville ne doit contenir que des lettres',
+                    ]),
+                    new Length([
+                        'min' => 2,
+                        'minMessage' => 'Votre ville doit contenir au moins {{ limit }} caractères',
+                        'max' => 50,
+                        'maxMessage' => 'Votre ville doit contenir au maximum {{ limit }} caractères',
+                    ]),
                 ]
             ])
             ->add('zip', TextType::class, [// champ pour définir le code postal de l'utilisateur
@@ -77,6 +131,12 @@ class ProfileType extends AbstractType
                 'attr' => [
                     'class' => 'form-control  mb-2',
                     'placeholder' => 'Votre code postal'
+                ],
+                'constraint' => [
+                    new Regex([
+                        'pattern' => '/^[0-9]{5}$/',
+                        'message' => 'Votre code postal doit être composé de 5 chiffres',
+                    ]),
                 ]
             ])
             ->add('country', TextType::class, [// champ pour définir le pays de l'utilisateur
@@ -84,6 +144,18 @@ class ProfileType extends AbstractType
                 'attr' => [
                     'class' => 'form-control  mb-4',
                     'placeholder' => 'Votre pays'
+                ],
+                'constraint' => [
+                    new Regex([
+                        'pattern' => '/^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/',
+                        'message' => 'Votre pays ne doit contenir que des lettres',
+                    ]),
+                    new Length([
+                        'min' => 2,
+                        'minMessage' => 'Votre pays doit contenir au moins {{ limit }} caractères',
+                        'max' => 50,
+                        'maxMessage' => 'Votre pays doit contenir au maximum {{ limit }} caractères',
+                    ]),
                 ]
             ])
             // ->add('consent', CheckboxType::class, [// champ pour définir le consentement de l'utilisateur

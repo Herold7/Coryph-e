@@ -22,18 +22,22 @@ use App\Entity\SocialNetwork;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\Regex;
+use Symfony\Component\Validator\Constraints\Choice;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\RadioType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Text;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class ArtistType extends AbstractType
 {
@@ -45,6 +49,20 @@ class ArtistType extends AbstractType
                 'attr' => [
                     'class' => 'form-control  mb-6',
                     'placeholder' => 'Votre pseudo'
+                ],
+                'constraint' => [
+                    new Length([
+                        'min' => 3,
+                        'minMessage' => 'Votre pseudo doit contenir au moins {{ limit }} caractères',
+                        'max' => 50,
+                        'maxMessage' => 'Votre pseudo doit contenir au maximum {{ limit }} caractères'
+                    ]),
+                    new Regex(
+                        [
+                            'pattern' => '/^[a-zA-Z0-9_ ]+$/',
+                            'message' => 'Votre pseudo ne doit contenir que des lettres, des chiffres, des espaces et des underscores'
+                        ]
+                    )
                 ]
             ])
             ->add('number', TextType::class, [
@@ -52,6 +70,20 @@ class ArtistType extends AbstractType
                 'attr' => [
                     'class' => 'form-control  mb-6',
                     'placeholder' => 'Le nombre de membre'
+                ],
+                'constraint' => [
+                    new Length([
+                        'min' => 1,
+                        'minMessage' => 'Le nombre de membre doit contenir au moins {{ limit }} caractères',
+                        'max' => 50,
+                        'maxMessage' => 'Le nombre de membre doit contenir au maximum {{ limit }} caractères'
+                    ]),
+                    new Regex(
+                        [
+                            'pattern' => '/^[0-9]+$/',
+                            'message' => 'Le nombre de membre ne doit contenir que des chiffres'
+                        ]
+                    )
                 ]
             ])
             ->add('professionnal', ChoiceType::class, [
@@ -64,13 +96,33 @@ class ArtistType extends AbstractType
                 ],
                 'attr' => [
                     'class' => 'form-control mb-6 form-check',
-                ]
+                ],
+                'constraints' => [
+                    new Choice([
+                        'choices' => [true, false],
+                        'message' => 'Veuillez sélectionner une option valide',
+                    ]),
+                ],
             ])
             ->add('city', TextType::class, [
                 'label' => 'Ville',
                 'attr' => [
                     'class' => 'form-control  mb-6',
                     'placeholder' => 'Votre ville'
+                ],
+                'constraint' => [
+                    new Length([
+                        'min' => 3,
+                        'minMessage' => 'Votre ville doit contenir au moins {{ limit }} caractères',
+                        'max' => 50,
+                        'maxMessage' => 'Votre ville doit contenir au maximum {{ limit }} caractères'
+                    ]),
+                    new Regex(
+                        [
+                            'pattern' => '/^[a-zA-Z0-9_ ]+$/',
+                            'message' => 'Votre ville ne doit contenir que des lettres, des chiffres, des espaces et des underscores'
+                        ]
+                    )
                 ]
             ])
             ->add('country', TextType::class, [
@@ -78,6 +130,20 @@ class ArtistType extends AbstractType
                 'attr' => [
                     'class' => 'form-control  mb-2',
                     'placeholder' => 'Votre pays'
+                ],
+                'constraint' => [
+                    new Length([
+                        'min' => 3,
+                        'minMessage' => 'Votre pays doit contenir au moins {{ limit }} caractères',
+                        'max' => 50,
+                        'maxMessage' => 'Votre pays doit contenir au maximum {{ limit }} caractères'
+                    ]),
+                    new Regex(
+                        [
+                            'pattern' => '/^[a-zA-Z0-9_ ]+$/',
+                            'message' => 'Votre pays ne doit contenir que des lettres, des chiffres, des espaces et des underscores'
+                        ]
+                    )
                 ]
             ])
             ->add('phone', TextType::class, [
@@ -85,6 +151,20 @@ class ArtistType extends AbstractType
                 'attr' => [
                     'class' => 'form-control  mb-2',
                     'placeholder' => 'Votre téléphone'
+                ],
+                'constraint' => [
+                    new Length([
+                        'min' => 10,
+                        'minMessage' => 'Votre téléphone doit contenir au moins {{ limit }} caractères',
+                        'max' => 19,
+                        'maxMessage' => 'Votre téléphone doit contenir au maximum {{ limit }} caractères'
+                    ]),
+                    new Regex(
+                        [
+                            'pattern' => '/^[0-9 .]+$/',
+                            'message' => 'Votre téléphone ne doit contenir que des chiffres'
+                        ]
+                    )
                 ]
             ])
             ->add('mail', TextType::class, [
@@ -92,12 +172,40 @@ class ArtistType extends AbstractType
                 'attr' => [
                     'class' => 'form-control  mb-2',
                     'placeholder' => 'Votre email'
+                ],
+                'constraint' => [
+                    new Length([
+                        'min' => 3,
+                        'minMessage' => 'Votre email doit contenir au moins {{ limit }} caractères',
+                        'max' => 50,
+                        'maxMessage' => 'Votre email doit contenir au maximum {{ limit }} caractères'
+                    ]),
+                    new Regex(
+                        [
+                            'pattern' => '/^[a-zA-Z0-9_@. ]+$/',
+                            'message' => 'Votre email ne doit contenir que des lettres, des chiffres, des espaces, des points et des arobase'
+                        ]
+                    )
                 ]
             ])
             ->add('bio', TextType::class, [
                 'label' => 'Biographie',
                 'attr' => ['class' => 'form-control  mb-2',
                     'placeholder' => 'Votre biographie'
+                ],
+                'constraint' => [
+                    new Length([
+                        'min' => 3,
+                        'minMessage' => 'Votre biographie doit contenir au moins {{ limit }} caractères',
+                        'max' => 500,
+                        'maxMessage' => 'Votre biographie doit contenir au maximum {{ limit }} caractères'
+                    ]),
+                    new Regex(
+                        [
+                            'pattern' => '/^[a-zA-Z0-9_ ]+$/',
+                            'message' => 'Votre biographie ne doit contenir que des lettres, des chiffres, des espaces et des underscores'
+                        ]
+                    )
                 ]
             ])
             ->add('birthyear', IntegerType::class, [
@@ -105,9 +213,20 @@ class ArtistType extends AbstractType
                 'label' => 'Année de naissance',
                 'attr' => ['class' => 'form-control  mb-2',
                     'placeholder' => 'L\'année de création'
+            ],
+                'constraint' => [
+                    new Length([
+                        'exactly' => 4,
+                        'Message' => 'Votre année de naissance doit contenir {{ limit }} caractères',
+                        ]),
+                    new Regex(
+                        [
+                            'pattern' => '/^[0-9]+$/',
+                            'message' => 'Votre année de naissance ne doit contenir que des chiffres'
+                        ]
+                    )
                 ]
             ])
-                
             ->add('image', FileType::class, [
                 'label' => "Photo de l\'artiste",
                 'mapped' => false,
@@ -115,7 +234,7 @@ class ArtistType extends AbstractType
                 'attr' => [
                     'class' => 'form-control-file mb-4'
                 ],
-                'constraints' => [
+                'constraint' => [
                     new File([
                         'maxSize' => '1024k',
                         'maxSizeMessage' => 'Le fichier est trop gros ({{ size }} {{ suffix }}). La taille maximale est de {{ limit }} {{ suffix }}.',
@@ -130,6 +249,16 @@ class ArtistType extends AbstractType
                 'widget' => 'single_text',
                 'data' => new \DateTime(),
                 'label' => 'Date de création',
+                'constraint' => [
+                    new Date([
+                        'message' => 'La date de création doit être une date valide',
+                    
+                ]),
+                    new Length([
+                        'exactly' => 4,
+                        'Message' => 'La date de création doit contenir exactement {{ limit }} caractères',
+                        ])
+                ]
             ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
