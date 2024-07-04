@@ -3,10 +3,8 @@
 namespace App\Form;
 
 use App\Entity\User;
-use App\Entity\Favorite;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\Length;
@@ -14,8 +12,6 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class ProfileType extends AbstractType
 {
@@ -28,7 +24,7 @@ class ProfileType extends AbstractType
                     'class' => 'form-control  mb-2',
                     'placeholder' => 'Votre nom'
                 ],
-                'constraint' => [
+                'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez renseigner votre nom',
                     ]),
@@ -47,7 +43,7 @@ class ProfileType extends AbstractType
                     'placeholder' => 'Le nom de votre organisation',
                     'required' => false
                 ],
-                'constraint' => [
+                'constraints' => [
                     new Length([
                         'min' => 2,
                         'minMessage' => 'Votre nom doit contenir au moins {{ limit }} caractères',
@@ -63,7 +59,7 @@ class ProfileType extends AbstractType
                     'placeholder' => 'Son numéro SIRET',
                     'required' => false,
                 ],
-                'constraint' => [
+                'constraints' => [
                     new Length([
                         'min' => 14,
                         'minMessage' => 'Votre numéro de SIRET doit contenir {{ limit }} caractères',
@@ -78,7 +74,7 @@ class ProfileType extends AbstractType
                     'class' => 'form-control  mb-2',
                     'placeholder' => 'Votre numéro de téléphone'
                 ],
-                'constraint' => [
+                'constraints' => [
                     new Length([
                         'min' => 10,
                         'minMessage' => 'Votre numéro de téléphone doit contenir {{ limit }} caractères',
@@ -113,7 +109,7 @@ class ProfileType extends AbstractType
                     'class' => 'form-control  mb-2',
                     'placeholder' => 'Votre ville'
                 ],
-                'constraint' => [
+                'constraints' => [
                     new Regex([
                         'pattern' => '/^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/',
                         'message' => 'Votre ville ne doit contenir que des lettres',
@@ -132,7 +128,7 @@ class ProfileType extends AbstractType
                     'class' => 'form-control  mb-2',
                     'placeholder' => 'Votre code postal'
                 ],
-                'constraint' => [
+                'constraints' => [
                     new Regex([
                         'pattern' => '/^[0-9]{5}$/',
                         'message' => 'Votre code postal doit être composé de 5 chiffres',
@@ -145,7 +141,7 @@ class ProfileType extends AbstractType
                     'class' => 'form-control  mb-4',
                     'placeholder' => 'Votre pays'
                 ],
-                'constraint' => [
+                'constraints' => [
                     new Regex([
                         'pattern' => '/^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/',
                         'message' => 'Votre pays ne doit contenir que des lettres',
@@ -171,7 +167,7 @@ class ProfileType extends AbstractType
                 'attr' => [
                     'class' => 'form-control-file mb-4'
                 ],
-                'constraints' => [
+                'constraintss' => [
                     new File([
                         'maxSize' => '1024k',
                         'maxSizeMessage' => 'Le fichier est trop gros ({{ size }} {{ suffix }}). La taille maximale est de {{ limit }} {{ suffix }}.',
