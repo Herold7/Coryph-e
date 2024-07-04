@@ -1,4 +1,35 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn btn btn-success">{{ button_label|default('Enregistrer') }}</button>
-{{ form_end(form) }}
+{% block title %}Donnez votre avis {% endblock %}
+
+{% block body %}
+    {% if app.user %}
+        <div class="container vh-100 d-flex align-items-center">
+            <div class="form-signing w-100 m-auto">
+                <h1 class="h3 mt-5 mb-3 fw-normal text-center">Déposez votre avis</h1>
+                <div class="modal-body">
+                    {{ form_errors(form) }}
+                    {{ form_start(form, {
+                        attr: {
+                            class: 'col-4 m-auto login-form'
+                        }
+                    }) }}
+                        <div class="form-floating mb-2">
+                            {{ form_row(form.title,
+                        {'attr': {'class': 'form-control'}, 'label': 'Renseignez un titre *'}) }}
+                        </div>
+                        <div class="form-floating mb-2">
+                            {{ form_row(form.comment, require: false,
+                        {'attr': {'class': 'form-control'}, 'label': 'Ecrivez votre avis'}) }}
+                        </div>
+                        <div class="form-floating mb-2">
+                            {{ form_row(form.rating, require: false,
+                        {'attr': {'class': 'form-control'}, 'label': 'Donnez une notre entre 1 et 5'}) }}
+                        </div>
+                        <button type="submit" class="btn btn-primary">Sauvegardez votre avis</button>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <p>Vous devez être connecté pour déposer un avis.</p>
+    {% endif %}
+{% endblock %}
