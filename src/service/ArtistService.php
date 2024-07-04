@@ -12,7 +12,7 @@ class ArtistService// Service pour la gestion du profil artiste
         $this->parameterBag = $parameterBag;
     }
 
-    public function createArtist($form, $artist, $em)
+    public function updateArtist($form, $artist, $em)
     {// gérer la mise à jour du profil artiste (hydrater l'objet Artist)
         $artist->setNickname($form->get('nickname')->getData());
         $artist->setNumber($form->get('number')->getData());
