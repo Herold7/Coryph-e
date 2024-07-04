@@ -167,7 +167,7 @@ class ProfileType extends AbstractType
                 'attr' => [
                     'class' => 'form-control-file mb-4'
                 ],
-                'constraintss' => [
+                'constraints' => [
                     new File([
                         'maxSize' => '1024k',
                         'maxSizeMessage' => 'Le fichier est trop gros ({{ size }} {{ suffix }}). La taille maximale est de {{ limit }} {{ suffix }}.',
