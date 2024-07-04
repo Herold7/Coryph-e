@@ -3,16 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Set;
-use App\Entity\Tag;
-use App\Entity\User;
-use App\Entity\Audio;
-use App\Entity\Video;
 use App\Entity\Artist;
-use DateTimeImmutable;
-use App\Entity\Picture;
-use App\Entity\Website;
 use App\Entity\Category;
-use App\Entity\Favorite;
 use App\Entity\Instrument;
 use App\Entity\Performance;
 use App\Entity\MusicalStyle;
@@ -31,13 +23,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Text;
+
 
 class ArtistType extends AbstractType
 {
@@ -50,7 +38,7 @@ class ArtistType extends AbstractType
                     'class' => 'form-control  mb-6',
                     'placeholder' => 'Votre pseudo'
                 ],
-                'constraint' => [
+                'constraints' => [
                     new Length([
                         'min' => 3,
                         'minMessage' => 'Votre pseudo doit contenir au moins {{ limit }} caractères',
@@ -71,7 +59,7 @@ class ArtistType extends AbstractType
                     'class' => 'form-control  mb-6',
                     'placeholder' => 'Le nombre de membre'
                 ],
-                'constraint' => [
+                'constraints' => [
                     new Length([
                         'min' => 1,
                         'minMessage' => 'Le nombre de membre doit contenir au moins {{ limit }} caractères',
@@ -110,7 +98,7 @@ class ArtistType extends AbstractType
                     'class' => 'form-control  mb-6',
                     'placeholder' => 'Votre ville'
                 ],
-                'constraint' => [
+                'constraints' => [
                     new Length([
                         'min' => 3,
                         'minMessage' => 'Votre ville doit contenir au moins {{ limit }} caractères',
@@ -131,7 +119,7 @@ class ArtistType extends AbstractType
                     'class' => 'form-control  mb-2',
                     'placeholder' => 'Votre pays'
                 ],
-                'constraint' => [
+                'constraints' => [
                     new Length([
                         'min' => 3,
                         'minMessage' => 'Votre pays doit contenir au moins {{ limit }} caractères',
@@ -152,7 +140,7 @@ class ArtistType extends AbstractType
                     'class' => 'form-control  mb-2',
                     'placeholder' => 'Votre téléphone'
                 ],
-                'constraint' => [
+                'constraints' => [
                     new Length([
                         'min' => 10,
                         'minMessage' => 'Votre téléphone doit contenir au moins {{ limit }} caractères',
@@ -173,7 +161,7 @@ class ArtistType extends AbstractType
                     'class' => 'form-control  mb-2',
                     'placeholder' => 'Votre email'
                 ],
-                'constraint' => [
+                'constraints' => [
                     new Length([
                         'min' => 3,
                         'minMessage' => 'Votre email doit contenir au moins {{ limit }} caractères',
@@ -193,7 +181,7 @@ class ArtistType extends AbstractType
                 'attr' => ['class' => 'form-control  mb-2',
                     'placeholder' => 'Votre biographie'
                 ],
-                'constraint' => [
+                'constraints' => [
                     new Length([
                         'min' => 3,
                         'minMessage' => 'Votre biographie doit contenir au moins {{ limit }} caractères',
@@ -214,7 +202,7 @@ class ArtistType extends AbstractType
                 'attr' => ['class' => 'form-control  mb-2',
                     'placeholder' => 'L\'année de création'
             ],
-                'constraint' => [
+                'constraints' => [
                     new Length([
                         'exactly' => 4,
                         'Message' => 'Votre année de naissance doit contenir {{ limit }} caractères',
@@ -234,7 +222,7 @@ class ArtistType extends AbstractType
                 'attr' => [
                     'class' => 'form-control-file mb-4'
                 ],
-                'constraint' => [
+                'constraints' => [
                     new File([
                         'maxSize' => '1024k',
                         'maxSizeMessage' => 'Le fichier est trop gros ({{ size }} {{ suffix }}). La taille maximale est de {{ limit }} {{ suffix }}.',
@@ -249,7 +237,7 @@ class ArtistType extends AbstractType
                 'widget' => 'single_text',
                 'data' => new \DateTime(),
                 'label' => 'Date de création',
-                'constraint' => [
+                'constraints' => [
                     new Date([
                         'message' => 'La date de création doit être une date valide',
                     
