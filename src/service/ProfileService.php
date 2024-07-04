@@ -33,7 +33,7 @@ class ProfileService// Service pour la gestion du profil utilisateur
             $user->setImage($filename);
         } else {
             if($user->getImage() == null) {
-                $user->setImage('default.png');
+                $user->setImage('default.webp');
             } else {
                 $user->setImage($user->getImage());
             }
