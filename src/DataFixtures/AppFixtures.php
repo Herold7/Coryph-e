@@ -24,7 +24,6 @@ use App\Entity\SocialNetwork;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
-
 class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
@@ -84,7 +83,7 @@ class AppFixtures extends Fixture
         }
 
         // Création d'instruments
-        $instruments = ['piano', 'guitare', 'basse', 'batterie', 'saxophone', 'trompette', 'violon'];
+        $instruments = ['piano', 'guitare', 'basse', 'batterie', 'saxophone',];
         $instrumentArray = [];
         for ($i = 0; $i < count($instruments); $i++) {
             $instrument = new Instrument();
@@ -94,7 +93,7 @@ class AppFixtures extends Fixture
         }
 
         // ajout de style de musique
-        $musicalStyles = ['jazz', 'rock', 'pop', 'classique', 'reggae', 'blues', 'soul'];
+        $musicalStyles = ['jazz', 'rock', 'pop', 'classique', 'reggae',];
         $musicalStyleArray = [];
         for ($i = 0; $i < count($musicalStyles); $i++) {
             $musicalStyle = new MusicalStyle();
@@ -103,7 +102,7 @@ class AppFixtures extends Fixture
             array_push($musicalStyleArray, $musicalStyle);
         }
         // Création de type de performance
-        $performances = ['concert', 'mariage', 'bal', 'festival', 'soirée privée', 'bat-mitzva', 'funerailles'];
+        $performances = ['concert', 'mariage', 'bal', 'festival', 'soirée privée'];
         $performanceArray = [];
         for ($i = 0; $i < count($performances); $i++) {
             $performance = new Performance();
@@ -156,7 +155,7 @@ class AppFixtures extends Fixture
             }
 
             // Création d'un artist
-            for ($i = 0; $i < 50; $i++) {
+            for ($i = 0; $i < 40; $i++) {
                 $name = $faker->firstname();
                 $artist = new Artist();
                 $artist->setNickname($name)
@@ -182,7 +181,7 @@ class AppFixtures extends Fixture
                     ->addEventPlatform($faker->randomElement($eventPlatformArray));
 
                 // Ajout de users avec favoris
-                if ($i > 30) {
+                if ($i > 20) {
                     $user = new User();
                     $user->setEmail($name . '@' . $faker->freeEmailDomain())
                         ->setRoles(['ROLE_USER'])
@@ -209,11 +208,10 @@ class AppFixtures extends Fixture
 
                     // Création d'un tag
                     $tag = new Tag();
-                    
-                    $tag->setName($faker->word)
+                    $tag->setName($faker->randomElement($musicalStyleArray))
                         ->addArtist($artist);
                     $manager->persist($tag);
-
+                    
                     // ajout review
                     $review = new Review();
                     $review->setTitle($faker->sentence(3))
