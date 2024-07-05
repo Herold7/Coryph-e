@@ -44,4 +44,14 @@ class ArtistRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function findByCategoryName(string $categoryName)
+    {
+        return $this->createQueryBuilder('a')
+            ->innerJoin('a.category', 'c')
+            ->where('c.name = :categoryName')
+            ->setParameter('categoryName', $categoryName)
+            ->getQuery()
+            ->getResult();
+    }
 }

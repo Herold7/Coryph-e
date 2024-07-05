@@ -42,8 +42,16 @@ class ArtistController extends AbstractController
         Request $request,
         string $category
     ): Response {
+        // Find artists by category name
+        $artistsCategory = $artistRepository->findByCategoryName($category);
+
+        // Ensure that $artistsCategory is not null before passing it to paginate
+        if (empty($artistsCategory)) {
+            throw $this->createNotFoundException('The category does not exist or has no artists.');
+        }
+
         $pagination = $paginator->paginate(
-            $artistRepository->findBy(['category' => $category]),
+            $artistsCategory,
             $request->query->getInt('page', 1),
             12
         );
