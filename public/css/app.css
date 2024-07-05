@@ -33,13 +33,13 @@ body {
 
 /* Category landing page */
 .chanteur {
-    background-image: url('images/background/background-chant.webp');
+    background-image: url('/images/background/background-chant.webp');
 }
 .musicien {
-    background-image: url('images/background/background-groupe.webp');
+    background-image: url('/images/background/background-groupe.webp');
 }
 .groupe {
-    background-image: url('public/images/background/background-groupe2.webp');
+    background-image: url('/images/background/background-groupe2.webp');
 }
 
 .chanteur, .musician, .groupe  {
