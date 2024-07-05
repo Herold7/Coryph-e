@@ -2,11 +2,7 @@
 
 namespace App\Controller;
 
-use App\Form\ProfileType;
-use App\Service\ProfileService;
-use App\Repository\ArtistRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -52,7 +48,7 @@ class PageController extends AbstractController
             'title' => 'groupe',
             'category' => 'groupe',
             'background' => 'groupe',
-            'description' => 'Vous recherchez groupe de musique pour votre événement ? Vous êtes au bon endroit !',
+            'description' => 'Vous recherchez un groupe de musique pour votre événement ? Vous êtes au bon endroit !',
         ]);
     }
 }
