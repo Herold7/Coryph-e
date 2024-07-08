@@ -18,6 +18,9 @@
 					<li>
 						<a class="dropdown-item" href={{ path('favorites') }}>Mes favoris</a>
 					</li>
+					<li>
+						<a class="dropdown-item" href={{ path('reviews') }}>Mes avis</a>
+					</li>
 					{% if is_granted('ROLE_ADMIN') %}
 						<li>
 							<a class="dropdown-item" href={{ path('admin') }}>Admin dashboard</a>
