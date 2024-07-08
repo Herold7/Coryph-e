@@ -122,9 +122,8 @@
 										{{ app.user.reviews|length }}
 									</span>
 								</h5>
-								{# <a class="btn btn-primary-soft btn-sm" href="{{ path('reviews') }}"> #}
-									en voir plus
-								</a>
+								<a class="btn btn-primary-soft btn-sm" href="{{ path('add_review', { 'artist': review.id }) }}">
+									déposer un avis
 								</a>
 							</div>
 							<div>
@@ -149,13 +148,13 @@
 															{% endfor %}
 														</div>
 														<div class="card-footer p-2 border-0">
-															{# <a class="text-decoration-none" href="{{ path('add_review', { 'id': artist.id}) }}"> #}
+															<a class="text-decoration-none" href="{{ path('app_artist_show', { 'id': review.artist.id }) }}">
 																<button class="btn btn-sm btn-custom rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
 																	<i class="bi bi-eye"></i>
 																	Voir
 																</button>
 															</a>
-															{# <a class="" href="{{ path('remove_review', { 'artist': artist.id }) }}"> #}
+															<a class="" href="{{ path('remove_review', { 'review': review.id }) }}">
 																<button class="btn btn-sm btn-dark rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
 																		<i class="bi bi-trash"></i>
 																	Supprimer
@@ -166,7 +165,7 @@
 												</div>
 											{% endfor %}
 										{% else %}
-											<p>Vous n'avez pas d'artistes favoris.</p>
+											<p>Vous n'avez pas d'avis.</p>
 										{% endif %}
 									</div>
 								</div>
