@@ -14,7 +14,7 @@
                     <div class="col-md-4 col-sm-12">
                         <div class="card shadow-none text-center h-100">
                             <div class="card-body p-2">
-                                {% for review in review.artists %}
+                                {% for review in review.artist %}
                                     <h1 class="fs-3">
                                         {{ review.title }}
                                     </h1>
@@ -27,17 +27,18 @@
                                 {% endfor %}
                             </div>
                             <div class="card-footer p-2 border-0">
-                                <a class="text-decoration-none" href="{{ path('app_artist_show', { 'id': review.artists[0].id }) }}">
+                                <a class="text-decoration-none" href="{{ path('app_artist_show', { 'id': review.artist.id }) }}">
                                     <button class="btn btn-sm btn-custom rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
                                         <i class="bi bi-eye"></i>
                                         Voir
                                     </button>
                                 </a>
-                                <a class="" href="{{ path('remove_review', { 'artist': review.id }) }}">
+                                <a class="" href="{{ path('remove_review', { 'review': review.id }) }}">
                                     <button class="btn btn-sm btn-dark rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
                                         <i class="bi bi-trash"></i>
                                         Supprimer
                                     </button>
+                                </a>
                                 </a>
                             </div>
                     </div>
