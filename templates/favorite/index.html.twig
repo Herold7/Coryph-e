@@ -10,7 +10,7 @@
         <div class="row text-center py-5">
             <h1>Mes favoris</h1>
         </div>
-        <div class="d-flex gap-3 overflow-x-scroll">
+        <div class="d-flex gap-3 overflow-x-scroll justify-content-center">
             {% if app.user.favorites is defined and app.user.favorites|length > 0 %}
                 {% for favorite in app.user.favorites %}
                     <div class="col-md-4 col-sm-12">
@@ -51,16 +51,11 @@
                                     </button>
                                 </a>
                             </div>
-                            <div>
-                            
-            {# {{ include('review/index.html.twig') }} #}
-                            </div>
                         </div>
                     </div>
                 {% endfor %}
             {% else %}
-            
-            <div class=" justify-item-center">
+            <div class="">
                 <p >Vous n'avez pas d'artistes favoris.</p>
             </div>
             {% endif %}

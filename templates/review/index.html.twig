@@ -1,11 +1,14 @@
+{% extends 'base.html.twig' %}
+
 {% block title %}Donnez votre avis {% endblock %}
 
 {% block body %}
+<main class="p-5 mb-4 border-bottom border-2">
     <div class="container">
         <div class="row text-center py-5">
             <h1>Mes avis</h1>
         </div>
-        <div class="d-flex gap-3 overflow-x-scroll">
+        <div class="d-flex gap-3 overflow-x-scroll justify-content-center">
             {% if app.user.reviews is defined and app.user.reviews|length > 0 %}
                 {% for review in app.user.reviews %}
                     <div class="col-md-4 col-sm-12">
@@ -23,17 +26,28 @@
                                     </p>
                                 {% endfor %}
                             </div>
-                            
-                            <div>
-                        </div>
+                            <div class="card-footer p-2 border-0">
+                                <a class="text-decoration-none" href="{{ path('app_artist_show', { 'id': review.artists[0].id }) }}">
+                                    <button class="btn btn-sm btn-custom rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
+                                        <i class="bi bi-eye"></i>
+                                        Voir
+                                    </button>
+                                </a>
+                                <a class="" href="{{ path('remove_review', { 'artist': review.id }) }}">
+                                    <button class="btn btn-sm btn-dark rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
+                                        <i class="bi bi-trash"></i>
+                                        Supprimer
+                                    </button>
+                                </a>
+                            </div>
                     </div>
                 {% endfor %}
             {% else %}
-            
             <div class=" justify-item-center">
                 <p >Vous n'avez pas déposé d'avis.</p>
             </div>
             {% endif %}
         </div>
     </div>
+</main>
 {% endblock %}
