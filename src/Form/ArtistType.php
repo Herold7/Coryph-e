@@ -197,22 +197,21 @@ class ArtistType extends AbstractType
                 ]
             ])
             ->add('birthyear', IntegerType::class, [
-                
                 'label' => 'Année de naissance',
-                'attr' => ['class' => 'form-control  mb-2',
+                'attr' => [
+                    'class' => 'form-control  mb-2',
                     'placeholder' => 'L\'année de création'
-            ],
+                ],
                 'constraints' => [
                     new Length([
-                        'exactly' => 4,
-                        'Message' => 'Votre année de naissance doit contenir {{ limit }} caractères',
-                        ]),
-                    new Regex(
-                        [
-                            'pattern' => '/^[0-9]+$/',
-                            'message' => 'Votre année de naissance ne doit contenir que des chiffres'
-                        ]
-                    )
+                        'min' => 4,
+                        'max' => 4,
+                        'exactMessage' => 'Votre année de naissance doit contenir exactement {{ limit }} caractères',
+                    ]),
+                    new Regex([
+                        'pattern' => '/^[0-9]+$/',
+                        'message' => 'Votre année de naissance ne doit contenir que des chiffres'
+                    ])
                 ]
             ])
             ->add('image', FileType::class, [
@@ -243,8 +242,9 @@ class ArtistType extends AbstractType
                     
                 ]),
                     new Length([
-                        'exactly' => 4,
-                        'Message' => 'La date de création doit contenir exactement {{ limit }} caractères',
+                        'min' => 4,
+                        'max' => 4,
+                        'exactMessage' => 'La date de création doit contenir exactement {{ limit }} caractères',
                         ])
                 ]
             ])
