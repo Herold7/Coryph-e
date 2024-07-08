@@ -7,7 +7,7 @@
 <main class="p-5 mb-4 border-bottom border-2">
 	<div class="container">
 		<div class="row text-center py-5 mx-5">
-            <h1 class="mb-5">Tous les artistes</h1>
+				<h1 class="mb-5">Tous les artistes</h1>
 			<p>
 			Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
 			Ab veniam necessitatibus deserunt rem! Saepe sit aliquid ex! 
@@ -18,11 +18,11 @@
 		<div class="row row-cols-1 row-cols-md-3 g-4">
 			{% for artist in artists %}
 				<div class="col">
-					<div class="card h-100 shadow-sm p-3 mb-5 bg-body-info rounded">
+					<div class="card h-100 shadow-sm p-3 bg-body-info rounded">
 							<img class="card-img-top" src={{ asset('images/artist.webp') }} {{artist.image}} alt="{{ artist.nickname }}">
-							<div class="card-body ">
+						<div class="card-body ">
 							<div class=" d-flex justify-content-end">
-								{# Check favorite #}
+									{# Check favorite #}
 								{% if is_granted('IS_AUTHENTICATED_FULLY') %}	
 									{% if artist.isFavorite(app.user) %}
 										<a class="text-end" href={{ path('remove_favorite', { artist: artist.id }) }}>
@@ -31,7 +31,7 @@
 									{% else %}
 										<a class="text-end" href={{ path('add_favorite', { artist: artist.id }) }}>
 											<i class="bi bi-heart text-danger"></i>
-										</a>
+										</a>	
 									{% endif %}
 								{% else %}
 										<a class="text-end" href={{ path('add_favorite', { artist: artist.id }) }}>
@@ -39,24 +39,23 @@
 										</a>
 								{% endif %}
 							</div>
-							<div class="d-flex justify-content-start">
-								{# Check review #}
-								{% if is_granted('ROLE_USER') %}
-									{% if app.user.reviews %}
-										<a class="text-end" href="{{ path('remove_review', { artist: artist.id }) }}">
-											<i class="bi bi-pencil-square-fill text-success"></i>
+									{# Check favorite #}
+							<div class=" d-flex justify-content-start">
+								{% if is_granted('IS_AUTHENTICATED_FULLY') %}	
+									{% if (app.user.reviews )%}
+										<a class="text-end" href={{ path('remove_review', { 'review': review.id }) }}>
+											<i class="bi bi-journal-bookmark-fill text-danger"></i>
 										</a>
 									{% else %}
-										<a class="text-end" href="{{ path('add_review', { artist: artist.id }) }}">
-											<i class="bi bi-pencil-square text-success"></i>
-										</a>
+										<a class="text-end" href={{ path('add_review', { artist: artist.id }) }}>
+											<i class="bi bi-journal-bookmark text-danger"></i>
+										</a>										
 									{% endif %}
 								{% else %}
-									<a class="text-end" href="{{ path('add_review', { artist: artist.id }) }}">
-										<i class="bi bi-pencil-square text-white"></i>
-									</a>
+										<a class="text-end" href={{ path('add_review', { artist: artist.id }) }}>
+											<i class="bi bi-journal-bookmark text-white"></i>
+										</a>
 								{% endif %}
-							</div>
 							</div>
 							<h5 class="card-title">{{ artist.nickname }}</h5>
 							{% if artist.bio is defined and artist.bio|length > 100 %}
@@ -65,7 +64,7 @@
 								<p class="card-text">{{ artist.bio }}</p>
 							{% endif %}
 							<h6 class="card-text">{{ artist.city }}</h6>
-							<a href="{{ path('app_artist_show', { id: artist.id }) }}" class="btn btn-primary">En savoir plus</a>
+								<a href="{{ path('app_artist_show', { id: artist.id }) }}" class="btn btn-primary">En savoir plus</a>
 						</div>
 					</div>
 				</div>
@@ -77,5 +76,5 @@
 	<div class="container d-flex my-5 justify-content-center">
 		{{ knp_pagination_render(artists) }}
 	</div>
-    </main>
+</main>
 {% endblock %}
