@@ -82,7 +82,7 @@ class ReviewController extends AbstractController
         ]);
     }
 
-    #[Route('/remove-review/{review}', name: 'remove_review', methods: ['POST'])]
+    #[Route('/remove-review/{review}', name: 'remove_review', methods: ['GET, POST'])]
     public function removeReview(Request $request, Review $review, EntityManagerInterface $em): Response
     {
         if (!$this->getUser()) {
