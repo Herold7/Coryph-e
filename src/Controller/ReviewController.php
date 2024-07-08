@@ -33,8 +33,6 @@ class ReviewController extends AbstractController
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
-
-        $previous = $request->headers->get('referer') ?? $this->generateUrl('reviews');
         
         $review = new Review();
         $review->setUser($this->getUser());
@@ -48,7 +46,7 @@ class ReviewController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', 'L\'avis a été ajouté.');
-            return $this->redirect($previous);
+            return $this->redirectToRoute('account');
         }
 
         return $this->render('review/new.html.twig', [
@@ -103,6 +101,6 @@ class ReviewController extends AbstractController
             $this->addFlash('error', 'Une erreur s\'est produite lors de la suppression de cet avis.');
         }
 
-        return $this->redirectToRoute('reviews');
+        return $this->redirectToRoute('account');
     }
 }
