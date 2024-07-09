@@ -14,17 +14,17 @@
                     <div class="col-md-4 col-sm-12">
                         <div class="card shadow-none text-center h-100">
                             <div class="card-body p-2">
-                                {% for review in review.artist %}
-                                    <h1 class="fs-3">
-                                        {{ review.title }}
-                                    </h1>
-                                    <p class="fs-3">
-                                        {{ review.comment }}
-                                    </p>
-                                    <p class="fs-3">
-                                        {{ review.rating }}
-                                    </p>
-                                {% endfor %}
+                                <h1 class="fs-3">
+                                    {{ review.title }}
+                                </h1>
+                                <p class="fs-3">
+                                    {{ review.comment }}
+                                </p>
+                                <div class="rating">
+                                    {% for i in 1..review.rating %}
+                                        <i class="bi bi-star-fill text-dark"></i>
+                                    {% endfor %}
+                                </div>
                             </div>
                             <div class="card-footer p-2 border-0">
                                 <a class="text-decoration-none" href="{{ path('app_artist_show', { 'id': review.artist.id }) }}">
@@ -41,6 +41,7 @@
                                 </a>
                                 </a>
                             </div>
+                        </div>
                     </div>
                 {% endfor %}
             {% else %}
