@@ -13,8 +13,10 @@ use Symfony\Component\HttpFoundation\Request;
 class FavoriteController extends AbstractController
 {
     #[Route('/favorites', name: 'favorites', methods: ['GET'])]
-    public function index(FavoriteRepository $favoriteRepository): Response
-    {
+    public function index(
+        FavoriteRepository $favoriteRepository
+        ): Response {
+
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
@@ -31,8 +33,7 @@ class FavoriteController extends AbstractController
         Artist $artist, 
         Request $request,
         EntityManagerInterface $em
-        ): Response
-    {
+        ): Response {
         
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
@@ -57,8 +58,8 @@ class FavoriteController extends AbstractController
     public function removeFavorite(
         FavoriteRepository $favoriteRepository,
         EntityManagerInterface $em
-    ): Response
-    {
+    ): Response {
+        
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }

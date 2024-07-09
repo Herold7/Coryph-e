@@ -17,8 +17,8 @@ class UserController extends AbstractController
         Request $request,
         ProfileService $profileService,
         EntityManagerInterface $em
-    ): Response
-    {
+    ): Response {
+
         $form = $this->createForm(ProfileType::class);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
@@ -40,8 +40,8 @@ class UserController extends AbstractController
         Request $request,
         EntityManagerInterface $em,
         ProfileService $profileService
-    ): Response
-    {
+    ): Response {
+        
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }

@@ -21,6 +21,7 @@ class ArtistController extends AbstractController
         PaginatorInterface $paginator,
         Request $request
     ): Response {
+
         $pagination = $paginator->paginate(
             $artistRepository->findAll(), // Tous les artistes
             $request->query->getInt('page', 1), // Page actuelle
@@ -68,14 +69,17 @@ class ArtistController extends AbstractController
     public function show(
         Artist $artist
     ): Response {
+
         return $this->render('artist/show.html.twig', [
             'artist' => $artist,
         ]);
     }
 
     #[Route('/new', name: 'app_artist_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
+    public function new(
+        Request $request, 
+        EntityManagerInterface $entityManager
+        ): Response {
 
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
@@ -88,7 +92,6 @@ class ArtistController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {// Vérifiez si le formulaire a été soumis et est valide
             $entityManager->persist($artist);
             $entityManager->flush();
-
             $this->addFlash('success', 'La fiche artiste a été créée avec succès.');
             return $this->redirectToRoute('app_artist_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -100,8 +103,12 @@ class ArtistController extends AbstractController
     }
 
     #[Route('/edit/{id}', name: 'app_artist_edit', methods: ['GET', 'POST'])]// Route pour modifier un artiste
-    public function edit(Request $request, Artist $artist, EntityManagerInterface $entityManager): Response
-    {
+    public function edit(
+        Request $request, 
+        Artist $artist, 
+        EntityManagerInterface $entityManager
+        ): Response {
+
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
@@ -134,10 +141,14 @@ class ArtistController extends AbstractController
     }
 
     #[Route('/delete/{id}', name: 'app_artist_delete', methods: ['GET','POST'])]// Route pour supprimer un artiste
-    public function delete(Request $request, Artist $artist, EntityManagerInterface $entityManager): Response
-    {
+    public function delete(
+        Request $request, 
+        Artist $artist, 
+        EntityManagerInterface $entityManager
+        ): Response {
+
         try {
-            // Check if the musician is authorized to delete the artist
+            // Vérifiez si le musicien est autorisé à supprimer l'artiste
             if ($artist->getMusician() !== $this->getUser()) {
                 throw $this->createAccessDeniedException('Vous n\'étes pas autorisé à supprimer cette fiche artiste.');
             }

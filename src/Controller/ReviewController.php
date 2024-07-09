@@ -28,8 +28,12 @@ class ReviewController extends AbstractController
     }
 
     #[Route('/add-review/{artist}', name: 'add_review', methods: ['GET', 'POST'])]
-    public function addReview(Artist $artist, Request $request, EntityManagerInterface $em): Response
-    {
+    public function addReview(
+        Artist $artist, 
+        Request $request, 
+        EntityManagerInterface $em
+        ): Response {
+
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
@@ -56,8 +60,12 @@ class ReviewController extends AbstractController
     }
 
     #[Route('/edit-review/{review}', name: 'edit_review', methods: ['GET', 'POST'])]
-    public function editReview(Request $request, Review $review, EntityManagerInterface $em): Response
-    {
+    public function editReview(
+        Request $request, 
+        Review $review, 
+        EntityManagerInterface $em
+        ): Response {
+
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
@@ -83,8 +91,12 @@ class ReviewController extends AbstractController
     }
 
     #[Route('/remove-review/{review}', name: 'remove_review', methods: ['GET, POST'])]
-    public function removeReview(Request $request, Review $review, EntityManagerInterface $em): Response
-    {
+    public function removeReview(
+        Request $request, 
+        Review $review, 
+        EntityManagerInterface $em
+        ): Response {
+
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
