@@ -4,26 +4,26 @@
             <h4 class="text-center my-4">
             Compléter le formulaire d'avis
             </h4>
-            {{ form_errors(form) }}
-            {{ form_start(form, {
+            {{ form_errors(formReview) }}
+            {{ form_start(formReview, {
                 attr: {
                     class: 'col-4 m-auto login-form'
                 }
             }) }}
                 <div class="form-floating mb-2">
-                    {{ form_row(form.title,
+                    {{ form_row(formReview.title,
                 {'attr': {'class': 'form-control'}, 'label': 'Renseignez un titre *'}) }}
                 </div>
                 <div class="form-floating mb-2">
-                    {{ form_row(form.comment,
+                    {{ form_row(formReview.comment,
                 {'attr': {'class': 'form-control'}, 'require': false, 'label': 'Ecrivez votre avis'}) }}
                 </div>
                 <div class="form-floating mb-2">
-                    {{ form_row(form.rating,
+                    {{ form_row(formReview.rating,
                 {'attr': {'class': 'form-control'}, 'require': false, 'label': 'Donnez une notre entre 1 et 5'}) }}
                 </div>
-                <button type="submit" class="btn btn-primary">Sauvegardez votre avis</button>
-            {{ form_end(form) }}
+                <button type="submit" class="btn btn-dark">Sauvegardez votre avis</button>
+            {{ form_end(formReview) }}
     </div>
         {% else %}
             <p>Vous devez être connecté pour déposer un avis.</p>

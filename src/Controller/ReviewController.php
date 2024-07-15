@@ -42,20 +42,20 @@ class ReviewController extends AbstractController
         $review->setUser($this->getUser());
         $review->setArtist($artist);
 
-        $form = $this->createForm(ReviewType::class, $review);
-        $form->handleRequest($request);
+        $formReview = $this->createForm(ReviewType::class, $review);
+        $formReview->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($formReview->isSubmitted() && $formReview->isValid()) {
             $em->persist($review);
             $em->flush();
 
             $this->addFlash('success', 'L\'avis a été ajouté.');
-            return $this->redirectToRoute('account');
+            return $this->redirectToRoute('app_artist_show', ['id' => $artist->getId()]);
         }
 
-        return $this->render('review/new.html.twig', [
-            'review' => $review,
-            'form' => $form->createView(),
+        return $this->render('artist/show.html.twig', [
+            'artist' => $artist,
+            'form' => $formReview->createView(),
         ]);
     }
 
@@ -74,10 +74,10 @@ class ReviewController extends AbstractController
             throw $this->createAccessDeniedException('Vous n\'êtes pas autorisé à modifier cet avis.');
         }
 
-        $form = $this->createForm(ReviewType::class, $review);
-        $form->handleRequest($request);
+        $formReview = $this->createForm(ReviewType::class, $review);
+        $formReview->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($formReview->isSubmitted() && $formReview->isValid()) {
             $em->flush();
 
             $this->addFlash('success', 'L\'avis a été modifié avec succès.');
@@ -86,7 +86,7 @@ class ReviewController extends AbstractController
 
         return $this->render('review/edit.html.twig', [
             'review' => $review,
-            'form' => $form->createView(),
+            'form' => $formReview->createView(),
         ]);
     }
 
@@ -108,9 +108,9 @@ class ReviewController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$review->getId(), $request->request->get('_token'))) {
             $em->remove($review);
             $em->flush();
-            $this->addFlash('success', 'L\'avis a été supprimé avec succès.');
+            $this->addFlash('success', 'L\'avis a été deleteimé avec succès.');
         } else {
-            $this->addFlash('error', 'Une erreur s\'est produite lors de la suppression de cet avis.');
+            $this->addFlash('error', 'Une erreur s\'est produite lors de la deleteession de cet avis.');
         }
 
         return $this->redirectToRoute('account');
