@@ -1,31 +1,93 @@
 /* Variables */
 :root {
-    --custom-main: #c3906f ;
-    --custom-secondary: #6a3455 ;
-    --custom-dark: #081c3c ;
+    --custom-main: #c3906f;
+    --custom-secondary: #6a3455;
+    --custom-tertiary:#b242d8;
+    --custom-dark: #081c3c;
 }
 
 /* ReCustom from bootstrap */
 .btn-custom {
+    background-color: var(--custom-dark);
+    color: #fff;
+}
+
+.btn-custom:hover,
+.btn-custom:focus,
+.btn-custom:active {
+    background: rgb(195, 144, 111);
+    background: -moz-linear-gradient(138deg, rgba(195, 144, 111, 1) 25%, rgba(106, 52, 85, 1) 45%, rgba(8, 28, 60, 1) 70%);
+    background: -webkit-linear-gradient(138deg, rgba(195, 144, 111, 1) 25%, rgba(106, 52, 85, 1) 45%, rgba(8, 28, 60, 1) 70%);
+    background: linear-gradient(138deg, rgba(195, 144, 111, 1) 25%, rgba(106, 52, 85, 1) 45%, rgba(8, 28, 60, 1) 70%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#c3906f", endColorstr="#081c3c", GradientType=1);
+
+
+    color: #fff;
+}
+
+.btn-custom-view {
+    border-color: var(--custom-main);
+    color: var(--custom-main);
+}
+
+.btn-custom-view:hover,
+.btn-custom:focus,
+.btn-custom:active {
     background-color: var(--custom-main);
     color: #fff;
 }
-.btn-custom:hover, .btn-custom:focus, .btn-custom:active {
+.btn-custom-edit {
+    border-color: var(--custom-tertiary);
+    color: var(--custom-tertiary);
+}
+
+.btn-custom-edit:hover,
+.btn-custom:focus,
+.btn-custom:active {
+    background-color: var(--custom-tertiary);
+    color: #fff;
+}
+
+.btn-custom-suppr {
+    border-color: var(--custom-secondary);
+    color: var(--custom-secondary);
+}
+
+.btn-custom-suppr:hover,
+.btn-custom:focus,
+.btn-custom:active {
     background-color: var(--custom-secondary);
     color: #fff;
 }
+
+.home-title:hover{
+    background: linear-gradient(138deg, rgba(254,254,243,1) 25%, rgba(207,204,194,1) 50%, rgba(28,33,41,1) 75%);
+    color: #fff;
+}
+
+.text-custom-tertiary {
+    color: var(--custom-tertiary) !important;
+}
+
 .bg-dark {
     background-color: var(--custom-dark) !important;
 }
+
 .text-main {
     color: var(--custom-main) !important;
 }
 
 /* Titles & Fonts */
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Plus Jakarta sans', sans-serif;
-  font-weight: 900;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Plus Jakarta sans', sans-serif;
+    font-weight: 900;
 }
+
 body {
     font-family: 'Open sans', sans-serif;
     font-weight: 300;
@@ -35,14 +97,18 @@ body {
 .chanteur {
     background-image: url('/images/background/background-chant.webp');
 }
+
 .musicien {
     background-image: url('/images/background/background-groupe.webp');
 }
+
 .groupe {
     background-image: url('/images/background/background-groupe2.webp');
 }
 
-.chanteur, .musician, .groupe  {
+.chanteur,
+.musician,
+.groupe {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -64,9 +130,10 @@ footer {
 }
 
 /* Room Card */
-.img-overlay{
+.img-overlay {
     background-color: rgba(25, 25, 25, .4);
 }
+
 .card-host-info img {
     width: 32px;
 }
@@ -76,7 +143,8 @@ footer {
     --bs-pagination-border-width: 0;
 }
 
-.active>.page-link, .page-link.active {
+.active>.page-link,
+.page-link.active {
     background-color: var(--custom-dark);
 }
 
