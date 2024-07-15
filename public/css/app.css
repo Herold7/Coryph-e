@@ -77,6 +77,10 @@
     color: var(--custom-main) !important;
 }
 
+.link-secondary {
+    color: var(--custom-secondary) !important;
+    font-style: italic;
+}
 /* Titles & Fonts */
 h1,
 h2,

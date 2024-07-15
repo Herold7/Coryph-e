@@ -28,7 +28,7 @@
 				{% endif %}
 
 			<div class="d-flex justify-content-center align-items-center">
-					<div class="text-center mb-5 p-4 shadow border-info rounded-3 col-md-5">
+					<div class="text-left mb-5 p-4 shadow border-info rounded-3 col-md-5">
 						<h2 class="h4 mb-3 fw-normal text-center">
 						Vous pouvez vous inscrire en tant que
 						</h2>
@@ -76,19 +76,19 @@
                             }
                         }) }}
 					<label class="form-check-label" for="floatingCheckbox">Je donne mon consentement aux
-						<a href="#" class="text-decoration-none">politiques de confidentialités</a>
+						<a href="#" class="text-decoration-none link-secondary">politiques de confidentialités</a>
 					</label>
 				</div>
 				<!-- END OF TERMS AND CONDITIONS CHECKBOX -->
 
-				<button class="btn btn-primary w-100 py-2" type="submit">Créer un compte</button>
+				<button class="btn btn-custom w-100 py-2" type="submit">Créer un compte</button>
 
 				{{ form_end(registrationForm) }}
 
 				<div class="text-center mt-3 mb-5">
 					<!-- TODO: add route to sign in -->
 					<p>Vous avez déjà un compte ?
-						<a href={{ path('app_login') }} class="text-decoration-none">Se connecter</a>
+						<a href={{ path('app_login') }} class="text-decoration-none link-secondary">Se connecter</a>
 					</p>
 				</div>
 			{% endif %}
