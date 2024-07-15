@@ -39,12 +39,17 @@
 										</a>
 								{% endif %}
 							</div>
-									{# Check favorite #}
-							<div class=" d-flex justify-content-start">
+									{# Check review #}
+							{# <div class=" d-flex justify-content-start">
 								{% if is_granted('IS_AUTHENTICATED_FULLY') %}	
 									{% if (app.user.reviews )%}
-										<a class="text-end" href={{ path('remove_review', { 'review': review.id }) }}>
-											<i class="bi bi-journal-bookmark-fill text-danger"></i>
+										{% for review in app.user.reviews %}
+											{% if review.artist.id == artist.id %}
+												<a class="text-end" href={{ path('remove_review', { 'review': review.id }) }}>
+													<i class="bi bi-journal-bookmark-fill text-danger"></i>
+												</a>
+											{% endif %}
+										{% endfor %}
 										</a>
 									{% else %}
 										<a class="text-end" href={{ path('add_review', { artist: artist.id }) }}>
@@ -56,7 +61,7 @@
 											<i class="bi bi-journal-bookmark text-white"></i>
 										</a>
 								{% endif %}
-							</div>
+							</div> #}
 							<h5 class="card-title">{{ artist.nickname }}</h5>
 							{% if artist.bio is defined and artist.bio|length > 100 %}
 								<p class="card-text">{{ artist.bio|slice(0, 100) }}...</p>
@@ -64,7 +69,7 @@
 								<p class="card-text">{{ artist.bio }}</p>
 							{% endif %}
 							<h6 class="card-text">{{ artist.city }}</h6>
-								<a href="{{ path('app_artist_show', { id: artist.id }) }}" class="btn btn-primary">En savoir plus</a>
+								<a href="{{ path('app_artist_show', { id: artist.id }) }}" class="btn btn-custom">En savoir plus</a>
 						</div>
 					</div>
 				</div>
