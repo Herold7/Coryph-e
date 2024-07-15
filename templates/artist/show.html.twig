@@ -196,10 +196,10 @@
         </div>
             <div class="row">
                 <div class="col"><a href="{{ path('app_artist_index') }}" 
-                class="btn btn-primary">Retour à la liste des artistes</a></div>
+                class="btn btn-dark">Retour à la liste des artistes</a></div>
                 {% if is_granted('ROLE_MUSICIAN') and app.user == artist.getMusician() %}
                     <div class="col"><a href="{{ path('app_artist_edit', {'id': artist.id}) }}" 
-                    class="btn btn-success">Modifier</a></div>
+                    class="btn btn-outline-secondary">Modifier</a></div>
                     <div class="col">{{ include('artist/_delete.html.twig') }}</div> 
                 {% endif %}
                 </div>

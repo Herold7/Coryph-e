@@ -26,7 +26,7 @@
 								<p>{{ app.user.email }}</p>
 							</div>
 							<div class="d-flex mt-3 justify-content-center ms-sm-auto">
-								<button class="btn btn-danger-soft me-2" data-bs-toggle="modal" data-bs-target="#updateModal" type="button">
+								<button class="btn btn-custom-edit btn-sm me-2" data-bs-toggle="modal" data-bs-target="#updateModal" type="button">
 									<i class="bi bi-pencil-fill pe-1"></i>
 									Mettre à jour
 								</button>
@@ -59,7 +59,7 @@
 										{{ app.user.favorites|length }}
 									</span>
 								</h5>
-								<a class="btn btn-primary-soft btn-sm" href="{{ path('favorites') }}">
+								<a class="btn btn-custom btn-sm" href="{{ path('favorites') }}">
 									En voir plus
 								</a>
 							</div>
@@ -86,15 +86,15 @@
 														</div>
 														<div class="card-footer p-2 border-0">
 															<a class="text-decoration-none" href="{{ path('app_artist_show', { 'id': favorite.artists[0].id }) }}">
-																<button class="btn btn-sm btn-custom rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
+																<button class="btn btn-sm btn-custom-view rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
 																	<i class="bi bi-eye"></i>
 																	Voir
 																</button>
 															</a>
 															<a class="" href="{{ path('remove_favorite', { 'artist': favorite.id }) }}">
-																<button class="btn btn-sm btn-dark rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
+																<button class="btn btn-sm btn-custom-suppr rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
 																		<i class="bi bi-trash"></i>
-																	Supprimer
+																	supprimer
 																</button>
 															</a>
 														</div>
@@ -122,9 +122,13 @@
 										{{ app.user.reviews|length }}
 									</span>
 								</h5>
-								<a class="btn btn-primary-soft btn-sm" href="{{ path('add_review', { 'artist': review.id }) }}">
-									déposer un avis
-								</a>
+								{% if app.user.reviews %}
+									{% for artist in app.user.reviews %}
+										<a class="btn btn-custom btn-sm" href="{{ path('add_review', { 'artist': artist.id }) }}">
+											déposer un avis
+										</a>
+									{% endfor %}
+								{% endif %}
 							</div>
 							<div>
 								<div class="card-body position-relative pt-3">
@@ -149,15 +153,15 @@
 														</div>
 														<div class="card-footer p-2 border-0">
 															<a class="text-decoration-none" href="{{ path('app_artist_show', { 'id': review.artist.id }) }}">
-																<button class="btn btn-sm btn-custom rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
+																<button class="btn btn-sm btn-custom-edit rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
 																	<i class="bi bi-eye"></i>
 																	Voir
 																</button>
 															</a>
 															<a class="" href="{{ path('remove_review', { 'review': review.id }) }}">
-																<button class="btn btn-sm btn-dark rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
+																<button class="btn btn-sm btn-custom-suppr rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
 																		<i class="bi bi-trash"></i>
-																	Supprimer
+																	supprimer
 																</button>
 															</a>
 														</div>
@@ -186,7 +190,7 @@
 											{{ app.user.artists | length }}
 										</span>
 									</h5>
-									<a class="btn btn-primary btn-sm" href="{{ path('app_artist_new') }}">
+									<a class="btn btn-custom btn-sm" href="{{ path('app_artist_new') }}">
 										Créer une fiche artiste
 									</a>
 								</div>
@@ -217,9 +221,9 @@
 														</div>
 														<div class="card-footer p-2 border-0">
 															<a href="{{ path('app_artist_edit', {'id': artist.id}) }}">
-															<button class="btn btn-sm btn-success rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
+															<button class="btn btn-sm btn-custom-edit rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
 																<i class="bi bi-pencil"></i>
-																Manage
+																Editer
 															</button>
 															</a>
 														</div>
@@ -250,6 +254,7 @@
 				</div>
 				<div class="modal-body">
 					{{ form_start(form) }}
+					{{ form_errors(form) }}
 						{{ form_row(form.name) }}
 						{{ form_row(form.corporateName, {'required': false}) }}
 						{{ form_row(form.siret, {'required': false}) }}
@@ -260,11 +265,11 @@
 						{{ form_row(form.zip) }}
 						{{ form_row(form.country) }}
 						{{ form_row(form.image, {'required': false}) }}
-						<button type="submit" class="btn btn-primary">Sauvegardez les modifications</button>
+						<button type="submit" class="btn btn-dark">Sauvegardez les modifications</button>
 					{{ form_end(form) }}
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Fermer</button>
 				</div>
 			</div>
 		</div>
