@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Vos artistes !
+{% endblock %}
+
+{% block body %}
+<main class="p-5 mb-4 border-bottom border-2">
+    <div class="container">
+        <div class="row text-center py-5">
+            <h1>Mes artistes</h1>
+        </div>
+        <div class="d-flex gap-3 overflow-x-scroll justify-content-center">
+            {% if app.user.artists is defined and app.user.artists|length > 0 %}
+                {% for artist in app.user.artists %}
+                    <div class="col-md-4 col-sm-12">
+                        <div class="card shadow-none text-center h-100">
+                            <div class="card-body p-2">
+                                    <div class="card-body p-2">
+                                        <img src="/uploads/artists/{{ artist.image }}" class="img-fluid">
+                                    </div>
+                                    <h1 class="fs-3">
+                                        {{ artist.nickname }}
+                                    </h1>
+                                    <p class="fs-3">
+                                        {{ artist.bio }}
+                                    </p>
+                                    <p class="fs-3">
+                                        {{ artist.birthyear }}
+                                    </p>
+                                    <p class="fs-3">
+                                        {{ artist.phone }}
+                                    </p>
+                                    <p class="fs-3">
+                                        {{ artist.mail }}
+                                    </p>
+                            </div>
+                            <div class="card-footer p-2 border-0">
+                                <a class="text-decoration-none" href="{{ path('app_artist_show', { 'id': artist.id }) }}">
+                                    <button class="btn btn-sm btn-custom-view rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
+                                        <i class="bi bi-eye"></i>
+                                        Voir
+                                    </button>
+                                </a>
+                                <a class="" href="{{ path('app_artist_delete', {'id': artist.id}) }}">
+                                    <button class="btn btn-sm btn-custom-suppr rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
+                                        <i class="bi bi-trash"></i>
+                                        Supprimer
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+            <div class="">
+                <p >Vous n'avez pas d'artistes.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</main>
+{% endblock %}
