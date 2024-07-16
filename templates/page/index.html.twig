@@ -14,7 +14,7 @@
                 <div class="card">
                     <img src={{ asset('/images/avatar/avatar-chanteur-w.webp')}} 
                     alt="chanteur blanc avec des lunettes de soleil" class="card-img-top">
-                    <div class="card-body text-center home-title">
+                    <div class="card-body text-center category-custom-title">
                     <a href={{ path('chanteur') }} class="text-dark text-decoration-none">
                         <h5 class="card-title">Chanteurs</h5>
                     </a>
@@ -25,7 +25,7 @@
                 <div class="card">
                     <img src={{ asset('/images/avatar/avatar-musicienne-w.webp')}} class="card-img-top" 
                     alt="musicienne blanche avec plusieurs instruments de musique en auréole">
-                    <div class="card-body text-center home-title">
+                    <div class="card-body text-center category-custom-title">
                         <a href={{ path('musician') }} class="text-dark text-decoration-none">
                         <h5 class="card-title">Musiciens</h5>
                         </a>
@@ -36,7 +36,7 @@
                 <div class="card">
                     <img src={{ asset('images/avatar/avatar-groupe.webp') }} class="card-img-top" 
                     alt="groupe de musicien noirs et blanc avec divers instruments de musique entre leurs mains">
-                    <div class="card-body text-center home-title">
+                    <div class="card-body text-center category-custom-title">
                         <a href={{ path('groupe') }} class="text-dark text-decoration-none">
                         <h5 class="card-title">Groupes de Musique</h5>
                         </a>
@@ -67,15 +67,17 @@
                 <div class="col-lg-3 col-md-4 col-sm-4 mb-4">
                     <div class="card">
                         <img src="{{ style.image }}" class="card-img-top" alt="{{ style.name }}">
-                        <div class="card-body text-center">
-                            <h5 class="card-title ">{{ style.name }}</h5>
+                        <div class="card-body text-center tag-custom-title">
+                            <a href={{ path('groupe') }} class="text-dark text-decoration-none">
+                                <h5 class="card-title">{{ style.name }}</h5>
+                            </a>
                         </div>
                     </div>
                 </div>
             {% endfor %}
         </div>
         <div class="text-center">
-            <a href="{{ path('app_artist_index') }}" class="btn btn-danger">Découvrez nos artistes</a>
+            <a href="{{ path('app_artist_index') }}" class="btn btn-custom-dark">Découvrez nos artistes</a>
         </div>
     </div>
 </main>
