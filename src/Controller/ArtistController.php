@@ -75,6 +75,19 @@ class ArtistController extends AbstractController
         ]);
     }
 
+    #[Route('/artist', name: 'app_artist_solo', methods: ['GET'])]
+    public function solo(ArtistRepository $artistRepository): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+        return $this->render('artist/solo.html.twig', [
+            'musicianArtists' => $artistRepository->findBy(
+                ['musician' => $this->getUser()]
+            )
+        ]);
+    }
+
     #[Route('/new', name: 'app_artist_new', methods: ['GET', 'POST'])]
     public function new(
         Request $request, 
