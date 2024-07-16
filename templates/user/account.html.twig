@@ -190,6 +190,9 @@
 											{{ app.user.artists | length }}
 										</span>
 									</h5>
+									<a class="btn btn-custom-view btn-sm" href="{{ path('app_artist_solo') }}">
+										Voir vos artistes
+									</a>
 									<a class="btn btn-custom btn-sm" href="{{ path('app_artist_new') }}">
 										Créer une fiche artiste
 									</a>
@@ -207,19 +210,14 @@
 															<h1 class="fs-3">
 																{{ artist.nickname }}
 															</h1>
-																<p>{{ artist.bio }}</p>
-																<p>{{ artist.city }}</p>
-															<div>  
-																{% if artist.musicalStyle is defined %}
-																	{% for style in artist.musicalStyle %}
-																		<p class="fs-5"> {{ style.name|capitalize }}</p>
-																	{% endfor %}
-																{% else %}
-																	<p class="fs-5">Pas de style musical défini.</p>
-																{% endif %}
-															</div>
 														</div>
 														<div class="card-footer p-2 border-0">
+															<a class="text-decoration-none" href="{{ path('app_artist_show', { 'id': artist.id }) }}">
+																<button class="btn btn-sm btn-custom-view rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
+																	<i class="bi bi-eye"></i>
+																	Voir
+																</button>
+															</a>
 															<a href="{{ path('app_artist_edit', {'id': artist.id}) }}">
 															<button class="btn btn-sm btn-custom-edit rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
 																<i class="bi bi-pencil"></i>
