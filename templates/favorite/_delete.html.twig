@@ -1,4 +1,4 @@
 <form action="{{ path('remove_favorite', {'artist': artist.id}) }}" method="post">
     <input type="hidden" name="_csrf_token" value="{{ csrf_token('remove-favorite') }}">
-    <button type="submit">Retirer des favoris</button>
+    <button type="submit" class="btn btn-custom-suppr fs-5">Retirer des favoris</button>
 </form>
