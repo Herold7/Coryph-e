@@ -4,27 +4,28 @@
 
 {% block body %}
 <style>
-    main {
-        background: rgb(254,254,243);
-        background: -moz-linear-gradient(138deg, rgba(254,254,243,1) 25%, rgba(207,204,194,1) 50%, rgba(28,33,41,1) 75%);
-        background: -webkit-linear-gradient(138deg, rgba(254,254,243,1) 25%, rgba(207,204,194,1) 50%, rgba(28,33,41,1) 75%);
-        background: linear-gradient(138deg, rgba(254,254,243,1) 25%, rgba(207,204,194,1) 50%, rgba(28,33,41,1) 75%);
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#fefef3",endColorstr="#1c2129",GradientType=1);
-    }
+    /* main {
+        background: rgba(195,144,111,1);
+        background: -moz-linear-gradient(138deg, rgba(195,144,111,1) 0%, rgba(223,190,210,1) 50%, rgba(90,145,233,1) 100%);;
+        background: -webkit-linear-gradient(138deg, rgba(195,144,111,1) 0%, rgba(223,190,210,1) 50%, rgba(90,145,233,1) 100%);;
+        background: linear-gradient(138deg, rgba(195,144,111,1) 0%, rgba(223,190,210,1) 50%, rgba(90,145,233,1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#c3906f ",endColorstr="#5a91e9",GradientType=1);
+    } */
 </style>
 
 <main class="p-5 mb-5 ">
     <div class="container mb-3 shadow-sm rounded-4 p-5">
-        <h1 class="display-1 text-center mb-5 fw-bold">{{ artist.nickname }}</h1>
         <div class="row mb-3 justify-content-center">
             <div class="col-lg-6 text-center mb-5">
-                <img src="{{ asset('/uploads/artists/') }}{{ artist.image }}" alt="{{ artist.nickname }}" class="img-fluid rounded shadow-lg" style="width: 50%;">
+                <img src="{{ asset('/uploads/artists/') }}{{ artist.image }}" alt="{{ artist.nickname }}" class="img-fluid rounded shadow-lg" style="width: 70%;">
             </div>
+            <h1 class=" text-center mb-5 fw-bold">{{ artist.nickname }}</h1>
         </div>
-        <div class="row row-cols-1 row-cols-md-3 g-4">
+
+        <div class="row row-cols-1 row-cols-md-2 g-4">
             <!-- categorie -->
             <div class="col">
-                <div class="card mb-5 shadow">
+                <div class="card mb-5">
                     <div class="card-body">
                         <h5 class="card-title">Categorie</h5>
                         {% if artist.category is defined %}
@@ -37,7 +38,7 @@
                 </div>
             </div>
             <div class="col">
-                <div class="card mb-5 shadow">
+                <div class="card mb-5 ">
                     <div class="card-body">
                         <h5 class="card-title">Biographie</h5>
                         <p class="card-text">{{ artist.bio }}</p>
@@ -45,7 +46,7 @@
                 </div>
             </div>
             <div class="col" style="width: 50%;">
-                <div class="card mb-5 shadow">
+                <div class="card mb-5 ">
                     <div class="card-body">
                         <h5 class="card-title">Ville</h5>
                         <p class="card-text">{{ artist.city }}</p>
@@ -53,7 +54,7 @@
                 </div>
             </div>
             <div class="col">
-                <div class="card mb-5 shadow">
+                <div class="card mb-5 ">
                     <div class="card-body">
                         <h5 class="card-title">Pays</h5>
                         <p class="card-text">{{ artist.country }}</p>
@@ -194,12 +195,12 @@
             </div>
             {% endif %}
         </div>
-            <div class="row">
+            <div class="row text-center">
                 <div class="col"><a href="{{ path('app_artist_index') }}" 
-                class="btn btn-dark">Retour à la liste des artistes</a></div>
+                class="btn btn-dark py-2">Retour à la liste des artistes</a></div>
                 {% if is_granted('ROLE_MUSICIAN') and app.user == artist.getMusician() %}
                     <div class="col"><a href="{{ path('app_artist_edit', {'id': artist.id}) }}" 
-                    class="btn btn-outline-secondary">Modifier</a></div>
+                    class="btn btn-outline-secondary fs-5">Modifier</a></div>
                     <div class="col">{{ include('artist/_delete.html.twig') }}</div> 
                 {% endif %}
                 </div>
