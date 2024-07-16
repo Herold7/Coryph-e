@@ -1,27 +1,22 @@
 /* Variables */
 :root {
     --custom-main: #c3906f;
-    --custom-secondary: #6a3455;
-    --custom-tertiary:#b242d8;
+    --custom-secondary: #cc97b7;
+    --custom-tertiary:#6a3455 ;
+    --custom-forth: #5a91e9;
     --custom-dark: #081c3c;
 }
 
 /* ReCustom from bootstrap */
 .btn-custom {
-    background-color: var(--custom-dark);
+    background-color: var(--custom-forth);
     color: #fff;
 }
 
 .btn-custom:hover,
 .btn-custom:focus,
 .btn-custom:active {
-    background: rgb(195, 144, 111);
-    background: -moz-linear-gradient(138deg, rgba(195, 144, 111, 1) 25%, rgba(106, 52, 85, 1) 45%, rgba(8, 28, 60, 1) 70%);
-    background: -webkit-linear-gradient(138deg, rgba(195, 144, 111, 1) 25%, rgba(106, 52, 85, 1) 45%, rgba(8, 28, 60, 1) 70%);
-    background: linear-gradient(138deg, rgba(195, 144, 111, 1) 25%, rgba(106, 52, 85, 1) 45%, rgba(8, 28, 60, 1) 70%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#c3906f", endColorstr="#081c3c", GradientType=1);
-
-
+    background: linear-gradient(138deg, rgba(195,144,111,1) 0%, rgba(204, 151, 183,1) 50%, rgba(90,145,233,1) 100%);
     color: #fff;
 }
 
@@ -37,32 +32,46 @@
     color: #fff;
 }
 .btn-custom-edit {
-    border-color: var(--custom-tertiary);
-    color: var(--custom-tertiary);
-}
-
-.btn-custom-edit:hover,
-.btn-custom:focus,
-.btn-custom:active {
-    background-color: var(--custom-tertiary);
-    color: #fff;
-}
-
-.btn-custom-suppr {
     border-color: var(--custom-secondary);
     color: var(--custom-secondary);
 }
 
-.btn-custom-suppr:hover,
+.btn-custom-edit:hover,
 .btn-custom:focus,
 .btn-custom:active {
     background-color: var(--custom-secondary);
     color: #fff;
 }
 
-.home-title:hover{
-    background: linear-gradient(138deg, rgba(254,254,243,1) 25%, rgba(207,204,194,1) 50%, rgba(28,33,41,1) 75%);
+.btn-custom-suppr {
+    border-color: var(--custom-tertiary);
+    color: var(--custom-tertiary);
+}
+
+.btn-custom-suppr:hover,
+.btn-custom:focus,
+.btn-custom:active {
+    background-color: var(--custom-tertiary);
     color: #fff;
+}
+
+.btn-custom-dark {
+    background-color: var(--custom-dark);
+    color: #fff;
+}
+
+.btn-custom-dark:hover,
+.btn-custom:focus,
+.btn-custom:active {
+    background: linear-gradient(138deg, rgba(195,144,111,1) 0%, rgba(204, 151, 183,1) 50%, rgba(90,145,233,1) 100%);
+    color: #fff;
+}
+
+.category-custom-title:hover{
+    background: linear-gradient(138deg, rgba(195,144,111,1) 0%, rgba(204, 151, 183,1) 50%, rgba(90,145,233,1) 100%);    color: #fff;
+}
+.tag-custom-title:hover{
+    background: linear-gradient(138deg, rgba(195,144,111,1) 0%, rgba(204, 151, 183,1) 50%, rgba(90,145,233,1) 100%);    color: #fff;
 }
 
 .text-custom-tertiary {
@@ -78,7 +87,7 @@
 }
 
 .link-secondary {
-    color: var(--custom-secondary) !important;
+    color: var(--custom-forth) !important;
     font-style: italic;
 }
 /* Titles & Fonts */
@@ -126,7 +135,6 @@ body {
     font-weight: 900;
 }
 
-
 /* Footer */
 footer {
     position: fixed;
@@ -149,7 +157,7 @@ footer {
 
 .active>.page-link,
 .page-link.active {
-    background-color: var(--custom-dark);
+    background-color: var(--custom-forth);
 }
 
 /* Account page */
