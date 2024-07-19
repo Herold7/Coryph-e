@@ -153,7 +153,7 @@ class ArtistController extends AbstractController
         ]);
     }
 
-    #[Route('/delete/{id}', name: 'app_artist_delete', methods: ['GET','POST'])]// Route pour supprimer un artiste
+    #[Route('/delete/{id}', name: 'app_artist_delete', methods: ['GET'])]// Route pour supprimer un artiste
     public function delete(
         Request $request, 
         Artist $artist, 

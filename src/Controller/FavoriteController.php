@@ -54,7 +54,7 @@ class FavoriteController extends AbstractController
         return $this->redirect($previous);
     }
 
-    #[Route('/remove-favorite/{artist}', name: 'remove_favorite', methods: ['POST'])]
+    #[Route('/remove-favorite/{artist}', name: 'remove_favorite', methods: ['GET'])]
     public function removeFavorite(
         FavoriteRepository $favoriteRepository,
         EntityManagerInterface $em

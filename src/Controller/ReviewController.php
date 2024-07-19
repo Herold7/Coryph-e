@@ -90,7 +90,7 @@ class ReviewController extends AbstractController
         ]);
     }
 
-    #[Route('/remove-review/{review}', name: 'remove_review', methods: ['GET, POST'])]
+    #[Route('/remove-review/{review}', name: 'remove_review', methods: ['GET'])]
     public function removeReview(
         Request $request, 
         Review $review, 
