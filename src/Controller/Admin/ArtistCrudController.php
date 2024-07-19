@@ -18,6 +18,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TelephoneField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
@@ -39,32 +40,49 @@ class ArtistCrudController extends AbstractCrudController
     {
         return [
             FormField::addTab('Identification')
-                ->setIcon('home')->addCssClass('optional')
-                ->setHelp('Toutes les informations à propos de l\'artiste'),
+                ->setIcon('user')->addCssClass('optional')
+                ->setHelp('Identification de l\'artiste'),
             IdField::new('id')->hideOnForm(),
             TextField::new('nickname'),
-            IntegerField::new('number'),
-            // BooleanField::new('professional'),
-            TextField::new('city')->hideOnIndex(),
-            CountryField::new('country')->hideOnIndex(),
-            TelephoneField::new('phone')->hideOnIndex(),
-            EmailField::new('mail'),
-            TextareaField::new('bio')
-                ->hideOnIndex()
-                ->setNumOfRows(30),
+            AssociationField::new('category')
+                ->hideOnForm()
+                ->setSortProperty('name'),
             IntegerField::new('birthyear')
                 ->hideOnIndex(),
+            IntegerField::new('number'),
+            ImageField::new('image')
+                ->setBasePath('uploads/artists/')
+                ->setUploadDir('public/uploads/artists/'),
+            // BooleanField::new('professional'),
+
+            FormField::addTab('Biographie')
+            ->setIcon('pen-to-square')->addCssClass('optional')
+            ->setHelp('Biographie de l\'artiste'),
+            TextEditorField::new('bio')
+                ->hideOnIndex()
+                ->setNumOfRows(10),
+
+            FormField::addTab('Adresse')
+                ->setIcon('home')->addCssClass('optional')
+                ->setHelp('Toutes les informations d\'adressage de l\'artiste'),
+            TextField::new('city')->hideOnIndex(),
+            CountryField::new('country')->hideOnIndex(),
+
+            FormField::addTab('Contact')
+                ->setIcon('phone')->addCssClass('optional')
+                ->setHelp('Toutes les coordonnées du client'),
+            TelephoneField::new('phone')->hideOnIndex(),
+            EmailField::new('mail'),
+
+            FormField::addTab('Autres informations')
+                ->setIcon('calendar')->addCssClass('optional')
+                ->setHelp('Consent & dates'),
             DateTimeField::new('created_at')->hideOnIndex(),
             DateTimeField::new('updated_at')->hideOnIndex(),
             // AssociationField::new('user')
             //     ->hideOnForm()
             //     ->setSortProperty('name'),
-            AssociationField::new('category')
-                ->hideOnForm()
-                ->setSortProperty('name'),
-            ImageField::new('image')
-                ->setBasePath('uploads/artists/')
-                ->setUploadDir('public/uploads/artists/'),
+            
         ];
     }
 }

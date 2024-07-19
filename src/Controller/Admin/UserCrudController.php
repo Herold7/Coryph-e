@@ -39,27 +39,43 @@ class UserCrudController extends AbstractCrudController
         return [
             FormField::addTab('Identification')
                 ->setIcon('user')->addCssClass('optional')
-                ->setHelp('Toutes les informations à propos de client'),
+                ->setHelp('Identification du client'),
             IdField::new('id')->hideOnForm(),
             TextField::new('name'),
-            EmailField::new('email'),
             TextField::new('corporateName'),
             TextField::new('siret'),
-            TelephoneField::new('phone')->hideOnIndex(),
+            ImageField::new('image')
+                ->setBasePath('uploads/users/')
+                ->setUploadDir('public/uploads/users/'),
+            
+            FormField::addTab('Adresse')
+                ->setIcon('home')->addCssClass('optional')
+                ->setHelp('Toutes les informations d\'adressage du client'),
             TextField::new('address')->hideOnIndex(),
             TextField::new('additionalAddress')->hideOnIndex(),
             TextField::new('city')->hideOnIndex(),
             TextField::new('zip')->hideOnIndex(),
             CountryField::new('country')->hideOnIndex(),
-            BooleanField::new('consent')->hideOnIndex(),
-            DateTimeField::new('created_at')->hideOnIndex(),
-            DateTimeField::new('updated_at')->hideOnIndex(),
-            ImageField::new('image')
-                ->setBasePath('uploads/users/')
-                ->setUploadDir('public/uploads/users/'),
+
+            FormField::addTab('Contact')
+                ->setIcon('phone')->addCssClass('optional')
+                ->setHelp('Toutes les coordonnées du client'),
+            EmailField::new('email'),
+            TelephoneField::new('phone')->hideOnIndex(),
+
+            FormField::addTab('Artistes')
+                ->setIcon('cubes')->addCssClass('optional')
+                ->setHelp('Artistes associés à ce compte'),
             AssociationField::new('artists')
                 ->hideOnForm()
                 ->setSortProperty('name'),
+
+            FormField::addTab('Autres informations')
+                ->setIcon('calendar')->addCssClass('optional')
+                ->setHelp('Consent & dates'),
+            BooleanField::new('consent')->hideOnIndex(),
+            DateTimeField::new('created_at')->hideOnIndex(),
+            DateTimeField::new('updated_at')->hideOnIndex(),
         ];
     }
 }
