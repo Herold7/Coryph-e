@@ -26,6 +26,18 @@ class ReviewController extends AbstractController
             ])
         ]);
     }
+    #[Route('/review/{id}', name: 'review_show', methods: ['GET'])]
+    public function show(
+        Review $review
+    ): Response{
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+        return $this->render('review/show.html.twig', [
+            'review' => $review
+        ]);
+    }
+
 
     #[Route('/add-review/{artist}', name: 'add_review', methods: ['GET', 'POST'])]
     public function addReview(
@@ -41,25 +53,23 @@ class ReviewController extends AbstractController
         $review = new Review();
         $review->setUser($this->getUser());
         $review->setArtist($artist);
-
         $formReview = $this->createForm(ReviewType::class, $review);
         $formReview->handleRequest($request);
 
         if ($formReview->isSubmitted() && $formReview->isValid()) {
             $em->persist($review);
             $em->flush();
-
             $this->addFlash('success', 'L\'avis a été ajouté.');
             return $this->redirectToRoute('app_artist_show', ['id' => $artist->getId()]);
         }
 
-        return $this->render('artist/show.html.twig', [
+        return $this->render('review/new.html.twig', [
             'artist' => $artist,
-            'form' => $formReview->createView(),
+            'formReview' => $formReview->createView(),
         ]);
     }
 
-    #[Route('/edit-review/{review}', name: 'edit_review', methods: ['GET', 'POST'])]
+    #[Route('/edit-review/{id}', name: 'edit_review', methods: ['GET', 'POST'])]
     public function editReview(
         Request $request, 
         Review $review, 
@@ -70,8 +80,13 @@ class ReviewController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        if ($review->getUser() !== $this->getUser()) {
-            throw $this->createAccessDeniedException('Vous n\'êtes pas autorisé à modifier cet avis.');
+        try{
+            if ($review->getUser() !== $this->getUser()) {
+                throw $this->createAccessDeniedException('Vous n\'êtes pas autorisé à modifier cet avis.');
+            }
+        } catch (\Exception $e) {
+            $this->addFlash('error', $e->getMessage());
+            return $this->redirectToRoute('reviews');
         }
 
         $formReview = $this->createForm(ReviewType::class, $review);
@@ -86,33 +101,33 @@ class ReviewController extends AbstractController
 
         return $this->render('review/edit.html.twig', [
             'review' => $review,
-            'form' => $formReview->createView(),
+            'formReview' => $formReview->createView(),
         ]);
     }
 
-    #[Route('/remove-review/{review}', name: 'remove_review', methods: ['GET'])]
+    #[Route('/remove-review/{id}', name: 'remove_review', methods: ['GET', 'POST'])]
     public function removeReview(
-        Request $request, 
-        Review $review, 
+        ReviewRepository $ReviewRepository, 
         EntityManagerInterface $em
         ): Response {
 
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
+        
+        $user = $this->getUser();
 
-        if ($review->getUser() !== $this->getUser()) {
-            throw $this->createAccessDeniedException('Vous n\'êtes pas autorisé à supprimer cet avis.');
-        }
+        $review = $ReviewRepository->findOneBy([
+            'user' => $user
+        ]);
 
-        if ($this->isCsrfTokenValid('delete'.$review->getId(), $request->request->get('_token'))) {
+        if ($review) {
+            $user->removeReview($review);
+            $em->persist($user); // Ajouter $em->remove($review)
             $em->remove($review);
             $em->flush();
-            $this->addFlash('success', 'L\'avis a été deleteimé avec succès.');
-        } else {
-            $this->addFlash('error', 'Une erreur s\'est produite lors de la deleteession de cet avis.');
+            $this->addFlash('success', 'L\'avis a été retiré avec succès.');
         }
-
         return $this->redirectToRoute('account');
     }
 }
