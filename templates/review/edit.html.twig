@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier votre avis{% endblock %}
+
+{% block body %}
+    <div class="container p-5 mb-5">
+        <div>
+            <h1 class="text-center">Modifier votre avis</h1>
+        <!--Inclure le formulaire de modification-->
+            {{ include('review/_form.html.twig', {'button_label': 'Modifiez'}) }}
+            <div class="text-center ">
+                {{ include('review/_delete.html.twig') }}
+            </div>
+        </div>
+    </div>
+    {% endblock %}
