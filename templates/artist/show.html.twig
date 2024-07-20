@@ -195,16 +195,29 @@
             </div>
             {% endif %}
         </div>
-            <div class="row text-center">
-                <div class="col"><a href="{{ path('app_artist_index') }}" 
-                class="btn btn-dark py-2">Retour à la liste des artistes</a></div>
-                {% if is_granted('ROLE_MUSICIAN') and app.user == artist.getMusician() %}
-                    <div class="col"><a href="{{ path('app_artist_edit', {'id': artist.id}) }}" 
-                    class="btn btn-outline-secondary fs-5">Modifier</a></div>
-                    <div class="col">{{ include('artist/_delete.html.twig') }}</div> 
+        <!-- Vérifie si le user connecté à déjà déposé un avis sur l'artiste-->
+        <div class="row text-center">
+            {% set has_reviewed = false %}
+                {% for review in artist.reviews %}
+                    {% if app.user.id == review.user.id %}
+                        {% set has_reviewed = true %}
+                    {% endif %}
+                {% endfor %}
+                {% if not has_reviewed %}
+                    <div class="col"><a href="{{ path('add_review', {artist: artist.id}) }}" 
+                    class="btn btn-custom py-2">Déposer un avis</a>
+                    </div>
                 {% endif %}
+                    <div class="col"><a href="{{ path('app_artist_index') }}" 
+                    class="btn btn-dark py-2">Retour à la liste des artistes</a>
+                    </div>
+            <!-- Vérifie si le user connecté est l'artiste -->
+            {% if is_granted('ROLE_MUSICIAN') and app.user == artist.getMusician() %}
+                <div class="col"><a href="{{ path('app_artist_edit', {'id': artist.id}) }}" 
+                class="btn btn-outline-secondary fs-5">Modifier</a>
                 </div>
-            </div>
+                <div class="col">{{ include('artist/_delete.html.twig') }}</div> 
+            {% endif %}
         </div>
     </div>
 </main>
