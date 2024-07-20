@@ -13,10 +13,16 @@
                 {% for review in app.user.reviews %}
                     <div class="col-md-4 col-sm-12">
                         <div class="card shadow-none text-center h-100">
+                            <h3 class="fs-4">
+                            {{ review.artist.nickname }}
+                            </h3>
+                            <p class="">
+                            {{ review.artist.city }} - {{ review.artist.country }}
+                            </p>
                             <div class="card-body p-2">
-                                <h1 class="fs-3">
+                                <h2 class="fs-3">
                                     {{ review.title }}
-                                </h1>
+                                </h2>
                                 <p class="fs-3">
                                     {{ review.comment }}
                                 </p>
@@ -27,13 +33,13 @@
                                 </div>
                             </div>
                             <div class="card-footer p-2 border-0">
-                                <a class="text-decoration-none" href="{{ path('app_artist_show', { 'id': review.artist.id }) }}">
+                                <a class="text-decoration-none" href="{{ path('edit_review', {'id': review.id}) }}">
                                     <button class="btn btn-sm btn-custom-view rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
                                         <i class="bi bi-eye"></i>
-                                        Voir
+                                        modifier
                                     </button>
                                 </a>
-                                <a class="" href="{{ path('remove_review', { 'review': review.id }) }}">
+                                <a class="" href="{{ path('remove_review', { 'id': review.id }) }}">
                                     <button class="btn btn-sm btn-custom-suppr rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
                                         <i class="bi bi-trash"></i>
                                         supprimer
