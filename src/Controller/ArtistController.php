@@ -166,7 +166,6 @@ class ArtistController extends AbstractController
                 throw $this->createAccessDeniedException('Vous n\'étes pas autorisé à supprimer cette fiche artiste.');
             }
         } catch (\Exception $e) {
-            
             $this->addFlash('error', 'Une erreur s\'est produite lors de la suppression de la fiche artiste.');
             return $this->redirectToRoute('app_artist_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -174,8 +173,10 @@ class ArtistController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$artist->getId(), $request->request->get('_token'))) {
             $entityManager->remove($artist);
             $entityManager->flush();
+            $this->addFlash('success', 'L\'artiste a été supprimé avec succès.');
+        } else{
+            $this->addFlash('error', 'Une erreur s\'est produite lors de la suppression de l\'artiste.');
         }
-        $this->addFlash('success', 'L\'artiste a été supprimé avec succès.');
         return $this->redirectToRoute('app_artist_index', [], Response::HTTP_SEE_OTHER);
     }
 }
