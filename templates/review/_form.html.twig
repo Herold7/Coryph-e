@@ -2,7 +2,7 @@
     <div class="row pb-5 my-5 d-flex justify-content-center">
         {% if is_granted('ROLE_USER') %}
             <h4 class="text-center my-4">
-            Compléter le formulaire d'avis
+            Formulaire d'avis
             </h4>
             {{ form_errors(formReview) }}
             {{ form_start(formReview, {
@@ -22,7 +22,7 @@
                     {{ form_row(formReview.rating,
                 {'attr': {'class': 'form-control'}, 'require': false, 'label': 'Donnez une notre entre 1 et 5'}) }}
                 </div>
-                <button type="submit" class="btn btn-custom-dark">Sauvegardez votre avis</button>
+                <button type="submit" class="btn btn-custom-dark my-3">Sauvegardez votre avis</button>
             {{ form_end(formReview) }}
     </div>
         {% else %}
