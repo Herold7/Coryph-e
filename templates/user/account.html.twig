@@ -122,13 +122,6 @@
 										{{ app.user.reviews|length }}
 									</span>
 								</h5>
-								{% if app.user.reviews %}
-									{% for artist in app.user.reviews %}
-										<a class="btn btn-custom btn-sm" href="{{ path('add_review', { 'artist': artist.id }) }}">
-											déposer un avis
-										</a>
-									{% endfor %}
-								{% endif %}
 							</div>
 							<div>
 								<div class="card-body position-relative pt-3">
@@ -140,25 +133,23 @@
 													<div class="card shadow-none text-center h-100">
 														<div class="card-body p-2">
 															<!-- Boucle sur les artistes associés aux avis -->
-															{% for artist in review.artist %}
 															<div class="card-body p-2">
-																<img src="/uploads/artists/{{ artist.image }}" class="img-fluid">
+																<img src="/uploads/artists/{{ review.artist.image }}" class="img-fluid">
 															</div>
 															<div class="card-text">
 																<h1 class="fs-3">
-																{{ artist.nickname }}<br>  {# Affiche le nom de chaque artiste associé à l'avis #}
+																{{ review.artist.nickname }}<br>  {# Affiche le nom de chaque artiste associé à l'avis #}
 																</h1>
 															</div>	
-															{% endfor %}
 														</div>
 														<div class="card-footer p-2 border-0">
-															<a class="text-decoration-none" href="{{ path('app_artist_show', { 'id': review.artist.id }) }}">
+															<a class="text-decoration-none" href="{{ path('review_show', { 'id': review.id }) }}">
 																<button class="btn btn-sm btn-custom-view rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
 																	<i class="bi bi-eye"></i>
 																	Voir
 																</button>
 															</a>
-															<a class="" href="{{ path('remove_review', { 'review': review.id }) }}">
+															<a class="" href="{{ path('remove_review', { 'id': review.id }) }}">
 																<button class="btn btn-sm btn-custom-suppr rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top">
 																		<i class="bi bi-trash"></i>
 																	supprimer
