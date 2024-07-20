@@ -6,9 +6,9 @@ use App\Entity\User;
 use App\Entity\Artist;
 use App\Entity\Review;
 use Symfony\Component\Form\AbstractType;
-use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -53,7 +53,7 @@ class ReviewType extends AbstractType
                     ])
                 ]
             ])
-            ->add('rating', Integer::class, [
+            ->add('rating', IntegerType::class, [
                 'label' => 'Note',
                 'attr' => [
                     'class' => 'form-control mb-2',
@@ -63,7 +63,7 @@ class ReviewType extends AbstractType
                     new Length([
                         'min' => 1,
                         'minMessage' => 'La note doit contenir au moins {{ limit }} caractères',
-                        'max' => (5),
+                        'max' => 5,
                         'maxMessage' => 'La note doit contenir au maximum {{ limit }} caractères'
                     ])
                 ]
