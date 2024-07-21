@@ -3,7 +3,7 @@
 ## Description
 
 This project is a platform for promote musicians.
-This project is a project for my Training CDA.
+This is my project's Training CDA.
 
 The technologies used are:
 - Symfony 7
