@@ -74,7 +74,7 @@
 														<div class="card-body p-2">
 															<!-- Boucle sur les artistes associés aux favorite -->
 															{% for artist in favorite.artists %}
-															<div class="card-body p-2">
+															<div class="card-img p-2">
 																<img src="/uploads/artists/{{ artist.image }}" class="img-fluid">
 															</div>
 															<div class="card-text">
@@ -133,7 +133,7 @@
 													<div class="card shadow-none text-center h-100">
 														<div class="card-body p-2">
 															<!-- Boucle sur les artistes associés aux avis -->
-															<div class="card-body p-2">
+															<div class="card-img p-2">
 																<img src="/uploads/artists/{{ review.artist.image }}" class="img-fluid">
 															</div>
 															<div class="card-text">
@@ -194,7 +194,7 @@
 												{% for artist in app.user.artists %}
 												<div class="col-md-4 col-sm-12">
 													<div class="card shadow-none text-center h-100">
-														<div class="card-body p-2">
+														<div class="card-img p-2">
 															<img src="/uploads/artists/{{ artist.image }}" class="img-fluid">
 														</div>
 														<div class="card-text">
