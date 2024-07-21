@@ -48,7 +48,7 @@ class ArtistController extends AbstractController
 
         // Ensure that $artistsCategory is not null before passing it to paginate
         if (empty($artistsCategory)) {
-            throw $this->createNotFoundException('The category does not exist or has no artists.');
+            throw $this->createNotFoundException('La catégorie n\'existe pas ou ne contient pas d\'artiste ');
         }
 
         $pagination = $paginator->paginate(
@@ -131,8 +131,7 @@ class ArtistController extends AbstractController
             if ($artist->getMusician() !== $this->getUser()) {
                 throw $this->createAccessDeniedException('Vous n\'étes pas autorisé à modifier cette fiche artiste.');
             }
-        } catch (\Exception $e) {// Récupère l'erreur
-            
+        } catch (\Exception $e) {// Récupère l'erreur            
             $this->addFlash('error', 'Une erreur s\'est produite lors de la modification de la fiche artiste.');
             return $this->redirectToRoute('app_artist_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -142,7 +141,6 @@ class ArtistController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-
             $this->addFlash('success', 'La fiche artiste a été modifié avec succès.');
             return $this->redirectToRoute('app_artist_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -174,7 +172,7 @@ class ArtistController extends AbstractController
             $entityManager->remove($artist);
             $entityManager->flush();
             $this->addFlash('success', 'L\'artiste a été supprimé avec succès.');
-        } else{
+        } else {
             $this->addFlash('error', 'Une erreur s\'est produite lors de la suppression de l\'artiste.');
         }
         return $this->redirectToRoute('app_artist_index', [], Response::HTTP_SEE_OTHER);
