@@ -177,9 +177,11 @@
                 <div class="card mb-5 p-3 shadow">
                     <div class="card-body">
                         <h5 class="card-title">Réseaux Sociaux</h5>
-                        {% for socialNetwork in artist.socialNetwork %}
-                            <p class="card-text">• {{ socialNetwork.name }}</p>
-                        {% endfor %}
+                        {% if artist.socialNetwork is defined %}
+                            {% for socialNetwork in artist.socialNetwork %}
+                                <p class="card-text">• {{ socialNetwork.name }}</p>
+                            {% endfor %}
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -187,9 +189,11 @@
                 <div class="card mb-5 p-3 shadow">
                     <div class="card-body">
                         <h5 class="card-title">Website</h5>
-                        {% for website in artist.websites %}
-                            <p class="card-text">• <a href="{{ website.link }}">{{ website.link }}</a></p>
-                        {% endfor %}
+                        {% if artist.websites is defined %} 
+                            {% for website in artist.websites %}
+                                <p class="card-text">• <a href="{{ website.link }}">{{ website.link }}</a></p>
+                            {% endfor %}
+                        {% endif %}
                     </div>
                 </div>
             </div>
