@@ -65,7 +65,6 @@ class FavoriteController extends AbstractController
         }
 
         $user = $this->getUser();
-
         $favorite = $favoriteRepository->findOneBy([
             'user' => $user
         ]);

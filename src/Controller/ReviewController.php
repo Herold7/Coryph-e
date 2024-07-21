@@ -94,7 +94,6 @@ class ReviewController extends AbstractController
 
         if ($formReview->isSubmitted() && $formReview->isValid()) {
             $em->flush();
-
             $this->addFlash('success', 'L\'avis a été modifié avec succès.');
             return $this->redirectToRoute('reviews');
         }
@@ -116,7 +115,6 @@ class ReviewController extends AbstractController
         }
         
         $user = $this->getUser();
-
         $review = $ReviewRepository->findOneBy([
             'user' => $user
         ]);
