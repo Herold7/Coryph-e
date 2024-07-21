@@ -65,7 +65,7 @@
 							</div>
 							<div>
 								<div class="card-body position-relative pt-3">
-									<div class="d-flex gap-3 overflow-x-scroll">
+									<div class="d-flex gap-3 overflow-x-scroll card-custom">
 									<!-- Verifie si l'utilisateur a des favoris -->
 										{% if app.user.favorites is defined and app.user.favorites|length > 0 %}
 											{% for favorite in app.user.favorites %}
@@ -125,7 +125,7 @@
 							</div>
 							<div>
 								<div class="card-body position-relative pt-3">
-									<div class="d-flex gap-3 overflow-x-scroll">
+									<div class="d-flex gap-3 overflow-x-scroll card-custom">
 									<!-- Verifie si l'utilisateur a des avis -->
 										{% if app.user.reviews is defined %}
 											{% for review in app.user.reviews %}
@@ -189,7 +189,7 @@
 									</a>
 								</div>
 									<div class="card-body position-relative pt-3">
-										<div class="d-flex gap-3 overflow-x-scroll">
+										<div class="d-flex gap-3 overflow-x-scroll card-custom">
 											{% if app.user.artists is defined %}
 												{% for artist in app.user.artists %}
 												<div class="col-md-4 col-sm-12">
