@@ -11,8 +11,10 @@ use App\Entity\MusicalStyle;
 use App\Entity\EventPlatform;
 use App\Entity\MusicPlatform;
 use App\Entity\SocialNetwork;
-use phpDocumentor\Reflection\Types\Integer;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
+use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\Date;
@@ -26,11 +28,13 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Validator\Constraints\LessThanOrEqual;
-use Symfony\Component\Validator\Constraints\LessThanOrEqualValidator;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class ArtistType extends AbstractType
 {
+    
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {// Formulaire d'inscription d'un artiste
         $builder 
@@ -199,9 +203,9 @@ class ArtistType extends AbstractType
                         ],
                         'mimeTypesMessage' => 'Veuillez charger une image valide. Les formats acceptés sont : {{ types }}.',
                     ])
-                    ],
-                    ])
-            ->add('created_at', DateType::class, [
+                ],
+            ])
+            ->add('created_at', DateTimeType::class, [
                 'widget' => 'single_text',
                 'data' => new \DateTime(),
                 'label' => 'Date de création',
