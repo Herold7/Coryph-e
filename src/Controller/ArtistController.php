@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Artist;
 use App\Form\ArtistType;
 use App\Repository\ArtistRepository;
+use App\Service\ArtistService;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -106,7 +107,7 @@ class ArtistController extends AbstractController
             $entityManager->persist($artist);
             $entityManager->flush();
             $this->addFlash('success', 'La fiche artiste a été créée avec succès.');
-            return $this->redirectToRoute('app_artist_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('account', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('artist/new.html.twig', [
@@ -119,6 +120,7 @@ class ArtistController extends AbstractController
     public function edit(
         Request $request, 
         Artist $artist, 
+        ArtistService $artistService,
         EntityManagerInterface $entityManager
         ): Response {
 
@@ -140,9 +142,9 @@ class ArtistController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-            $this->addFlash('success', 'La fiche artiste a été modifié avec succès.');
-            return $this->redirectToRoute('app_artist_index', [], Response::HTTP_SEE_OTHER);
+            $artistService->updateArtist($form, $artist, $entityManager);
+            $this->addFlash('success', 'La fiche artiste a été modifiée avec succès.');
+            return $this->redirectToRoute('app_artist_show', ['id' => $artist->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('artist/edit.html.twig', [
@@ -151,7 +153,7 @@ class ArtistController extends AbstractController
         ]);
     }
 
-    #[Route('/delete/{id}', name: 'app_artist_delete', methods: ['GET'])]// Route pour supprimer un artiste
+    #[Route('/delete/{id}', name: 'app_artist_delete', methods: ['GET', 'POST'])]// Route pour supprimer un artiste
     public function delete(
         Request $request, 
         Artist $artist, 
@@ -175,6 +177,6 @@ class ArtistController extends AbstractController
         } else {
             $this->addFlash('error', 'Une erreur s\'est produite lors de la suppression de l\'artiste.');
         }
-        return $this->redirectToRoute('app_artist_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('account', [], Response::HTTP_SEE_OTHER);
     }
 }
