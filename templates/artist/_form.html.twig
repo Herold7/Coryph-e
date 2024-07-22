@@ -1,109 +1,127 @@
 <div class="container">
-    <div class="row pb-5 my-5 d-flex justify-content-center">
-            {% if is_granted('ROLE_MUSICIAN') %}
+	<div class="row pb-5 my-5 d-flex justify-content-center">
+		{% if is_granted('ROLE_MUSICIAN') %}
 			<h4 class="text-center my-4">
-            Compléter le formulaire de la fiche artiste
-            </h4>
-				{{ form_start(form, {'attr': {'class': 'col-md-10 col-sm-12'}}) }}
-				{{ form_errors(form) }}
-				<div class="form-floating mb-2">
-					{{ form_widget(form.nickname, {attr: {class: 'form-control'}, }) }}
-					<label for="floatingInput">Votre pseudo *</label>
-				</div>
-				<div class="form-floating mb-2">
-					{{ form_widget(form.number, {attr: {class: 'form-control'},
-					'required': false}) }}
-					<label for="floatingInput">Le nombre de membre du groupe *</label>
-				</div>
-				<div class="form-floating mb-2">
-					{{ form_widget(form.professionnal, {attr: {class: 'form-control'}, 'required': false}) }}
-					<label for="floatingInput">Etes-vous un professionnel</label>
-				</div>
-				<div class="form-floating mb-2">
-					{{ form_widget(form.city, {attr: {class: 'form-control'}, 'required': false}) }}
-					<label for="floatingInput">Votre ville</label>
-				</div>
-				<div class="form-floating mb-2">
-					{{ form_widget(form.country, {attr: {class: 'form-control'}, 'required': false}) }}
-					<label for="floatingInput">Votre pays</label>
-				</div>
-				<div class="form-floating mb-2">
-					{{ form_widget(form.phone, {attr: {class: 'form-control'}, 'required': false}) }}
-					<label for="floatingInput">Votre téléphone</label>
-				</div>
-				<div class="form-floating mb-2">
-					{{ form_widget(form.mail, {attr: {class: 'form-control'}, }) }}
-					<label for="floatingInput">Votre adresse email *</label>
-				</div>
-				<div class="form-floating mb-2">
-					{{ form_widget(form.bio, {attr: {class: 'form-control'}, }) }}
-					<label for="floatingInput">Votre biographie *</label>
-				</div>
-				<div class="form-floating mb-2">
-					{{ form_widget(form.birthyear, {attr: {class: 'form-control'}, }) }}
-					<label for="floatingInput">L'année de création *</label>
-				</div>
-				<div class="form-floating mb-2">
-					{{ form_widget(form.created_at, {attr: {class: 'form-control'},  'required': false}) }}
-					<label for="floatingInput">Date de création</label>
-				</div>
-				<div class="form-floating mb-2">
-					{{ form_widget(form.category, {attr: {class: 'form-control'},  'required': false}) }}
-					<label for="floatingInput">Votre catégorie</label>
-				</div>
-				<div class="form-floating mb-2">
-					{{ form_widget(form.musicalStyle, {attr: {class: 'form-control'},  'required': false}) }}
-					<label for="floatingInput">Votre style musicale</label>
-				</div>
-				<div class="form-floating mb-2">
-					{{ form_widget(form.instrument, {attr: {class: 'form-control'},  'required': false}) }}
-					<label for="floatingInput">Votre instrument</label>
-				</div>
-				<div class="form-floating mb-2">
-					{{ form_widget(form.ensemble, {attr: {class: 'form-control'},  'required': false}) }}
-					<label for="floatingInput">Votre ensemble (duo, trio, quartet)</label>
-				</div>
-				<div class="form-floating mb-2">
-					{{ form_widget(form.performance, {attr: {class: 'form-control'},  'required': false}) }}
-					<label for="floatingInput">Le type de prestation réalisée</label>
-				</div>
-				<div class="form-floating mb-2">
-					{{ form_widget(form.socialNetwork, {attr: {class: 'form-control'},  'required': false}) }}
-					<label for="floatingInput">Inscrit sur un réseau social ?</label>
-				</div>
-				<div class="form-floating mb-2">
-					{{ form_widget(form.musicPlatform, {attr: {class: 'form-control'},  'required': false}) }}
-					<label for="floatingInput">Inscrit sur une plateforme musicale ?</label>
-				</div>
-				<div class="form-floating mb-2">
-					{{ form_widget(form.eventPlatform, {attr: {class: 'form-control'},  'required': false}) }}
-					<label for="floatingInput">Inscrit sur une plateforme évènementielle ?</label>
-				</div>
-				<div class="input-group mb-2">
-					{{ form_widget(form.image, {attr: {class: 'form-control'}, 'required': false}) }}
-					<label class="input-group-text">
-						<i class="bi bi-file-image"></i>
-					</label>
-				</div>
-                <div class="d-flex justify-content-between mt-5">
-					{% if 'path' != 'app_artist_new' %}
-                        <button class="mt-2 btn btn-outline-light">
-                            <a href="{{ path('app_artist_index') }}" class="text-decoration-none text-dark fs-5">Liste des artistes</a>
-                        </button>
-                        <button class="mt-2 btn btn-custom-view">
-                            <a href="{{ path('account') }}" class="text-decoration-none text-dark fs-5">Retour à votre compte</a>
-                        </button>
-                    {% endif %}
-                    <button type="submit" class="mt-2 btn btn-custom-dark fs-5">
-                        Enregistrer
-                    </button>
-                </div>
-                {{ form_end(form) }}
-					{% else %}
-						<p>Vous devez être un inscrit en tant qu' "artiste" pour compléter ce formulaire</p>
-					{% endif %}
-        </div>
-    </div>
+				Compléter le formulaire de la fiche artiste
+			</h4>
+			{{ form_errors(form) }}
+			{{ form_start(form, {'attr': {'class': 'col-md-10 col-sm-12'}}) }}
+			<div class="form-floating mb-2">
+				{{ form_widget(form.nickname, {attr: {class: 'form-control'}}) }}
+				<label for="floatingInput">Votre pseudo *</label>
+				<div class="form-error">{{ form_errors(form.nickname) }}</div>
+			</div>
+			<div class="form-floating mb-2">
+				{{ form_widget(form.number, {attr: {class: 'form-control'}}) }}
+				<label for="floatingInput">Le nombre de membre du groupe *</label>
+				<div class="form-error">{{ form_errors(form.number) }}</div>
+			</div>
+			<div class="form-floating mb-2">
+				{{ form_widget(form.professionnal, {attr: {class: 'form-control'}, 'required': false}) }}
+				<label for="floatingInput">Etes-vous un professionnel</label>
+				<div class="form-error">{{ form_errors(form.professionnal) }}</div>
+			</div>
+			<div class="form-floating mb-2">
+				{{ form_widget(form.city, {attr: {class: 'form-control'}, 'required': false}) }}
+				<label for="floatingInput">Votre ville</label>
+				<div class="form-error">{{ form_errors(form.city) }}</div>
+			</div>
+			<div class="form-floating mb-2">
+				{{ form_widget(form.country, {attr: {class: 'form-control'}, 'required': false}) }}
+				<label for="floatingInput">Votre pays</label>
+				<div class="form-error">{{ form_errors(form.country) }}</div>
+			</div>
+			<div class="form-floating mb-2">
+				{{ form_widget(form.phone, {attr: {class: 'form-control'}}) }}
+				<label for="floatingInput">Votre téléphone *</label>
+				<div class="form-error">{{ form_errors(form.phone) }}</div>
+			</div>
+			<div class="form-floating mb-2">
+				{{ form_widget(form.mail, {attr: {class: 'form-control'}}) }}
+				<label for="floatingInput">Votre adresse email *</label>
+				<div class="form-error">{{ form_errors(form.mail) }}</div>
+			</div>
+			<div class="form-floating mb-2">
+				{{ form_widget(form.bio, {attr: {class: 'form-control'}}) }}
+				<label for="floatingInput">Votre biographie *</label>
+				<div class="form-error">{{ form_errors(form.bio) }}</div>
+			</div>
+			<div class="form-floating mb-2">
+				{{ form_widget(form.birthyear, {attr: {class: 'form-control'}}) }}
+				<label for="floatingInput">L'année de création *</label>
+				<div class="form-error">{{ form_errors(form.birthyear) }}</div>
+			</div>
+			<div class="form-floating mb-2">
+				{{ form_widget(form.created_at, {attr: {class: 'form-control'}, 'required': false}) }}
+				<label for="floatingInput">Date de création du profil</label>
+				<div class="form-error">{{ form_errors(form.created_at) }}</div>
+			</div>
+			<div class="form-floating mb-2">
+				{{ form_widget(form.category, {attr: {class: 'form-control'}}) }}
+				<label for="floatingInput" class="custom-label">Votre catégorie *</label>
+				<div class="form-error">{{ form_errors(form.category) }}</div>
+			</div>
+			<div class="form-floating mb-2">
+				{{ form_widget(form.musicalStyle, {attr: {class: 'form-control'}, 'required': false}) }}
+				<label for="floatingInput">Votre style musical</label>
+				<div class="form-error">{{ form_errors(form.musicalStyle) }}</div>
+			</div>
+			<div class="form-floating mb-2">
+				{{ form_widget(form.instrument, {attr: {class: 'form-control'}, 'required': false}) }}
+				<label for="floatingInput">Votre instrument</label>
+				<div class="form-error">{{ form_errors(form.instrument) }}</div>
+			</div>
+			<div class="form-floating mb-2">
+				{{ form_widget(form.ensemble, {attr: {class: 'form-control'}, 'required': false}) }}
+				<label for="floatingInput">Votre ensemble (duo, trio, quartet)</label>
+				<div class="form-error">{{ form_errors(form.ensemble) }}</div>
+			</div>
+			<div class="form-floating mb-2">
+				{{ form_widget(form.performance, {attr: {class: 'form-control'}, 'required': false}) }}
+				<label for="floatingInput">Le type de prestation réalisée</label>
+				<div class="form-error">{{ form_errors(form.performance) }}</div>
+			</div>
+			<div class="form-floating mb-2">
+				{{ form_widget(form.socialNetwork, {attr: {class: 'form-control'}, 'required': false}) }}
+				<label for="floatingInput">Inscrit sur un réseau social ?</label>
+				<div class="form-error">{{ form_errors(form.socialNetwork) }}</div>
+			</div>
+			<div class="form-floating mb-2">
+				{{ form_widget(form.musicPlatform, {attr: {class: 'form-control'}, 'required': false}) }}
+				<label for="floatingInput">Inscrit sur une plateforme musicale ?</label>
+				<div class="form-error">{{ form_errors(form.musicPlatform) }}</div>
+			</div>
+			<div class="form-floating mb-2">
+				{{ form_widget(form.eventPlatform, {attr: {class: 'form-control'}, 'required': false}) }}
+				<label for="floatingInput">Inscrit sur une plateforme évènementielle ?</label>
+				<div class="form-error">{{ form_errors(form.eventPlatform) }}</div>
+			</div>
+			<div class="input-group mb-2">
+				{{ form_widget(form.image, {attr: {class: 'form-control'}, 'required': false}) }}
+				<label class="input-group-text">
+					<i class="bi bi-file-image"></i>
+				</label>
+				<div class="form-error">{{ form_errors(form.image) }}</div>
+			</div>
+			<div class="d-flex justify-content-between mt-5">
+				{% if 'path' != 'app_artist_new' %}
+					<button class="mt-2 btn btn-outline-light">
+						<a href="{{ path('app_artist_index') }}" class="text-decoration-none text-dark fs-5">Liste des artistes</a>
+					</button>
+					<button class="mt-2 btn btn-custom-view">
+						<a href="{{ path('account') }}" class="text-decoration-none text-dark fs-5">Retour à votre compte</a>
+					</button>
+				{% endif %}
+				<button type="submit" class="mt-2 btn btn-custom-dark fs-5">
+					Enregistrer
+				</button>
+			</div>
+			{{ form_end(form) }}
+		{% else %}
+			<p>Vous devez être un inscrit en tant qu' "artiste" pour compléter ce formulaire</p>
+		{% endif %}
+	</div>
+</div>
 
 
 

@@ -5,22 +5,24 @@
             Formulaire d'avis
             </h4>
             {{ form_errors(formReview) }}
-            {{ form_start(formReview, {
-                attr: {
-                    class: 'col-4 m-auto login-form'
-                }
-            }) }}
+            {{ form_start(formReview, {attr: {class: 'col-4 m-auto login-form'}}) }}
                 <div class="form-floating mb-2">
-                    {{ form_row(formReview.title,
-                {'attr': {'class': 'form-control'}, 'label': 'Renseignez un titre *'}) }}
+                    {{ form_widget(formReview.title,
+                    {'attr': {'class': 'form-control'}}) }}
+                    <label for="floatingInput">Titre</label>
+                    <div class="form-error">{{ form_errors(formReview.title) }}</div>
                 </div>
                 <div class="form-floating mb-2">
-                    {{ form_row(formReview.comment,
-                {'attr': {'class': 'form-control'}, 'require': false, 'label': 'Ecrivez votre avis'}) }}
+                    {{ form_widget(formReview.comment,
+                    {'attr': {'class': 'form-control'}, 'require': false}) }}
+                    <label for="floatingInput">Commentaire</label>
+                    <div class="form-error">{{ form_errors(formReview.comment) }}</div>
                 </div>
                 <div class="form-floating mb-2">
-                    {{ form_row(formReview.rating,
-                {'attr': {'class': 'form-control'}, 'require': false, 'label': 'Donnez une notre entre 1 et 5'}) }}
+                    {{ form_widget(formReview.rating,
+                    {'attr': {'class': 'form-control'}, 'require': false}) }}
+                    <label for="floatingInput">Note entre 1 et 5</label>
+                    <div class="form-error">{{ form_errors(formReview.rating) }}</div>
                 </div>
                 <button type="submit" class="btn btn-custom-dark my-3">Sauvegardez votre avis</button>
             {{ form_end(formReview) }}

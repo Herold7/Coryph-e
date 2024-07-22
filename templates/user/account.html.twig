@@ -160,7 +160,7 @@
 												</div>
 											{% endfor %}
 										{% else %}
-											<p>Vous n'avez pas d'avis.</p>
+											<p class=>Vous n'avez pas d'avis.</p>
 										{% endif %}
 									</div>
 								</div>
@@ -242,25 +242,67 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					{{ form_start(form) }}
 					{{ form_errors(form) }}
-						{{ form_row(form.name) }}
-						{{ form_row(form.corporateName, {'required': false}) }}
-						{{ form_row(form.siret, {'required': false}) }}
-						{{ form_row(form.phone) }}
-						{{ form_row(form.address, {'required': false}) }}
-						{{ form_row(form.additionalAddress, {'required': false}) }}
-						{{ form_row(form.city) }}
-						{{ form_row(form.zip) }}
-						{{ form_row(form.country) }}
-						{{ form_row(form.image, {'required': false}) }}
-						<button type="submit" class="btn btn-dark">Sauvegardez les modifications</button>
+					{{ form_start(form) }}
+						<div class="form-floating mb-2"> 
+							{{ form_widget(form.name) }}
+							<label for="floatingInput">Votre nom *</label>
+							<div class="form-error">{{ form_errors(form.name) }}</div>
+						</div>
+						<div class="form-floating mb-2">
+							{{ form_widget(form.corporateName, {'required': false}) }} 
+							<label for="floatingInput">Raison social</label>
+							<div class="form-error">{{ form_errors(form.corporateName) }}</div>
+						</div>
+						<div class="form-floating mb-2">
+							{{ form_widget(form.siret, {'required': false}) }}
+							<label for="floatingInput">SIRET</label>
+							<div class="form-error">{{ form_errors(form.siret) }}</div>
+						</div>
+						<div class="form-floating mb-2">
+							{{ form_widget(form.phone) }} 
+							<label for="floatingInput">Téléphone *</label>
+							<div class="form-error">{{ form_errors(form.phone) }}</div>
+						</div>
+						<div class="form-floating mb-2">
+							{{ form_widget(form.address, {'required': false}) }} 
+							<label for="floatingInput">Adresse</label>
+							<div class="form-error">{{ form_errors(form.address) }}</div>
+						</div>
+						<div class="form-floating mb-2">
+							{{ form_widget(form.additionalAddress, {'required': false}) }} 
+							<label for="floatingInput">Complément d'adresse </label>
+							<div class="form-error">{{ form_errors(form.additionalAddress) }}</div>
+						</div>
+						<div class="form-floating mb-2">
+							{{ form_widget(form.city) }} 
+							<label for="floatingInput">Ville *</label>
+							<div class="form-error">{{ form_errors(form.city) }}</div>
+						</div>
+						<div class="form-floating mb-2">
+							{{ form_widget(form.zip) }}
+							<label for="floatingInput">Code Postal *</label>
+							<div class="form-error">{{ form_errors(form.zip) }}</div>
+						</div>
+						<div class="form-floating mb-2">
+							{{ form_widget(form.country) }} 
+							<label for="floatingInput">Pays *</label>
+							<div class="form-error">{{ form_errors(form.country) }}</div>
+						<div class="form-floating mb-2">
+							{{ form_widget(form.image, {'required': false}) }} 
+							<div class="form-error">{{ form_errors(form.image) }}</div>
+						</div>
+						<div class="form-floating mb-2">
+							<button type="submit" class="btn btn-dark">Sauvegardez les modifications</button>
+						</div>
 					{{ form_end(form) }}
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Fermer</button>
+						<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Fermer</button>
 				</div>
 			</div>
 		</div>
 	</div>
+	
 {% endblock %}
+
