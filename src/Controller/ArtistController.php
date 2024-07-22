@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+
 #[Route('/a')] // prefixe toutes les routes par /a
 class ArtistController extends AbstractController
 {
@@ -92,7 +93,8 @@ class ArtistController extends AbstractController
     #[Route('/new', name: 'app_artist_new', methods: ['GET', 'POST'])]
     public function new(
         Request $request, 
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        ArtistService $artistService
         ): Response {
 
         if (!$this->getUser()) {
@@ -104,8 +106,7 @@ class ArtistController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {// Vérifiez si le formulaire a été soumis et est valide
-            $entityManager->persist($artist);
-            $entityManager->flush();
+            $artistService->updateArtist($form, $artist, $entityManager);
             $this->addFlash('success', 'La fiche artiste a été créée avec succès.');
             return $this->redirectToRoute('account', [], Response::HTTP_SEE_OTHER);
         }
