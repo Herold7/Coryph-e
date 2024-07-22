@@ -10,7 +10,6 @@
 	{% endfor %}
 
 	<div class="container vh-100 d-flex align-items-center">
-
 		<div class="form-signing w-100 m-auto">
 
 			{% if app.user %}
@@ -45,31 +44,38 @@
 				{% endif %}
 
 				{{ form_errors(registrationForm) }}
-
 				{{ form_start(registrationForm, {
 					attr: {
 						class: 'col-4 m-auto login-form'
 					}
 				}) }}
 				<div class="form-floating mb-2">
-					{{ form_row(registrationForm.roles, 
-					{'attr': {'class': 'form-control'}, 'label': 'Votre rôle'}) }}
+					{{ form_widget(registrationForm.roles, 
+					{'attr': {'class': 'form-control'}}) }}
+					<label for="floatingInput">Votre statut *</label>
+					<div class="form-error">{{ form_errors(registrationForm.roles) }}</div>
 				</div>
-
 				<div class="form-floating mb-2">
-					{{ form_row(registrationForm.email, 
-					{'attr': {'class': 'form-control'}, 'label': 'Votre email'}) }}
+					{{ form_widget(registrationForm.email,
+					{'attr': {'class': 'form-control'}}) }}
+					<label for="floatingInput">Votre email *</label>
+					<div class="form-error">{{ form_errors(registrationForm.email) }}</div>
 				</div>
-
 				<div class="form-floating mb-2">
-					{{ form_row(registrationForm.plainPassword, 
-					{'label': 'Votre mot de passe', 'attr': {'class': 'form-control'}}) }}
+					{{ form_widget(registrationForm.plainPassword,
+					{'attr': {'class': 'form-control'}}) }}
+					<label for="floatingInput">Votre mot de passe *</label>
+					<div class="form-error">{{ form_errors(registrationForm.plainPassword) }}</div>
+				</div>
+				<div class="form-floating mb-2" hidden="true">
+					{{ form_widget(registrationForm.created_at ) }}
+					<div class="form-error">{{ form_errors(registrationForm.created_at) }}</div>
 				</div>
 				
 				<div
 					class="mb-3 form-check">
 					<!-- TODO: add route to terms and conditions -->
-					{{ form_widget(registrationForm.agreeTerms, {
+					{{ form_widget(registrationForm.consent, {
                             attr: {
                                 class: 'form-check-input',
                                 id: 'floatingCheckbox',
@@ -78,11 +84,11 @@
 					<label class="form-check-label" for="floatingCheckbox">Je donne mon consentement aux
 						<a href="#" class="text-decoration-none link-secondary">politiques de confidentialités</a>
 					</label>
+					<div class="form-error">{{ form_errors(registrationForm.consent) }}</div>
 				</div>
 				<!-- END OF TERMS AND CONDITIONS CHECKBOX -->
 
 				<button class="btn btn-custom w-100 py-2" type="submit">Créer un compte</button>
-
 				{{ form_end(registrationForm) }}
 
 				<div class="text-center mt-3 mb-5">
@@ -93,7 +99,6 @@
 				</div>
 			{% endif %}
 		</div>
-
 	</div>
 
 {% endblock %}
