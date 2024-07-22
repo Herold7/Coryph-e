@@ -16,7 +16,13 @@ class ArtistService// Service pour la gestion du profil artiste
     {// gérer la mise à jour du profil artiste (hydrater l'objet Artist)
         $artist->setNickname($form->get('nickname')->getData());
         $artist->setNumber($form->get('number')->getData());
-        $artist->setProfessional($form->get('professional')->getData());
+        $categories = $form->get('category')->getData();
+        foreach ($categories as $category) {
+            $artist->addCategory($category);
+        }
+        if ($form->has('professional')) {
+            $artist->setProfessional($form->get('professional')->getData());
+        }
         $artist->setCity($form->get('city')->getData());
         $artist->setCountry($form->get('country')->getData());
         $artist->setPhone($form->get('phone')->getData());
@@ -29,7 +35,11 @@ class ArtistService// Service pour la gestion du profil artiste
         if($form->get('image')->getData()) {
             $file = $form->get('image')->getData();
             $filename = md5(uniqid()) . '.' . $file->guessExtension();
-            $file->move($this->parameterBag->get('upload_dir_artist'), $filename);
+            $uploadDir = $this->parameterBag->get('upload_dir_artist');
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
+            }
+            $file->move($uploadDir, $filename);
             $artist->setImage($filename);
         } else {
             if($artist->getImage() == null) {
@@ -38,15 +48,6 @@ class ArtistService// Service pour la gestion du profil artiste
                 $artist->setImage($artist->getImage());
             }
         }
-
-        // Definir les category
-        if($form->get('category')->getData() == 'chanteur') {
-            $artist->setCategory(['singer']);
-        } elseif ($form->get('category')->getData() == 'musicien') {
-            $artist->setCategory(['musician']);
-        } else {
-            $artist->setCategory(['group']);
-        };
         
         $em->persist($artist);// Enregistrer les modifications
         $em->flush();// committer les changements
