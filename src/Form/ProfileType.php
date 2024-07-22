@@ -8,8 +8,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class ProfileType extends AbstractType
 {
@@ -101,12 +103,6 @@ class ProfileType extends AbstractType
                     ]),
                 ]
             ])
-            // ->add('consent', CheckboxType::class, [// champ pour définir le consentement de l'utilisateur
-            //     'label' => 'Je consent à ce que mes données soient utilisées pour les besoins de la plateforme',
-            //     'attr' => [
-            //         'class' => 'form-check-input  mb-4',
-            //     ]
-            // ])
             ->add('image', FileType::class, [
                 'label' => 'Photo de profil  ',
                 'mapped' => false,
