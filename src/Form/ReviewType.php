@@ -8,11 +8,13 @@ use App\Entity\Review;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class ReviewType extends AbstractType
@@ -27,15 +29,10 @@ class ReviewType extends AbstractType
                     'placeholder' => 'Renseignez un titre'
                 ],
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez renseigner un titre'
+                    new Regex ([
+                        'pattern' => '/^[a-zA-Z0-9]+$/',
+                        'message' => 'Le titre ne doit contenir que des lettres et des chiffres'
                     ]),
-                    new Length([
-                        'min' => 2,
-                        'minMessage' => 'Le titre doit contenir au moins {{ limit }} caractères',
-                        'max' => (50),
-                        'maxMessage' => 'Le titre doit contenir au maximum {{ limit }} caractères'
-                    ])
                 ]
             ])
             ->add('comment', TextareaType::class, [
@@ -45,30 +42,27 @@ class ReviewType extends AbstractType
                     'placeholder' => 'Renseignez un commentaire'
                 ],
                 'constraints' => [
-                    new Length([
-                        'min' => 2,
-                        'minMessage' => 'Le commentaire doit contenir au moins {{ limit }} caractères',
-                        'max' => (500),
-                        'maxMessage' => 'Le commentaire doit contenir au maximum {{ limit }} caractères'
-                    ])
+                    new Regex([
+                        'pattern' => '/^[a-zA-Z0-9_ .;,:""]+$/u',
+                        'message' => 'Votre commentaire ne doit contenir que des lettres, des chiffres, des espaces et des caractères de ponctuations.'
+                    ]),
                 ]
             ])
-            ->add('rating', IntegerType::class, [
-                'label' => 'Note',
+            ->add('rating', ChoiceType::class, [
+                'choices' => [
+                'sélectionnez' => '',
+                '★' => 1,
+                '★★' => 2,
+                '★★★' => 3,
+                '★★★★' => 4,
+                '★★★★★' => 5,
+            ],
                 'attr' => [
                     'class' => 'form-control mb-2',
                     'placeholder' => 'Renseignez une note'
                 ],
-                'constraints' => [
-                    new Length([
-                        'min' => 1,
-                        'minMessage' => 'La note doit contenir au moins {{ limit }} caractères',
-                        'max' => 5,
-                        'maxMessage' => 'La note doit contenir au maximum {{ limit }} caractères'
-                    ])
                 ]
-            ])
-        ;
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver): void
