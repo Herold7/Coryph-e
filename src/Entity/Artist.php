@@ -70,9 +70,19 @@ class Artist
     private ?string $image = null;
     
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Assert\Length(
+        min: 10,
+        max: 500,
+        minMessage: 'Votre numéro de téléphone doit comporter au moins {{ limit }} caractères',
+        maxMessage: 'Votre numéro de téléphone ne peut pas dépasser {{ limit }} caractères',
+    )]
     private ?string $bio = null;
 
     #[ORM\Column(nullable: true)]
+    #[Assert\Range(
+        min: 1900,
+        minMessage: 'Votre création doit datée au maximum de {{ limit }}',
+    )]
     private ?int $birthyear = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]

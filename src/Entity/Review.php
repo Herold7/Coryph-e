@@ -25,9 +25,21 @@ class Review
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Assert\Length(
+        min: 2,
+        max: 500,
+        minMessage: 'Le titre de votre avis doit comporter au moins {{ limit }} caractères',
+        maxMessage: 'Le titre de votre avis ne peut pas dépasser {{ limit }} caractères',
+    )]
     private ?string $comment = null;
 
     #[ORM\Column]
+    #[Assert\Length(
+        min: 1,
+        max: 5,
+        minMessage: 'La note doit contenir au moins {{ limit }} caractères',
+        maxMessage: 'La note doit contenir au maximum {{ limit }} caractères',
+    )]
     private ?int $rating = null;
 
     #[ORM\ManyToOne(inversedBy: 'reviews')]
