@@ -141,6 +141,12 @@ footer {
     bottom: 2rem;
 }
 
+/* Form */
+.form-error {
+    color: red;
+}
+
+
 /* Room Card */
 .img-overlay {
     background-color: rgba(25, 25, 25, .4);
