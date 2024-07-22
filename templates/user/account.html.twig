@@ -17,13 +17,13 @@
 							</div>
 							<div class="ms-sm-4 mt-sm-3">
 								<h1 class="mb-0 h5">
-									{{ app.user.name }}
-									{{ app.user.corporateName }}
+									{{ app.user.name|capitalize }}
+									{{ app.user.corporateName|capitalize }}
 									{% if app.user.isVerified %}
 										<i class="bi bi-patch-check-fill text-primary"></i>
 									{% endif %}
 								</h1>
-								<p>{{ app.user.email }}</p>
+								<p>{{ app.user.email|lower }}</p>
 							</div>
 							<div class="d-flex mt-3 justify-content-center ms-sm-auto">
 								<button class="btn btn me-2" data-bs-toggle="modal" data-bs-target="#updateModal" type="button">
@@ -39,11 +39,11 @@
 							</li>
 							<li class="list-inline-favorite">
 								<i class="bi bi-geo-alt me-1"></i>
-								{{ app.user.address }}
-								{{ app.user.additionalAddress }}
-								{{ app.user.city }}
+								{{ app.user.address|lower }}
+								{{ app.user.additionalAddress|lower }}
+								{{ app.user.city|capitalize }}
 								{{ app.user.zip }}
-								{{ app.user.country }}
+								{{ app.user.country|country_name(fr) }}
 							</li>
 						</ul>
 					</div>
@@ -102,7 +102,7 @@
 												</div>
 											{% endfor %}
 										{% else %}
-											<p>Vous n'avez pas déposé d'avis.</p>
+											<p>Vous n'avez pas de favoris.</p>
 										{% endif %}
 									</div>
 								</div>
@@ -117,17 +117,20 @@
 						<div class="card">
 							<div class="card-header d-sm-flex justify-content-between align-favorites-center border-0">
 								<h5 class="card-title">
-									Vos Avis
+									Vos avis
 									<span class="badge bg-danger bg-opacity-10 text-danger">
 										{{ app.user.reviews|length }}
 									</span>
 								</h5>
+								<a class="btn btn-custom btn-sm" href="{{ path('reviews') }}">
+									En voir plus
+								</a>
 							</div>
 							<div>
 								<div class="card-body position-relative pt-3">
 									<div class="d-flex gap-3 overflow-x-scroll card-custom">
 									<!-- Verifie si l'utilisateur a des avis -->
-										{% if app.user.reviews is defined %}
+										{% if app.user.reviews is defined and app.user.favorites|length > 0%}
 											{% for review in app.user.reviews %}
 												<div class="col-md-4 col-sm-12">
 													<div class="card shadow-none text-center h-100">
@@ -160,7 +163,7 @@
 												</div>
 											{% endfor %}
 										{% else %}
-											<p class=>Vous n'avez pas d'avis.</p>
+											<p>Vous n'avez pas déposé d'avis.</p>
 										{% endif %}
 									</div>
 								</div>
@@ -190,7 +193,7 @@
 								</div>
 									<div class="card-body position-relative pt-3">
 										<div class="d-flex gap-3 overflow-x-scroll card-custom">
-											{% if app.user.artists is defined %}
+											{% if app.user.artists is defined and app.user.favorites|length > 0%}
 												{% for artist in app.user.artists %}
 												<div class="col-md-4 col-sm-12">
 													<div class="card shadow-none text-center h-100">
@@ -219,6 +222,7 @@
 													</div>
 												</div>
 												{% endfor %}
+												<p>Vous n'avez pas créé de fiche d'artiste.</p>
 											{% endif %}
 										</div>
 									</div>								
